@@ -1,0 +1,17 @@
+node_modules/
+
+/build/
+
+.vscode/
+.idea/
+
+.env
+
+.DS_Store
+
+*.log
+
+npm-debug.log*
+
+dump
+notes.md
