@@ -19,7 +19,7 @@ app.use(morgan('combined'))
 
 declare module 'express-session' {
   interface SessionData {
-    otp: string
+    otps: Record<string, string>
   }
 }
 

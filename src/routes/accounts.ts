@@ -7,7 +7,6 @@ import {
   setUserRoleValidationRules,
   verifyOtpValidationRules,
   resetPasswordValidationRules,
-  confirmUpdateRequestValidationRules,
   changePasswordValidationRules,
 } from '../schemas/accounts'
 import validator from '../middlewares/validator'
@@ -51,7 +50,7 @@ router.post(
 
 router.post(
   '/confirm-reset-request',
-  confirmUpdateRequestValidationRules,
+  verifyOtpValidationRules,
   validator,
   AccountController.confirmResetRequest,
 )

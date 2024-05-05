@@ -6,7 +6,8 @@ import {
   MobileNumberField,
   User,
 } from '../config/types'
-import { encryptPassword } from '../utils'
+import { encryptPassword, uuid } from '../utils'
+import { sessionStore } from '../store'
 
 export default class {
   static async requestMobileOtp(
@@ -19,8 +20,9 @@ export default class {
       const response = await AccountService.generateOtp({ mobileNumber })
       const { otp, ...rest } = response
 
-      req.session.otp = otp
-      next(rest)
+      const token = uuid()
+      sessionStore.setOtp(req, token, otp)
+      next({ ...rest, token })
     } catch (error) {
       next(error)
     }
@@ -28,21 +30,19 @@ export default class {
 
   static async verifyOtp(req: Request, _res: Response, next: NextFunction) {
     try {
-      const sessionOtp = req.session.otp
       const { otp, token } = req.body
-      const response = await AccountService.verifyOtp(sessionOtp, otp, token)
 
+      let user
       if (!otp.endsWith('0')) {
-        if (token) {
-          const user = await UserService.getUserById(token)
-          if (user.isActive) throw new Error('INVALID_TOKEN')
-          await UserService.updateUserStatus(token)
-        } else {
-          throw new Error('TOKEN_MISSING')
-        }
+        user = await UserService.getUserById(token)
+        if (user.isActive) throw new Error('INVALID_TOKEN')
       }
 
-      delete req.session.otp
+      const sessionOtp = sessionStore.getOtp(req, token)
+      const response = await AccountService.verifyOtp(sessionOtp, otp, !user)
+      user && (await UserService.updateUserStatus(token))
+
+      sessionStore.deleteOtp(req, token)
       next(response)
     } catch (error) {
       next(error)
@@ -55,7 +55,7 @@ export default class {
       const response = await UserService.createUser(userData)
       const { otp, id, ...rest } = response
 
-      req.session.otp = otp
+      sessionStore.setOtp(req, id, otp)
       next({ ...rest, token: id, statusCode: 201 })
     } catch (error) {
       next(error)
@@ -80,7 +80,7 @@ export default class {
       const response = await AccountService.generateOtp(body)
       const { otp, ...rest } = response
 
-      req.session.otp = otp
+      sessionStore.setOtp(req, user.id, otp)
       next({ ...rest, token: user.id })
     } catch (error) {
       next(error)
@@ -93,12 +93,11 @@ export default class {
     next: NextFunction,
   ) {
     try {
-      const sessionOtp = req.session.otp
       const { otp, token } = req.body
-      console.log('token', token)
-      // send email with the above otp embedded to redirect user to change password page
+      const sessionOtp = sessionStore.getOtp(req, token)
+      // send email with the above otp and token embedded to redirect user to change password page
       await AccountService.verifyOtp(sessionOtp, otp)
-      delete req.session.otp
+      sessionStore.deleteOtp(req, token)
 
       next({ msg: 'Password reset request confirmed.' })
     } catch (error) {

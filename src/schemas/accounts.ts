@@ -31,11 +31,6 @@ export const emailValidationRule = body('email').notEmpty().isEmail()
 export const passwordValidationRule = body('password').notEmpty().isString()
 export const verifyOtpValidationRules = [
   body('otp').notEmpty().isString(),
-  tokenValidationRule.optional(),
-]
-
-export const confirmUpdateRequestValidationRules = [
-  body('otp').notEmpty().isString(),
   tokenValidationRule,
 ]
 

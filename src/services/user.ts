@@ -52,6 +52,7 @@ export default class {
       throw new Error('USER_EXISTS')
     }
 
+    // TODO: use UUID7 if possible
     const id = uuid()
     const password = encryptPassword(data.password)
     await UserDbHandler.createUser({ ...data, id, password })

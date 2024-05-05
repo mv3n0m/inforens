@@ -23,11 +23,11 @@ export default class {
   static async verifyOtp(
     sessionOtp: string | undefined,
     otp: string,
-    token?: string,
+    isMobile?: boolean,
   ) {
     if (sessionOtp !== otp) throw new Error('INVALID_OTP')
     return {
-      msg: `${token ? 'Email' : 'Mobile number'} verified successfully.`,
+      msg: `${isMobile ? 'Mobile number' : 'Email'} verified successfully.`,
     }
   }
 
