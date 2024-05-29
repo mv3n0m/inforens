@@ -8,6 +8,7 @@ import {
   responseHandler,
 } from './middlewares'
 import initRoutes from './routes'
+import { Sequelize } from 'sequelize'
 
 const app = express()
 
@@ -23,9 +24,19 @@ declare module 'express-session' {
   }
 }
 
+const SequelizeStore = require('connect-session-sequelize')(session.Store)
+const sequelize = new Sequelize('database', 'username', 'password', {
+  dialect: 'sqlite',
+  storage: './session.sqlite',
+})
+const store = new SequelizeStore({
+  db: sequelize,
+})
+
 app.use(
   session({
     secret: 'secret',
+    store,
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -33,6 +44,8 @@ app.use(
     },
   }),
 )
+
+store.sync()
 
 initRoutes(app)
 
