@@ -23,6 +23,7 @@ declare module 'express-session' {
   }
 }
 
+// look for a redis store, instead of store
 app.use(
   session({
     secret: 'secret',

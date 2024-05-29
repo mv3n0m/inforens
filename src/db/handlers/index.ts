@@ -1,3 +1,5 @@
 export { default as UserDbHandler } from './user'
 export { default as RoleDbHandler } from './role'
+export { default as CountryDbHandler } from './country'
+export { default as LocationDbHandler } from './location'
 export { default as UserRoleDbHandler } from './userRole'

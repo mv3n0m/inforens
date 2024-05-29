@@ -2,16 +2,16 @@ import sqlize from '../sqlize'
 import { DataTypes, Model } from 'sequelize'
 import { SERVICE } from '../../config/enums'
 
-class Role extends Model {
+class Country extends Model {
   public id!: number
   public name!: string
-  public description?: string
+  public code!: string
   public isActive?: boolean
   public createdBy?: string | SERVICE
   public updatedBy?: string | SERVICE
 }
 
-Role.init(
+Country.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -24,9 +24,9 @@ Role.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    description: {
+    code: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
     isActive: {
       type: DataTypes.BOOLEAN,
@@ -44,8 +44,8 @@ Role.init(
   },
   {
     sequelize: sqlize,
-    modelName: 'role',
-    tableName: 'roles',
+    modelName: 'country',
+    tableName: 'countries',
     defaultScope: {
       attributes: {
         exclude: ['createdBy', 'createdAt', 'updatedBy', 'updatedAt'],
@@ -54,4 +54,4 @@ Role.init(
   },
 )
 
-export default Role
+export default Country

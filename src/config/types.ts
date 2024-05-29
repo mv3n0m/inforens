@@ -3,9 +3,9 @@ import { SERVICE } from './enums'
 export type Common = {
   id: number | string
   createdAt?: number
-  createdBy?: SERVICE
+  createdBy?: SERVICE | User
   updatedAt?: number
-  updatedBy?: SERVICE
+  updatedBy?: SERVICE | User
 }
 
 export type NameField = {
@@ -48,8 +48,6 @@ export type Role = {
   name: string
   description?: string
   isActive?: boolean
-  createdBy?: User
-  updatedBy?: User
 }
 
 export type RoleQuery = Common & Role
@@ -58,10 +56,25 @@ export type UserRole = {
   userId: string
   roleId: number
   isActive?: boolean
-  approvedBy?: string
+  approvedBy?: string | User
   approvedAt?: number
-  createdBy?: User
-  updatedBy?: User
 }
 
 export type UserRoleQuery = Common & UserRole
+
+export type Country = {
+  name: string
+  code: string
+  isActive?: boolean
+}
+
+export type CountryQuery = Common & Country
+
+export type Location = {
+  name: string
+  countryId: number
+  code: string
+  isActive?: boolean
+}
+
+export type LocationQuery = Common & Location
