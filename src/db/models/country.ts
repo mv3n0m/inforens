@@ -3,7 +3,6 @@ import { DataTypes, Model } from 'sequelize'
 import { SERVICE } from '../../config/enums'
 
 class Country extends Model {
-  public id!: number
   public name!: string
   public code!: string
   public isActive?: boolean
@@ -13,19 +12,15 @@ class Country extends Model {
 
 Country.init(
   {
-    id: {
-      type: DataTypes.INTEGER,
+    code: {
+      type: DataTypes.STRING,
       unique: true,
       allowNull: false,
       primaryKey: true,
-      autoIncrement: true,
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false,
-    },
-    code: {
-      type: DataTypes.STRING,
+      unique: true,
       allowNull: false,
     },
     isActive: {

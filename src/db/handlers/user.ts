@@ -47,7 +47,7 @@ export default class {
       attributes?: string[]
     },
   ) {
-    return User.findAll({ where: { id: ids }, raw: true, ...options })
+    return User.findAndCountAll({ where: { id: ids }, raw: true, ...options })
   }
 
   static async createUser(data: Types.UserQuery) {

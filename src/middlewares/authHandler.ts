@@ -26,7 +26,6 @@ export const authenticate = async (
       }
     }
 
-    console.log(error)
     logger.error(`Error in authenticate middleware: ${msg}`)
     return next({ msg, statusCode: 401 })
   }

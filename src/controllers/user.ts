@@ -14,7 +14,6 @@ export default class {
 
   static async setUserRole(req: Request, res: Response, next: NextFunction) {
     try {
-      console.log(res.locals)
       const { token, userRole } = req.body
 
       await UserService.getUserById(token)

@@ -3,10 +3,7 @@ import session from 'express-session'
 import cors from 'cors'
 import helmet from 'helmet'
 import morgan from 'morgan'
-import {
-  // notFound,
-  responseHandler,
-} from './middlewares'
+import { notFound, responseHandler } from './middlewares'
 import initRoutes from './routes'
 import { Sequelize } from 'sequelize'
 
@@ -49,7 +46,7 @@ store.sync()
 
 initRoutes(app)
 
-// app.use(notFound)
+app.use(notFound)
 app.use(responseHandler)
 
 export default app

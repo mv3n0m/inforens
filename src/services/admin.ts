@@ -47,9 +47,9 @@ export default class {
   }
 
   static async createLocation(data: Types.Location) {
-    const { name, code } = data
+    const { name, countryCode } = data
     const locationExists = await LocationDbHandler.getLocation({
-      [Op.or]: [{ name }, { code }],
+      [Op.and]: [{ name }, { countryCode }],
     })
     if (locationExists) {
       logger.error('Location already exists')

@@ -29,6 +29,6 @@ export const responseHandler = (
   }
 }
 
-// export const notFound = (_req: Request, res: Response) => {
-//   return res.status(404).json({ msg: 'Not Found' })
-// }
+export const notFound = (_req: Request, res: Response) => {
+  return res.status(404).json({ msg: 'Not Found' })
+}

@@ -3,7 +3,7 @@ import { Types } from '../../config'
 
 export default class {
   static async getRoles(criteria?: any) {
-    return Role.findAll({
+    return Role.findAndCountAll({
       where: criteria,
       raw: true,
     })
@@ -33,7 +33,7 @@ export default class {
       attributes?: string[]
     },
   ) {
-    return Role.findAll({ where: { id: ids }, raw: true, ...options })
+    return Role.findAndCountAll({ where: { id: ids }, raw: true, ...options })
   }
 
   static async createRole(data: Types.Role) {

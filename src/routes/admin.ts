@@ -2,6 +2,7 @@ import express from 'express'
 import { AdminController } from '../controllers'
 import {
   createCountryValidationRules,
+  createLocationValidationRules,
   createRoleValidationRules,
 } from '../schemas/admin'
 import validator from '../middlewares/validator'
@@ -15,13 +16,19 @@ router.post(
   validator,
   AdminController.createRole,
 )
-// router.post('/update-user-role', UserController.updateUserRole)
 
 router.post(
   '/countries',
   createCountryValidationRules,
   validator,
   AdminController.createCountry,
+)
+
+router.post(
+  '/locations',
+  createLocationValidationRules,
+  validator,
+  AdminController.createLocation,
 )
 
 export default router

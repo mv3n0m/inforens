@@ -1,9 +1,9 @@
 import { Types } from '../../config'
-import Location from '../models/country'
+import Location from '../models/location'
 
 export default class {
   static async getLocations(criteria?: any) {
-    return Location.findAll({
+    return Location.findAndCountAll({
       where: criteria,
       raw: true,
     })
@@ -28,12 +28,16 @@ export default class {
   }
 
   static async getLocationsByCountryCode(
-    code: string,
+    countryCode: string,
     options?: {
       attributes?: string[]
     },
   ) {
-    return Location.findAll({ where: { code }, raw: true, ...options })
+    return Location.findAndCountAll({
+      where: { countryCode },
+      raw: true,
+      ...options,
+    })
   }
 
   static async getLocationsByIds(
@@ -42,7 +46,11 @@ export default class {
       attributes?: string[]
     },
   ) {
-    return Location.findAll({ where: { id: ids }, raw: true, ...options })
+    return Location.findAndCountAll({
+      where: { id: ids },
+      raw: true,
+      ...options,
+    })
   }
 
   static async createLocation(data: Types.Location) {

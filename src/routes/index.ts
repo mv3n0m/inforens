@@ -3,10 +3,12 @@ import { baseUrl } from '../envt'
 import accountRouter from './accounts'
 import userRouter from './users'
 import adminRouter from './admin'
+import commonRouter from './common'
 import { authenticate } from '../middlewares'
 
 const publicRoutes = {
   '/accounts': accountRouter,
+  '/common': commonRouter,
 }
 
 const privateRoutes = {
@@ -23,9 +25,8 @@ export default function initRoutes(app: Express) {
   )
   Object.entries(publicRoutes).forEach(([k, v]) => app.use(`${baseUrl}${k}`, v))
 
-  app.use(authenticate)
   Object.entries(privateRoutes).forEach(([k, v]) =>
-    app.use(`${baseUrl}${k}`, v),
+    app.use(`${baseUrl}${k}`, authenticate, v),
   )
 
   // app.use(authorize)

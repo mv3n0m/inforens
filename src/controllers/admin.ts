@@ -35,6 +35,22 @@ export default class {
     }
   }
 
+  static async createLocation(
+    req: Request,
+    _res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const response = await AdminService.createLocation({
+        isActive: true,
+        ...req.body,
+      })
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
+
   // static async updateUserRole(req: Request, res: Response, next: NextFunction) {
   //   try {
   //     console.log(res.locals)

@@ -4,7 +4,7 @@ import { removeDuplicates } from '../utils'
 
 export default function (req: Request, _res: Response, next: NextFunction) {
   const errors = validationResult(req)
-  console.log(errors)
+
   if (errors.isEmpty()) {
     return next()
   }

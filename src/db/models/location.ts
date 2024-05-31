@@ -4,9 +4,8 @@ import { SERVICE } from '../../config/enums'
 
 class Location extends Model {
   public id!: number
-  public countryId!: number
+  public countryCode!: number
   public name!: string
-  public code!: string
   public isActive?: boolean
   public createdBy?: string | SERVICE
   public updatedBy?: string | SERVICE
@@ -21,15 +20,11 @@ Location.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    countryId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    name: {
+    countryCode: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    code: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },

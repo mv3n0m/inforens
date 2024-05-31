@@ -1,7 +1,7 @@
 import { SERVICE } from './enums'
 
 export type Common = {
-  id: number | string
+  id?: number | string
   createdAt?: number
   createdBy?: SERVICE | User
   updatedAt?: number
@@ -72,8 +72,7 @@ export type CountryQuery = Common & Country
 
 export type Location = {
   name: string
-  countryId: number
-  code: string
+  countryCode: number
   isActive?: boolean
 }
 

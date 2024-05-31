@@ -17,7 +17,11 @@ export default class {
       attributes?: string[]
     },
   ) {
-    return UserRole.findAll({ where: { userId }, raw: true, ...options })
+    return UserRole.findAndCountAll({
+      where: { userId },
+      raw: true,
+      ...options,
+    })
   }
 
   static async getUserRolesByRoleId(
@@ -26,7 +30,11 @@ export default class {
       attributes?: string[]
     },
   ) {
-    return UserRole.findAll({ where: { roleId }, raw: true, ...options })
+    return UserRole.findAndCountAll({
+      where: { roleId },
+      raw: true,
+      ...options,
+    })
   }
 
   static async createUserRole(data: Types.UserRole) {
