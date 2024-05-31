@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: "npx nodemon --exec ts-node src/index.ts"
+    command: 'tsc && node build/index.js'
     env_file: .env
     ports:
       - 3333:3333
