@@ -1,7 +1,6 @@
 import sqlize from '../sqlize'
 import { DataTypes, Model } from 'sequelize'
 import { SERVICE } from '../../config/enums'
-import { User } from '../../config/types'
 
 class UserRole extends Model {
   public id!: number
@@ -10,8 +9,8 @@ class UserRole extends Model {
   public isActive?: boolean
   public approvedBy?: string
   public approvedAt?: number
-  public createdBy?: User
-  public updatedBy?: User
+  public createdBy?: SERVICE
+  public updatedBy?: SERVICE
 }
 
 UserRole.init(

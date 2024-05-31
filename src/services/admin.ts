@@ -1,5 +1,10 @@
+import { Op } from 'sequelize'
 import { Types } from '../config'
-import { RoleDbHandler } from '../db/handlers'
+import {
+  CountryDbHandler,
+  LocationDbHandler,
+  RoleDbHandler,
+} from '../db/handlers'
 import { logger } from '../utils'
 
 export default class {
@@ -24,5 +29,35 @@ export default class {
 
     await RoleDbHandler.createRole(data)
     return { msg: 'Role created successfully' }
+  }
+
+  static async createCountry(data: Types.Country) {
+    const { name, code } = data
+    const countryExists = await CountryDbHandler.getCountry({
+      [Op.or]: [{ name }, { code }],
+    })
+    if (countryExists) {
+      logger.error('Country already exists')
+      logger.info(countryExists)
+      throw new Error('COUNTRY_EXISTS')
+    }
+
+    await CountryDbHandler.createCountry(data)
+    return { msg: 'Country created successfully' }
+  }
+
+  static async createLocation(data: Types.Location) {
+    const { name, code } = data
+    const locationExists = await LocationDbHandler.getLocation({
+      [Op.or]: [{ name }, { code }],
+    })
+    if (locationExists) {
+      logger.error('Location already exists')
+      logger.info(locationExists)
+      throw new Error('LOCATION_EXISTS')
+    }
+
+    await LocationDbHandler.createLocation(data)
+    return { msg: 'Location created successfully' }
   }
 }

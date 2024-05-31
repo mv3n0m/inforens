@@ -23,6 +23,18 @@ export default class {
     }
   }
 
+  static async createCountry(req: Request, _res: Response, next: NextFunction) {
+    try {
+      const response = await AdminService.createCountry({
+        ...req.body,
+        isActive: true,
+      })
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
+
   // static async updateUserRole(req: Request, res: Response, next: NextFunction) {
   //   try {
   //     console.log(res.locals)

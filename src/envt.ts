@@ -1,6 +1,6 @@
 export const appSecret = process.env.APP_SECRET || 'secret'
-export const jwtExpiry = process.env.JWT_EXPIRY_MINUTES || '100'
-export const jwtRefreshWindow = process.env.JWT_REFRESH_WINDOW || '5'
+export const jwtExpiry = process.env.JWT_EXPIRY_MINUTES || '525960'
+export const jwtRefreshWindow = process.env.JWT_REFRESH_WINDOW || '1'
 
 export const baseUrl = process.env.BASE_URL || '/api/v0'
 export const port = process.env.PORT || 3333
