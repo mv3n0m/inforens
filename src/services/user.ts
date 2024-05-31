@@ -74,7 +74,7 @@ export default class {
     await UserRoleDbHandler.createUserRole({
       userId,
       roleId,
-      isActive: userRole !== USER_ROLE.Mentor,
+      isActive: userRole !== USER_ROLE.Guide,
     })
     return { msg: 'User role set successfully' }
   }

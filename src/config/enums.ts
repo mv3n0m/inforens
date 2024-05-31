@@ -29,7 +29,7 @@ export enum RESPONSE_TYPE {
 
 export enum USER_ROLE {
   Student = 'student',
-  Mentor = 'mentor',
+  Guide = 'guide',
   Staff = 'staff',
   Admin = 'admin',
 }
