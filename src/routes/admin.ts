@@ -2,6 +2,7 @@ import express from 'express'
 import { AdminController } from '../controllers'
 import {
   createCountryValidationRules,
+  createLevelValidationRules,
   createLocationValidationRules,
   createRoleValidationRules,
   createUniversityValidationRules,
@@ -37,6 +38,13 @@ router.post(
   createUniversityValidationRules,
   validator,
   AdminController.createUniversity,
+)
+
+router.post(
+  '/levels',
+  createLevelValidationRules,
+  validator,
+  AdminController.createLevel,
 )
 
 export default router

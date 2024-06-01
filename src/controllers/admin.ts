@@ -67,25 +67,15 @@ export default class {
     }
   }
 
-  // static async updateUserRole(req: Request, res: Response, next: NextFunction) {
-  //   try {
-  //     console.log(res.locals)
-  //     const { token, userRole } = req.body
-
-  //     // console.log(req.user)
-  //     // const response = await UserService.getUsers()
-  //     next({ msg: 'test' })
-  //   } catch (error) {
-  //     next(error)
-  //   }
-  // }
-  // async updateUser(req: Request, res: Response, next: NextFunction) {
-  //   try {
-  //     const { user = { sub: '' }, body } = req
-  //     const response = await userService.updateUser(user, body)
-  //     return ResponseHandler.sendSuccess(res, response)
-  //   } catch (error) {
-  //     return next(error)
-  //   }
-  // }
+  static async createLevel(req: Request, _res: Response, next: NextFunction) {
+    try {
+      const response = await AdminService.createLevel({
+        isActive: true,
+        ...req.body,
+      })
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
 }

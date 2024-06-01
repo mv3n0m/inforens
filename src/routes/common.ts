@@ -24,4 +24,6 @@ router.get(
   CommonController.fetchUniversities,
 )
 
+router.get('/levels', CommonController.fetchLevels)
+
 export default router

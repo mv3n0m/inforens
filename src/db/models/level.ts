@@ -2,16 +2,15 @@ import sqlize from '../sqlize'
 import { DataTypes, Model } from 'sequelize'
 import { SERVICE } from '../../config/enums'
 
-class Location extends Model {
+class Level extends Model {
   public id!: number
-  public countryCode!: string
   public name!: string
   public isActive?: boolean
   public createdBy?: string | SERVICE
   public updatedBy?: string | SERVICE
 }
 
-Location.init(
+Level.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -19,10 +18,6 @@ Location.init(
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
-    },
-    countryCode: {
-      type: DataTypes.STRING,
-      allowNull: false,
     },
     name: {
       type: DataTypes.STRING,
@@ -44,8 +39,8 @@ Location.init(
   },
   {
     sequelize: sqlize,
-    modelName: 'location',
-    tableName: 'locations',
+    modelName: 'level',
+    tableName: 'levels',
     defaultScope: {
       attributes: {
         exclude: [
@@ -60,4 +55,4 @@ Location.init(
   },
 )
 
-export default Location
+export default Level

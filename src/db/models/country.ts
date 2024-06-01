@@ -43,7 +43,13 @@ Country.init(
     tableName: 'countries',
     defaultScope: {
       attributes: {
-        exclude: ['createdBy', 'createdAt', 'updatedBy', 'updatedAt'],
+        exclude: [
+          'isActive',
+          'createdBy',
+          'createdAt',
+          'updatedBy',
+          'updatedAt',
+        ],
       },
     },
   },

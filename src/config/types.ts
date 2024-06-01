@@ -85,3 +85,10 @@ export type University = {
 }
 
 export type UniversityQuery = Common & University
+
+export type Level = {
+  name: string
+  isActive?: boolean
+}
+
+export type LevelQuery = Common & Level

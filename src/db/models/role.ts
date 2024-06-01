@@ -48,7 +48,13 @@ Role.init(
     tableName: 'roles',
     defaultScope: {
       attributes: {
-        exclude: ['createdBy', 'createdAt', 'updatedBy', 'updatedAt'],
+        exclude: [
+          'isActive',
+          'createdBy',
+          'createdAt',
+          'updatedBy',
+          'updatedAt',
+        ],
       },
     },
   },

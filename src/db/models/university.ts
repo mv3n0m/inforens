@@ -48,7 +48,13 @@ University.init(
     tableName: 'universities',
     defaultScope: {
       attributes: {
-        exclude: ['createdBy', 'createdAt', 'updatedBy', 'updatedAt'],
+        exclude: [
+          'isActive',
+          'createdBy',
+          'createdAt',
+          'updatedBy',
+          'updatedAt',
+        ],
       },
     },
   },

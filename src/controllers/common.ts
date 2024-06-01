@@ -44,4 +44,13 @@ export default class {
       next(error)
     }
   }
+
+  static async fetchLevels(req: Request, _res: Response, next: NextFunction) {
+    try {
+      const response = await CommonService.fetchLevels()
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
 }
