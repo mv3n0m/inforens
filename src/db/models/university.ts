@@ -6,6 +6,11 @@ class University extends Model {
   public id!: number
   public locationId!: number
   public name!: string
+  public address?: string
+  public phone?: string
+  public email?: string
+  public bio?: string
+  public estd?: string
   public isActive?: boolean
   public createdBy?: string | SERVICE
   public updatedBy?: string | SERVICE
@@ -27,6 +32,26 @@ University.init(
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    address: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    phone: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    bio: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    estd: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     isActive: {
       type: DataTypes.BOOLEAN,

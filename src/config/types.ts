@@ -81,6 +81,11 @@ export type LocationQuery = Common & Location
 export type University = {
   name: string
   locationId: number
+  address?: string
+  phone?: string
+  email?: string
+  bio?: string
+  estd?: string
   isActive?: boolean
 }
 

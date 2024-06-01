@@ -21,6 +21,11 @@ export const createUniversityValidationRules = [
   body('name').notEmpty().isString(),
   body('locationId').notEmpty().isNumeric(),
   body('isActive').isBoolean().optional(),
+  body('address').notEmpty().isString().optional(),
+  body('phone').notEmpty().isString().optional(),
+  body('email').notEmpty().isString().optional(),
+  body('bio').notEmpty().isString().optional(),
+  body('estd').notEmpty().isString().optional(),
 ]
 
 export const createLevelValidationRules = [
