@@ -33,3 +33,10 @@ export enum USER_ROLE {
   Staff = 'staff',
   Admin = 'admin',
 }
+
+export enum USER_STAGE {
+  PreApplication = 'Pre application',
+  AlreadyApplied = 'Already applied',
+  GotAdmission = 'Got admission',
+  AlreadyAtUniversity = 'Already at university',
+}

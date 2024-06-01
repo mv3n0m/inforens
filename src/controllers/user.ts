@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
 import { AdminService, UserService } from '../services'
-import { USER_ROLE } from '../config/enums'
 
 export default class {
   static async getUsers(_req: Request, _res: Response, next: NextFunction) {
@@ -12,7 +11,7 @@ export default class {
     }
   }
 
-  static async setUserRole(req: Request, res: Response, next: NextFunction) {
+  static async setUserRole(req: Request, _res: Response, next: NextFunction) {
     try {
       const { token, userRole } = req.body
 
@@ -32,15 +31,20 @@ export default class {
       next(error)
     }
   }
-  // async updateUser(req: Request, res: Response, next: NextFunction) {
-  //   try {
-  //     const { user = { sub: '' }, body } = req
-  //     const response = await userService.updateUser(user, body)
-  //     return ResponseHandler.sendSuccess(res, response)
-  //   } catch (error) {
-  //     return next(error)
-  //   }
-  // }
+
+  static async setUserStage(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { stage } = req.body
+
+      const userId = res.locals.id
+      await UserService.getUserById(userId)
+
+      const response = await UserService.updateUser(userId, { stage })
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
 }
 
 // export default new AccountController()

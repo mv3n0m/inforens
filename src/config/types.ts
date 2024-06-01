@@ -33,6 +33,7 @@ export type User = {
   isActive?: boolean
   activeHours?: any
   isWorking?: boolean
+  stage?: string
 } & NameField &
   EmailField &
   MobileNumberField &

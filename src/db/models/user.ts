@@ -1,6 +1,6 @@
 import sqlize from '../sqlize'
 import { DataTypes, Model } from 'sequelize'
-import { SERVICE } from '../../config/enums'
+import { SERVICE, USER_STAGE } from '../../config/enums'
 
 class User extends Model {
   public id!: string
@@ -14,6 +14,7 @@ class User extends Model {
   public country?: string
   public bio?: string
   public isActive?: boolean
+  public stage?: USER_STAGE
   //   public activeHours?: any
   //   public isWorking?: boolean
   public createdBy?: SERVICE
@@ -68,6 +69,11 @@ User.init(
     },
     isActive: {
       type: DataTypes.BOOLEAN,
+      allowNull: true,
+    },
+    stage: {
+      type: DataTypes.ENUM,
+      values: Object.values(USER_STAGE),
       allowNull: true,
     },
     //    activeHours: ,

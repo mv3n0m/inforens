@@ -1,6 +1,5 @@
-import { body, query } from 'express-validator'
+import { body } from 'express-validator'
 import { USER_ROLE } from '../config/enums'
-// import { UserRole, UserStatus, UserType } from '../config/enums';
 
 const validateMobileNumber = (value: string) => {
   const mobileNumberRegex = /^\+\d{1,3}\s\d{6,14}$/
@@ -66,7 +65,7 @@ export const setUserRoleValidationRules = [
     .isString()
     .custom((value) => {
       if (value in USER_ROLE) return true
-      throw new Error(`Invalid role key. Options: [${Object.keys(USER_ROLE)}]`)
+      throw new Error(`Invalid role. Options: [${Object.keys(USER_ROLE)}]`)
     }),
 ]
 
