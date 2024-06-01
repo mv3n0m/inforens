@@ -2,21 +2,19 @@ import sqlize from '../sqlize'
 import { DataTypes, Model } from 'sequelize'
 import { SERVICE } from '../../config/enums'
 
-class University extends Model {
+class Course extends Model {
   public id!: number
-  public locationId!: number
+  public code!: string
   public name!: string
-  public address?: string
-  public phone?: string
-  public email?: string
-  public bio?: string
-  public estd?: string
+  public levelId!: number
+  public universityId!: number
+  public description?: string
   public isActive?: boolean
   public createdBy?: string | SERVICE
   public updatedBy?: string | SERVICE
 }
 
-University.init(
+Course.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -25,31 +23,23 @@ University.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    locationId: {
-      type: DataTypes.INTEGER,
+    code: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    address: {
-      type: DataTypes.STRING,
-      allowNull: true,
+    levelId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
-    phone: {
-      type: DataTypes.STRING,
-      allowNull: true,
+    universityId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    bio: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    estd: {
+    description: {
       type: DataTypes.STRING,
       allowNull: true,
     },
@@ -69,13 +59,11 @@ University.init(
   },
   {
     sequelize: sqlize,
-    modelName: 'university',
-    tableName: 'universities',
+    modelName: 'course',
+    tableName: 'courses',
     defaultScope: {
       attributes: {
         exclude: [
-          'bio',
-          'estd',
           'isActive',
           'createdBy',
           'createdAt',
@@ -87,4 +75,4 @@ University.init(
   },
 )
 
-export default University
+export default Course

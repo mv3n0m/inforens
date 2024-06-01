@@ -8,27 +8,36 @@ export const createRoleValidationRules = [
 export const createCountryValidationRules = [
   body('name').notEmpty().isString(),
   body('code').notEmpty().isString(),
-  body('isActive').isBoolean().optional(),
+  body('isActive').optional().isBoolean(),
 ]
 
 export const createLocationValidationRules = [
   body('name').notEmpty().isString(),
   body('countryCode').notEmpty().isString(),
-  body('isActive').isBoolean().optional(),
+  body('isActive').optional().isBoolean(),
 ]
 
 export const createUniversityValidationRules = [
   body('name').notEmpty().isString(),
   body('locationId').notEmpty().isNumeric(),
-  body('isActive').isBoolean().optional(),
-  body('address').notEmpty().isString().optional(),
-  body('phone').notEmpty().isString().optional(),
-  body('email').notEmpty().isString().optional(),
-  body('bio').notEmpty().isString().optional(),
-  body('estd').notEmpty().isString().optional(),
+  body('address').optional().isString(),
+  body('phone').optional().isString(),
+  body('email').optional().isString(),
+  body('bio').optional().isString(),
+  body('estd').optional().isString(),
+  body('isActive').optional().isBoolean(),
 ]
 
 export const createLevelValidationRules = [
   body('name').notEmpty().isString(),
-  body('isActive').isBoolean().optional(),
+  body('isActive').optional().isBoolean(),
+]
+
+export const createCourseValidationRules = [
+  body('name').notEmpty().isString(),
+  body('code').notEmpty().isString(),
+  body('levelId').notEmpty().isNumeric(),
+  body('universityId').notEmpty().isNumeric(),
+  body('description').optional().isString(),
+  body('isActive').optional().isBoolean(),
 ]

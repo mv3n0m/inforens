@@ -23,3 +23,9 @@ export const getUniversitiesValidationRules = [
   // query('locationIds.*').isNumeric(),
   // // query('locationIds').customSanitizer((value) => value.map(Number)),
 ]
+
+export const getCoursesValidationRules = [
+  query('name').optional().isString(),
+  query('levelId').optional().isNumeric(),
+  query('universityId').optional().isNumeric(),
+]

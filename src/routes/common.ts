@@ -2,6 +2,7 @@ import express from 'express'
 import { CommonController } from '../controllers'
 import validator from '../middlewares/validator'
 import {
+  getCoursesValidationRules,
   getLocationsValidationRules,
   getUniversitiesValidationRules,
 } from '../schemas/common'
@@ -25,5 +26,12 @@ router.get(
 )
 
 router.get('/levels', CommonController.fetchLevels)
+
+router.get(
+  '/courses',
+  getCoursesValidationRules,
+  validator,
+  CommonController.fetchCourses,
+)
 
 export default router

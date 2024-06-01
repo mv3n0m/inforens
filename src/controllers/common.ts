@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import { AdminService, CommonService } from '../services'
+import { CommonService } from '../services'
 
 export default class {
   static async fetchCountries(
@@ -45,9 +45,18 @@ export default class {
     }
   }
 
-  static async fetchLevels(req: Request, _res: Response, next: NextFunction) {
+  static async fetchLevels(_req: Request, _res: Response, next: NextFunction) {
     try {
       const response = await CommonService.fetchLevels()
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async fetchCourses(req: Request, _res: Response, next: NextFunction) {
+    try {
+      const response = await CommonService.fetchCourses(req.query)
       next(response)
     } catch (error) {
       next(error)

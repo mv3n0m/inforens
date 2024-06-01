@@ -78,4 +78,16 @@ export default class {
       next(error)
     }
   }
+
+  static async createCourse(req: Request, _res: Response, next: NextFunction) {
+    try {
+      const response = await AdminService.createCourse({
+        isActive: true,
+        ...req.body,
+      })
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
 }

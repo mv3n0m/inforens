@@ -2,6 +2,7 @@ import { Op } from 'sequelize'
 import { Types } from '../config'
 import {
   CountryDbHandler,
+  CourseDbHandler,
   LevelDbHandler,
   LocationDbHandler,
   RoleDbHandler,
@@ -78,7 +79,7 @@ export default class {
     return { msg: 'University created successfully' }
   }
 
-  static async createLevel(data: Types.University) {
+  static async createLevel(data: Types.Level) {
     const levelExists = await LevelDbHandler.getLevel(data)
     if (levelExists) {
       logger.error('Level already exists')
@@ -88,5 +89,17 @@ export default class {
 
     await LevelDbHandler.createLevel(data)
     return { msg: 'Level created successfully' }
+  }
+
+  static async createCourse(data: Types.Course) {
+    const courseExists = await CourseDbHandler.getCourse(data)
+    if (courseExists) {
+      logger.error('Course already exists')
+      logger.info(courseExists)
+      throw new Error('COURSE_EXISTS')
+    }
+
+    await CourseDbHandler.createCourse(data)
+    return { msg: 'Course created successfully' }
   }
 }
