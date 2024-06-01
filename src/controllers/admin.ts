@@ -14,8 +14,8 @@ export default class {
   static async createRole(req: Request, _res: Response, next: NextFunction) {
     try {
       const response = await AdminService.createRole({
-        ...req.body,
         isActive: true,
+        ...req.body,
       })
       next(response)
     } catch (error) {
@@ -26,8 +26,8 @@ export default class {
   static async createCountry(req: Request, _res: Response, next: NextFunction) {
     try {
       const response = await AdminService.createCountry({
-        ...req.body,
         isActive: true,
+        ...req.body,
       })
       next(response)
     } catch (error) {
@@ -42,6 +42,22 @@ export default class {
   ) {
     try {
       const response = await AdminService.createLocation({
+        isActive: true,
+        ...req.body,
+      })
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async createUniversity(
+    req: Request,
+    _res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const response = await AdminService.createUniversity({
         isActive: true,
         ...req.body,
       })

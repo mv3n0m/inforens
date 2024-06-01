@@ -29,4 +29,19 @@ export default class {
       next(error)
     }
   }
+
+  static async fetchUniversities(
+    req: Request,
+    _res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const response = await CommonService.fetchUniversities(
+        req.query.locationIds as any,
+      )
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
 }

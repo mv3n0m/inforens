@@ -4,6 +4,7 @@ import {
   CountryDbHandler,
   LocationDbHandler,
   RoleDbHandler,
+  UniversityDbHandler,
 } from '../db/handlers'
 import { logger } from '../utils'
 
@@ -59,5 +60,20 @@ export default class {
 
     await LocationDbHandler.createLocation(data)
     return { msg: 'Location created successfully' }
+  }
+
+  static async createUniversity(data: Types.University) {
+    const { name, locationId } = data
+    const universityExists = await UniversityDbHandler.getUniversity({
+      [Op.and]: [{ name }, { locationId }],
+    })
+    if (universityExists) {
+      logger.error('University already exists')
+      logger.info(universityExists)
+      throw new Error('UNIVERSITY_EXISTS')
+    }
+
+    await UniversityDbHandler.createUniversity(data)
+    return { msg: 'University created successfully' }
   }
 }

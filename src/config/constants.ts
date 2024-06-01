@@ -58,6 +58,10 @@ export const errorCodes: Record<
     statusCode: 400,
     message: 'Location already exists',
   },
+  UNIVERSITY_EXISTS: {
+    statusCode: 400,
+    message: 'University already exists',
+  },
   USERROLE_ALREADY_SET: {
     statusCode: 400,
     message: 'User role set already',

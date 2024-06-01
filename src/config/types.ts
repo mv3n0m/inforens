@@ -72,8 +72,16 @@ export type CountryQuery = Common & Country
 
 export type Location = {
   name: string
-  countryCode: number
+  countryCode: string
   isActive?: boolean
 }
 
 export type LocationQuery = Common & Location
+
+export type University = {
+  name: string
+  locationId: number
+  isActive?: boolean
+}
+
+export type UniversityQuery = Common & University

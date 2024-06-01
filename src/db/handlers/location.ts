@@ -29,12 +29,13 @@ export default class {
 
   static async getLocationsByCountryCode(
     countryCode: string,
+    criteria?: any,
     options?: {
       attributes?: string[]
     },
   ) {
     return Location.findAndCountAll({
-      where: { countryCode },
+      where: { countryCode, ...criteria },
       raw: true,
       ...options,
     })

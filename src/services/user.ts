@@ -1,7 +1,4 @@
-import {
-  UserDbHandler,
-  UserRoleDbHandler, // AuditLogDBService
-} from '../db/handlers'
+import { UserDbHandler, UserRoleDbHandler } from '../db/handlers'
 import { Types } from '../config'
 import { encryptPassword, logger, uuid } from '../utils'
 import { Op } from 'sequelize'

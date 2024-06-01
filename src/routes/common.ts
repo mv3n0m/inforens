@@ -1,7 +1,10 @@
 import express from 'express'
 import { CommonController } from '../controllers'
 import validator from '../middlewares/validator'
-import { getLocationsValidationRules } from '../schemas/common'
+import {
+  getLocationsValidationRules,
+  getUniversitiesValidationRules,
+} from '../schemas/common'
 
 const router = express.Router()
 
@@ -12,6 +15,13 @@ router.get(
   getLocationsValidationRules,
   validator,
   CommonController.fetchLocations,
+)
+
+router.get(
+  '/universities',
+  getUniversitiesValidationRules,
+  validator,
+  CommonController.fetchUniversities,
 )
 
 export default router

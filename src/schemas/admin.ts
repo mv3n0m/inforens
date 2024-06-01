@@ -16,3 +16,9 @@ export const createLocationValidationRules = [
   body('countryCode').notEmpty().isString(),
   body('isActive').isBoolean().optional(),
 ]
+
+export const createUniversityValidationRules = [
+  body('name').notEmpty().isString(),
+  body('locationId').notEmpty().isNumeric(),
+  body('isActive').isBoolean().optional(),
+]

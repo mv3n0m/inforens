@@ -1,11 +1,8 @@
-import { Op } from 'sequelize'
-import { Types } from '../config'
 import {
   CountryDbHandler,
   LocationDbHandler,
-  RoleDbHandler,
+  UniversityDbHandler,
 } from '../db/handlers'
-import { logger } from '../utils'
 
 export default class {
   // static async getRoleByName(name: string) {
@@ -14,20 +11,35 @@ export default class {
   // }
 
   static async fetchCountries() {
-    const countries = await CountryDbHandler.getCountries(undefined, {
-      attributes: ['code', 'name'],
-    })
+    const countries = await CountryDbHandler.getCountries(
+      { isActive: true },
+      {
+        attributes: ['code', 'name'],
+      },
+    )
     return countries
   }
 
   static async fetchLocations(countryCode: string) {
     const countries = await LocationDbHandler.getLocationsByCountryCode(
       countryCode,
+      { isActive: true },
       {
         attributes: ['id', 'name'],
       },
     )
     return countries
+  }
+
+  static async fetchUniversities(locationIds: number[]) {
+    const universities = await UniversityDbHandler.getUniversitiesByLocationIds(
+      locationIds,
+      { isActive: true },
+      {
+        attributes: ['id', 'name', 'locationId'],
+      },
+    )
+    return universities
   }
 
   // static async createRole(data: Types.Role) {

@@ -4,6 +4,7 @@ import {
   createCountryValidationRules,
   createLocationValidationRules,
   createRoleValidationRules,
+  createUniversityValidationRules,
 } from '../schemas/admin'
 import validator from '../middlewares/validator'
 
@@ -29,6 +30,13 @@ router.post(
   createLocationValidationRules,
   validator,
   AdminController.createLocation,
+)
+
+router.post(
+  '/universities',
+  createUniversityValidationRules,
+  validator,
+  AdminController.createUniversity,
 )
 
 export default router
