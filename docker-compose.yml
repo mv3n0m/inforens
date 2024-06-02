@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: 'tsc && node build/index.js'
+    command: 'node build/index.js'
     env_file: .env
     ports:
       - 3333:3333

@@ -6,4 +6,4 @@ RUN npm install
 COPY . .
 EXPOSE 3333
 
-CMD ["tsc", "&&", "node", "build/index.js"]
+CMD ["node", "build/index.js"]
