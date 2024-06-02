@@ -40,7 +40,7 @@ export default class {
     return Role.create(data)
   }
 
-  static async updateRole(id: string, data: Partial<Types.Role>) {
+  static async updateRole(id: number, data: Partial<Types.Role>) {
     return Role.update(data, {
       where: { id },
     })

@@ -1,6 +1,7 @@
 import express from 'express'
 import { AdminController } from '../controllers'
 import {
+  approveGuideValidationRules,
   createCountryValidationRules,
   createCourseValidationRules,
   createLevelValidationRules,
@@ -290,6 +291,43 @@ router.post(
   createCourseValidationRules,
   validator,
   AdminController.createCourse,
+)
+
+/**
+ * @swagger
+ * /admin/approve-guide:
+ *   patch:
+ *     summary: Approve a guide
+ *     tags:
+ *       - Admin
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                 type: string
+ *                 format: uuid
+ *             required:
+ *               - userId
+ *     responses:
+ *       200:
+ *         description: success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ */
+router.patch(
+  '/approve-guide',
+  approveGuideValidationRules,
+  validator,
+  AdminController.approveGuide,
 )
 
 export default router

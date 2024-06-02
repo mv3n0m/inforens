@@ -79,6 +79,10 @@ export const errorCodes: Record<
     statusCode: 400,
     message: 'User role set already',
   },
+  USER_NOT_A_GUIDE: {
+    statusCode: 400,
+    message: 'User not registered as a guide.',
+  },
   '': {
     statusCode: 500,
     message: 'Something went wrong',

@@ -7,8 +7,10 @@ import {
   LocationDbHandler,
   RoleDbHandler,
   UniversityDbHandler,
+  UserRoleDbHandler,
 } from '../db/handlers'
-import { logger } from '../utils'
+import { getPgTimestamp, logger } from '../utils'
+import { SERVICE } from '../config/enums'
 
 export default class {
   static async getRoleByName(name: string) {
@@ -101,5 +103,25 @@ export default class {
 
     await CourseDbHandler.createCourse(data)
     return { msg: 'Course created successfully', statusCode: 201 }
+  }
+
+  static async approveGuide(userId: string) {
+    const guideRole = await RoleDbHandler.getRole({ name: 'Guide' })
+    const userRoleExists = await UserRoleDbHandler.getUserRole({
+      userId,
+      roleId: guideRole?.id,
+    })
+    if (!userRoleExists) {
+      logger.error('User role not found.')
+      logger.info(userRoleExists)
+      throw new Error('USER_NOT_A_GUIDE')
+    }
+
+    await UserRoleDbHandler.updateUserRole(userRoleExists.id, {
+      approvedAt: +new Date(),
+      // update this to use admin/staff user id from jwt
+      approvedBy: SERVICE.Core,
+    })
+    return { msg: 'Guide approved successfully' }
   }
 }

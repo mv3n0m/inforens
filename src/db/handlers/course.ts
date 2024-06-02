@@ -54,7 +54,7 @@ export default class {
     return Course.create(data)
   }
 
-  static async updateCourse(code: string, data: Partial<Types.Course>) {
+  static async updateCourse(code: number, data: Partial<Types.Course>) {
     return Course.update(data, {
       where: { code },
     })

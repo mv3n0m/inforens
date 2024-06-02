@@ -41,3 +41,7 @@ export const createCourseValidationRules = [
   body('description').optional().isString(),
   body('isActive').optional().isBoolean(),
 ]
+
+export const approveGuideValidationRules = [
+  body('userId').notEmpty().isString(),
+]

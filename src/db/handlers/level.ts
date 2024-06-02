@@ -44,7 +44,7 @@ export default class {
     return Level.create(data)
   }
 
-  static async updateLevel(id: string, data: Partial<Types.Level>) {
+  static async updateLevel(id: number, data: Partial<Types.Level>) {
     return Level.update(data, {
       where: { id },
     })

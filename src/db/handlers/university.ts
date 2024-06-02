@@ -72,7 +72,7 @@ export default class {
     return University.create(data)
   }
 
-  static async updateUniversity(id: string, data: Partial<Types.University>) {
+  static async updateUniversity(id: number, data: Partial<Types.University>) {
     return University.update(data, {
       where: { id },
     })

@@ -90,4 +90,13 @@ export default class {
       next(error)
     }
   }
+
+  static async approveGuide(req: Request, _res: Response, next: NextFunction) {
+    try {
+      const response = await AdminService.approveGuide(req.body.userId)
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
 }

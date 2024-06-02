@@ -30,7 +30,7 @@ export default class {
 
   // maybe this will never be required
   static async updateUserPreferences(
-    id: string,
+    id: number,
     data: Partial<Types.UserPreferences>,
   ) {
     return UserPreferences.update(data, {

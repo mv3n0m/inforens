@@ -42,7 +42,7 @@ export default class {
   }
 
   // maybe this will never be required
-  static async updateUserRole(id: string, data: Partial<Types.UserRole>) {
+  static async updateUserRole(id: number, data: Partial<Types.UserRole>) {
     return UserRole.update(data, {
       where: { id },
     })

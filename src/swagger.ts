@@ -15,12 +15,12 @@ const swaggerDefinition = {
   ],
   tags: [
     {
-      name: 'Common',
-      description: 'Common operations available for all',
-    },
-    {
       name: 'Accounts',
       description: 'Operations related to account management',
+    },
+    {
+      name: 'Common',
+      description: 'Common operations available for all',
     },
     {
       name: 'Users',

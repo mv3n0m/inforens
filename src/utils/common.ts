@@ -9,3 +9,15 @@ export const removeDuplicates = (array: Array<any>) => {
     return false
   })
 }
+
+export const getPgTimestamp = (dateTimeString?: string) => {
+  const date = dateTimeString ? new Date(dateTimeString) : new Date()
+  const offset = -date.getTimezoneOffset()
+  const hours = Math.floor(offset / 60)
+  const minutes = offset % 60
+  const tz = `${hours >= 0 ? '+' : '-'}${String(hours).padStart(
+    2,
+    '0',
+  )}:${String(minutes).padStart(2, '0')}`
+  return `${date.toISOString().slice(0, -1)}${tz}`
+}

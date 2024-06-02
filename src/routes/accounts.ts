@@ -340,7 +340,7 @@ router.patch(
 /**
  * @swagger
  * /accounts/set-user-role:
- *   patch:
+ *   post:
  *     tags:
  *       - Accounts
  *     requestBody:

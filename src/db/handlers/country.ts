@@ -48,7 +48,7 @@ export default class {
     return Country.create(data)
   }
 
-  static async updateCountry(code: string, data: Partial<Types.Country>) {
+  static async updateCountry(code: number, data: Partial<Types.Country>) {
     return Country.update(data, {
       where: { code },
     })

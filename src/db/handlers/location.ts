@@ -58,7 +58,7 @@ export default class {
     return Location.create(data)
   }
 
-  static async updateLocation(id: string, data: Partial<Types.Location>) {
+  static async updateLocation(id: number, data: Partial<Types.Location>) {
     return Location.update(data, {
       where: { id },
     })
