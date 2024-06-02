@@ -45,4 +45,37 @@ export default class {
       next(error)
     }
   }
+
+  static async setUserPreferences(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const userId = res.locals.id
+
+      const response = await UserService.setUserPreferences({
+        userId,
+        ...req.body,
+      })
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async getUserPreferences(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const userId = res.locals.id
+
+      const response = await UserService.getUserPreferences(userId)
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
 }

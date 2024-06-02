@@ -13,3 +13,25 @@ export const setUserStageValidationRules = [
       (value: string) => (USER_STAGE as Record<string, string>)[value],
     ),
 ]
+
+export const setUserPreferencesValidationRules = [
+  body('countryCode').notEmpty().isString(),
+  body('locationIds')
+    .notEmpty()
+    .isArray()
+    .custom((value) => {
+      if (!Array.isArray(value)) {
+        throw new Error('locationIds must be an array')
+      }
+      for (const item of value) {
+        if (typeof item !== 'number') {
+          throw new Error('locationIds must contain only numbers')
+        }
+      }
+      return true
+    }),
+  body('levelId').notEmpty().isNumeric(),
+  body('courseId').notEmpty().isNumeric(),
+  body('universityId').notEmpty().isNumeric(),
+  body('isActive').optional().isBoolean(),
+]

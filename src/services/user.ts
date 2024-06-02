@@ -1,4 +1,8 @@
-import { UserDbHandler, UserRoleDbHandler } from '../db/handlers'
+import {
+  UserDbHandler,
+  UserPreferencesDbHandler,
+  UserRoleDbHandler,
+} from '../db/handlers'
 import { Types } from '../config'
 import { encryptPassword, logger, uuid } from '../utils'
 import { Op } from 'sequelize'
@@ -90,5 +94,21 @@ export default class {
     await this.updateUser(id, data)
 
     return { msg: 'User status updated successfully' }
+  }
+
+  static async setUserPreferences(data: Types.UserPreferences) {
+    // need to sanitise each and every data key by checking in db
+    const query = { ...data, createdBy: data.userId }
+    await UserPreferencesDbHandler.createUserPreferences(query)
+
+    return { msg: 'User preferences set successfully', statusCode: 201 }
+  }
+
+  static async getUserPreferences(userId: string) {
+    const response = await UserPreferencesDbHandler.getUserPreferencesByUserId(
+      userId,
+    )
+
+    return response
   }
 }

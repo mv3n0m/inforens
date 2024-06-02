@@ -3,6 +3,15 @@ export const alphaLower = 'abcdefghijklmnopqrstuvwxyz'
 export const symbolic = '!@#$%^&*()_+-=[]{}|;:,.<>?'
 export const numeric = '0123456789'
 
+export const sqlErrorCodes: Record<
+  string,
+  { statusCode?: number; message: string }
+> = {
+  SequelizeUniqueConstraintError: {
+    message: 'Record already exists.',
+  },
+}
+
 export const errorCodes: Record<
   string,
   {

@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-import { errorCodes } from '../config/constants'
+import { errorCodes, sqlErrorCodes } from '../config/constants'
 import { IResponsePayload } from '../config/interfaces'
 import { logger } from '../utils'
 
@@ -15,6 +15,9 @@ export const responseHandler = (
     if (errorCodes[payload.message]) {
       statusCode = errorCodes[payload.message].statusCode
       errorMessage = errorCodes[payload.message].message
+    } else if (payload.name) {
+      statusCode = 400
+      errorMessage = sqlErrorCodes[payload.name].message
     }
     logger.error(`${statusCode} -> ${errorMessage}`)
     logger.error(payload.stack) // Log the error for debugging purposes
