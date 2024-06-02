@@ -4,6 +4,7 @@ import accountRouter from './accounts'
 import userRouter from './users'
 import adminRouter from './admin'
 import commonRouter from './common'
+import servicesRouter from './services'
 import { authenticate } from '../middlewares'
 
 const publicRoutes = {
@@ -13,6 +14,7 @@ const publicRoutes = {
 
 const privateRoutes = {
   '/users': userRouter,
+  '/services': servicesRouter,
 }
 
 const protectedRoutes = {

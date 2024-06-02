@@ -40,3 +40,9 @@ export enum USER_STAGE {
   GotAdmission = 'Got admission',
   AlreadyAtUniversity = 'Already at university',
 }
+
+export enum RECOMMENDATION_KEYS {
+  Guides = 'guides',
+  Courses = 'courses',
+  Products = 'products',
+}

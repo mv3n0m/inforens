@@ -8,6 +8,7 @@ import { encryptPassword, logger, uuid } from '../utils'
 import { Op } from 'sequelize'
 import { AccountService } from '.'
 import { SERVICE, USER_ROLE } from '../config/enums'
+import sqlize from '../db/sqlize'
 
 export default class {
   static async getUsers() {
@@ -40,6 +41,20 @@ export default class {
       throw new Error('USER_NOT_FOUND')
     }
     return user
+  }
+
+  static async getApprovedGuides() {
+    const [results, metadata] = await sqlize.query(
+      `SELECT u."firstName", u."lastName", u.email, u."mobileNumber", u.country, u.bio
+        FROM users u
+        JOIN "userRoles" ur ON u.id = ur."userId"
+        JOIN roles r ON ur."roleId" = r.id
+        WHERE u."isActive" = true
+          AND ur."approvedAt" IS NOT NULL
+          AND r.name = 'Guide';`,
+    )
+
+    return { count: (metadata as any).rowCount, rows: results }
   }
 
   static async createUser(data: Types.User) {

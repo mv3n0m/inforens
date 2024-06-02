@@ -28,6 +28,10 @@ const swaggerDefinition = {
         'Operations related to user profile - (requires user authentication with jwt)',
     },
     {
+      name: 'Services',
+      description: 'Operations related to services',
+    },
+    {
       name: 'Admin',
       description:
         'Operations to be executed by admins/staffs - (Currently open to all, but will require authorization in future)',

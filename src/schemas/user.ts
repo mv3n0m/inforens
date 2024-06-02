@@ -1,5 +1,5 @@
 import { body } from 'express-validator'
-import { USER_STAGE } from '../config/enums'
+import { RECOMMENDATION_KEYS, USER_STAGE } from '../config/enums'
 
 export const setUserStageValidationRules = [
   body('stage')
