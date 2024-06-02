@@ -35,6 +35,11 @@ export default class {
     credentials: Types.LoginCredentials,
   ): Promise<{ msg: string; accessToken: string }> {
     const { origin, password, ...contact } = credentials
+
+    if (!Object.keys(contact).length) {
+      throw new Error('EMAIL_OR_MOBILE')
+    }
+
     const _user: UserQuery | null = await UserDbHandler.getUser(contact, {
       attributes: ['id', 'password', 'isActive'],
     })

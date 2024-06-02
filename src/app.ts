@@ -6,6 +6,8 @@ import morgan from 'morgan'
 import { notFound, responseHandler } from './middlewares'
 import initRoutes from './routes'
 import { Sequelize } from 'sequelize'
+import swaggerUi from 'swagger-ui-express'
+import { swaggerSpec } from './swagger'
 
 const app = express()
 
@@ -43,6 +45,8 @@ app.use(
 )
 
 store.sync()
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 initRoutes(app)
 

@@ -31,7 +31,7 @@ export default class {
     }
 
     await RoleDbHandler.createRole(data)
-    return { msg: 'Role created successfully' }
+    return { msg: 'Role created successfully', statusCode: 201 }
   }
 
   static async createCountry(data: Types.Country) {
@@ -46,7 +46,7 @@ export default class {
     }
 
     await CountryDbHandler.createCountry(data)
-    return { msg: 'Country created successfully' }
+    return { msg: 'Country created successfully', statusCode: 201 }
   }
 
   static async createLocation(data: Types.Location) {
@@ -61,7 +61,7 @@ export default class {
     }
 
     await LocationDbHandler.createLocation(data)
-    return { msg: 'Location created successfully' }
+    return { msg: 'Location created successfully', statusCode: 201 }
   }
 
   static async createUniversity(data: Types.University) {
@@ -76,7 +76,7 @@ export default class {
     }
 
     await UniversityDbHandler.createUniversity(data)
-    return { msg: 'University created successfully' }
+    return { msg: 'University created successfully', statusCode: 201 }
   }
 
   static async createLevel(data: Types.Level) {
@@ -100,6 +100,6 @@ export default class {
     }
 
     await CourseDbHandler.createCourse(data)
-    return { msg: 'Course created successfully' }
+    return { msg: 'Course created successfully', statusCode: 201 }
   }
 }

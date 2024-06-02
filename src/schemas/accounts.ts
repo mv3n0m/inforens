@@ -14,7 +14,7 @@ const validateMobileNumber = (value: string) => {
 const validateEmail = (value: string) => {
   const emailRegex = /^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/
   if (!emailRegex.test(value)) {
-    throw new Error('Invalid email')
+    throw new Error('Invalid email format.')
   }
   return true
 }
@@ -26,7 +26,9 @@ export const mobileNumberValidationRule = body('mobileNumber')
 
 const tokenValidationRule = body('token').notEmpty().isString()
 
-export const emailValidationRule = body('email').notEmpty().isEmail()
+export const emailValidationRule = body('email')
+  .notEmpty()
+  .custom(validateEmail)
 export const passwordValidationRule = body('password').notEmpty().isString()
 export const verifyOtpValidationRules = [
   body('otp').notEmpty().isString(),
@@ -50,7 +52,7 @@ export const signInValidationRules = [
   emailValidationRule.optional(),
   mobileNumberValidationRule.optional(),
   passwordValidationRule,
-  body('origin').optional().notEmpty().isString(),
+  body('origin').notEmpty().isString(),
 ]
 
 export const resetPasswordValidationRules = [

@@ -46,5 +46,3 @@ export default class {
     }
   }
 }
-
-// export default new AccountController()

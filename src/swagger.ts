@@ -1,24 +1,79 @@
-import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerJSDoc from 'swagger-jsdoc'
 
 const swaggerDefinition = {
-  openapi: '3.0.0',
+  openapi: '3.1.0',
   info: {
-      title: 'Inforens API',
-      version: '1.0.0',
-      description: 'APIs for Inforens app',
+    title: 'Inforens API',
+    version: '1.0.0',
+    description: 'APIs for Inforens app',
   },
   servers: [
     {
-      url: "http://localhost:3333",
-      description: "APIs for Inforens app",
+      url: '/api/v0',
+      description: 'APIs for Inforens app',
     },
   ],
-};
+  tags: [
+    {
+      name: 'Common',
+      description: 'Common operations available for all',
+    },
+    {
+      name: 'Accounts',
+      description: 'Operations related to account management',
+    },
+    {
+      name: 'Users',
+      description:
+        'Operations related to user profile - (requires user authentication with jwt)',
+    },
+    {
+      name: 'Admin',
+      description:
+        'Operations to be executed by admins/staffs - (Currently open to all, but will require authorization in future)',
+    },
+  ],
+  components: {
+    responses: {
+      SuccessResponse: {
+        description: 'Success',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'object',
+              properties: {
+                count: {
+                  type: 'integer',
+                  description: 'Number of items',
+                },
+                rows: {
+                  type: 'array',
+                  description: 'List of items',
+                  items: {
+                    type: 'object',
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    securitySchemes: {
+      JWTAuth: {
+        type: 'apiKey',
+        in: 'header',
+        name: 'Authorization',
+        description: 'JWT token for authentication.',
+      },
+    },
+  },
+}
 
 const options = {
   swaggerDefinition,
-  apis: ['./routes/*.ts', './routes/**/*.ts', './app.ts'],
-};
+  apis: ['src/routes/*.?s', 'src/routes/**/*.?s', 'src/app.?s'],
+}
 
-const swaggerSpec = swaggerJSDoc(options);
-export {swaggerSpec};
+const swaggerSpec = swaggerJSDoc(options)
+export { swaggerSpec }

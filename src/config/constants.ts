@@ -18,6 +18,10 @@ export const errorCodes: Record<
     statusCode: 400,
     message: 'User not found',
   },
+  EMAIL_OR_MOBILE: {
+    statusCode: 400,
+    message: 'Either email or mobileNumber required.',
+  },
   INCORRECT_PASSWORD: {
     statusCode: 401,
     message: 'Incorrect password',
