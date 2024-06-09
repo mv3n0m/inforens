@@ -10,14 +10,15 @@ export const responseHandler = (
   _next: NextFunction,
 ) => {
   if (payload instanceof Error) {
+    const { message, name } = payload
     let statusCode = 500
-    let errorMessage = payload.message || 'Internal server error'
-    if (errorCodes[payload.message]) {
-      statusCode = errorCodes[payload.message].statusCode
-      errorMessage = errorCodes[payload.message].message
-    } else if (payload.name) {
+    let errorMessage = message || 'Internal server error'
+    if (message && errorCodes[message]) {
+      statusCode = errorCodes[message].statusCode
+      errorMessage = errorCodes[message].message
+    } else if (name) {
       statusCode = 400
-      errorMessage = sqlErrorCodes[payload.name].message
+      errorMessage = sqlErrorCodes[name].message
     }
     logger.error(`${statusCode} -> ${errorMessage}`)
     logger.error(payload.stack) // Log the error for debugging purposes
