@@ -4,10 +4,9 @@ import { SERVICE } from '../../config/enums'
 
 class Course extends Model {
   public id!: number
-  public code!: string
+  public code?: string
   public name!: string
   public levelId!: number
-  public universityId!: number
   public description?: string
   public isActive?: boolean
   public createdBy?: string | SERVICE
@@ -25,17 +24,13 @@ Course.init(
     },
     code: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     levelId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    universityId: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },

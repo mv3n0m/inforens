@@ -263,8 +263,6 @@ router.post(
  *                 description: course code as per university
  *               levelId:
  *                 type: integer
- *               universityId:
- *                 type: integer
  *               description:
  *                 type: string
  *               isActive:
@@ -272,9 +270,7 @@ router.post(
  *                 description: Optional - true by default
  *             required:
  *               - name
- *               - code
  *               - levelId
- *               - universityId
  *     responses:
  *       201:
  *         description: success
