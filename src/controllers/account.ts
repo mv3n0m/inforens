@@ -7,7 +7,8 @@ import {
   User,
 } from '../config/types'
 import { encryptPassword, uuid } from '../utils'
-import { sessionStore } from '../store'
+import { otpStore } from '../store'
+// import { sessionStore } from '../store'
 
 export default class {
   static async requestMobileOtp(
@@ -21,7 +22,8 @@ export default class {
       const { otp, ...rest } = response
 
       const token = uuid()
-      sessionStore.setOtp(req, token, otp)
+      await otpStore.setOTP(token, otp)
+      // sessionStore.setOtp(req, token, otp)
       next({ ...rest, token })
     } catch (error) {
       next(error)
@@ -38,11 +40,17 @@ export default class {
         if (user.isActive) throw new Error('INVALID_TOKEN')
       }
 
-      const sessionOtp = sessionStore.getOtp(req, token)
-      const response = await AccountService.verifyOtp(sessionOtp, otp, !user)
+      // const sessionOtp = sessionStore.getOtp(req, token)
+      const sessionOtp = await otpStore.getOTP(token)
+      const response = await AccountService.verifyOtp(
+        sessionOtp || '',
+        otp,
+        !user,
+      )
       user && (await UserService.updateUserStatus(token))
 
-      sessionStore.deleteOtp(req, token)
+      // sessionStore.deleteOtp(req, token)
+      await otpStore.deleteOTP(token)
       next(response)
     } catch (error) {
       next(error)
@@ -55,7 +63,8 @@ export default class {
       const response = await UserService.createUser(userData)
       const { otp, id, ...rest } = response
 
-      sessionStore.setOtp(req, id, otp)
+      // sessionStore.setOtp(req, id, otp)
+      await otpStore.setOTP(id, otp)
       next({ ...rest, token: id, statusCode: 201 })
     } catch (error) {
       next(error)
@@ -80,7 +89,8 @@ export default class {
       const response = await AccountService.generateOtp(body)
       const { otp, ...rest } = response
 
-      sessionStore.setOtp(req, user.id, otp)
+      // sessionStore.setOtp(req, user.id, otp)
+      await otpStore.setOTP(user.id, otp)
       next({ ...rest, token: user.id })
     } catch (error) {
       next(error)
@@ -94,10 +104,12 @@ export default class {
   ) {
     try {
       const { otp, token } = req.body
-      const sessionOtp = sessionStore.getOtp(req, token)
+      // const sessionOtp = sessionStore.getOtp(req, token)
+      const sessionOtp = await otpStore.getOTP(token)
       // send email with the above otp and token embedded to redirect user to change password page
-      await AccountService.verifyOtp(sessionOtp, otp)
-      sessionStore.deleteOtp(req, token)
+      await AccountService.verifyOtp(sessionOtp || '', otp)
+      // sessionStore.deleteOtp(req, token)
+      await otpStore.deleteOTP(token)
 
       next({ msg: 'Password reset request confirmed.' })
     } catch (error) {

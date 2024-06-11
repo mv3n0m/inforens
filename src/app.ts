@@ -23,28 +23,28 @@ declare module 'express-session' {
   }
 }
 
-const SequelizeStore = require('connect-session-sequelize')(session.Store)
-const sequelize = new Sequelize('database', 'username', 'password', {
-  dialect: 'sqlite',
-  storage: './session.sqlite',
-})
-const store = new SequelizeStore({
-  db: sequelize,
-})
+// const SequelizeStore = require('connect-session-sequelize')(session.Store)
+// const sequelize = new Sequelize('database', 'username', 'password', {
+//   dialect: 'sqlite',
+//   storage: './session.sqlite',
+// })
+// const store = new SequelizeStore({
+//   db: sequelize,
+// })
 
-app.use(
-  session({
-    secret: 'secret',
-    store,
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-      maxAge: 600000, // 10 minutes in milliseconds
-    },
-  }),
-)
+// app.use(
+//   session({
+//     secret: 'secret',
+//     store,
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: {
+//       maxAge: 600000, // 10 minutes in milliseconds
+//     },
+//   }),
+// )
 
-store.sync()
+// store.sync()
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 

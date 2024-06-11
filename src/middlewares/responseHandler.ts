@@ -18,7 +18,7 @@ export const responseHandler = (
       errorMessage = errorCodes[message].message
     } else if (name) {
       statusCode = 400
-      errorMessage = sqlErrorCodes[name].message
+      errorMessage = sqlErrorCodes[name]?.message || name
     }
     logger.error(`${statusCode} -> ${errorMessage}`)
     logger.error(payload.stack) // Log the error for debugging purposes
