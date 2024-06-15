@@ -21,7 +21,7 @@ export const responseHandler = (
       errorMessage = sqlErrorCodes[name]?.message || name
     }
     logger.error(`${statusCode} -> ${errorMessage}`)
-    logger.error(payload.stack) // Log the error for debugging purposes
+    logger.error('traceback -> ', payload)
 
     return res.status(statusCode).json({ msg: errorMessage })
   } else {
