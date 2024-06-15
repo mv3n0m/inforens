@@ -1,11 +1,13 @@
-import { body, query } from 'express-validator'
+import { query } from 'express-validator'
 
 export const getRegionsValidationRules = [
   query('countryCode').notEmpty().isString(),
 ]
 
 export const getUniversitiesValidationRules = [
+  query('countryCode').optional().notEmpty().isString(),
   query('regionIds')
+    .optional()
     .custom((value) => {
       const numbersArray = value.split(',')
       if (numbersArray.length === 0) {
@@ -19,6 +21,7 @@ export const getUniversitiesValidationRules = [
       return true
     })
     .customSanitizer((value) => value.split(',').map(Number)),
+
   // query('regionIds').notEmpty().isArray({ min: 1 }),
   // query('regionIds.*').isNumeric(),
   // // query('regionIds').customSanitizer((value) => value.map(Number)),

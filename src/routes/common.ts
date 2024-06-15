@@ -52,12 +52,20 @@ router.get(
  * /common/universities:
  *   get:
  *     summary: Retrieve a list of universities
+ *     description: __Note__ - `countryCode` will have higher priority than `regionIds`
  *     tags:
  *       - Common
  *     parameters:
  *       - in: query
+ *         name: countryCode
+ *         required: false
+ *         description: must be 'ISO 3166-1 alpha-3' code
+ *         schema:
+ *           type: string
+ *           example: "USA"
+ *       - in: query
  *         name: regionIds
- *         required: true
+ *         required: false
  *         description: Comma-separated list of region IDs
  *         schema:
  *           type: string

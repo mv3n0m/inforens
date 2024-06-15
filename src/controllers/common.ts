@@ -32,9 +32,7 @@ export default class {
     next: NextFunction,
   ) {
     try {
-      const response = await CommonService.fetchUniversities(
-        req.query.regionIds as any,
-      )
+      const response = await CommonService.fetchUniversities(req.query as any)
       next(response)
     } catch (error) {
       next(error)
