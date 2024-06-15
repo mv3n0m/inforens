@@ -3,7 +3,7 @@ import { CommonController } from '../controllers'
 import validator from '../middlewares/validator'
 import {
   getCoursesValidationRules,
-  getLocationsValidationRules,
+  getRegionsValidationRules,
   getUniversitiesValidationRules,
 } from '../schemas/common'
 
@@ -24,9 +24,9 @@ router.get('/countries', CommonController.fetchCountries)
 
 /**
  * @swagger
- * /common/locations:
+ * /common/regions:
  *   get:
- *     summary: Retrieve a list of locations
+ *     summary: Retrieve a list of regions
  *     tags:
  *       - Common
  *     parameters:
@@ -41,10 +41,10 @@ router.get('/countries', CommonController.fetchCountries)
  *         $ref: '#/components/responses/SuccessResponse'
  */
 router.get(
-  '/locations',
-  getLocationsValidationRules,
+  '/regions',
+  getRegionsValidationRules,
   validator,
-  CommonController.fetchLocations,
+  CommonController.fetchRegions,
 )
 
 /**
@@ -56,9 +56,9 @@ router.get(
  *       - Common
  *     parameters:
  *       - in: query
- *         name: locationIds
+ *         name: regionIds
  *         required: true
- *         description: Comma-separated list of location IDs
+ *         description: Comma-separated list of region IDs
  *         schema:
  *           type: string
  *           example: "1,2,3"

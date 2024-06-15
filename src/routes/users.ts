@@ -72,7 +72,7 @@ router.patch(
  *               countryCode:
  *                 type: string
  *                 description: must be 'ISO 3166-1 alpha-3' code
- *               locationIds:
+ *               regionIds:
  *                 type: array
  *                 items:
  *                   type: integer
@@ -91,7 +91,7 @@ router.patch(
  *                 description: Optional - true by default
  *             required:
  *               - countryCode
- *               - locationIds
+ *               - regionIds
  *               - levelId
  *               - courseId
  *               - universityId
@@ -133,7 +133,7 @@ router.post(
  *                 countryCode:
  *                   type: string
  *                   example: USA
- *                 locationIds:
+ *                 regionIds:
  *                   type: array
  *                   items:
  *                     type: integer

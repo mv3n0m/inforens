@@ -6,7 +6,7 @@ class UserPreferences extends Model {
   public id!: number
   public userId!: string
   public countryCode!: string
-  public locationIds!: Array<number>
+  public regionIds!: Array<number>
   public levelId!: number
   public courseId!: number
   public universityId!: number
@@ -33,7 +33,7 @@ UserPreferences.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    locationIds: {
+    regionIds: {
       type: DataTypes.ARRAY(DataTypes.INTEGER),
       allowNull: false,
     },

@@ -15,13 +15,9 @@ export default class {
     }
   }
 
-  static async fetchLocations(
-    req: Request,
-    _res: Response,
-    next: NextFunction,
-  ) {
+  static async fetchRegions(req: Request, _res: Response, next: NextFunction) {
     try {
-      const response = await CommonService.fetchLocations(
+      const response = await CommonService.fetchRegions(
         req.query.countryCode as string,
       )
       next(response)
@@ -37,7 +33,7 @@ export default class {
   ) {
     try {
       const response = await CommonService.fetchUniversities(
-        req.query.locationIds as any,
+        req.query.regionIds as any,
       )
       next(response)
     } catch (error) {

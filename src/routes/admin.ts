@@ -5,7 +5,7 @@ import {
   createCountryValidationRules,
   createCourseValidationRules,
   createLevelValidationRules,
-  createLocationValidationRules,
+  createRegionValidationRules,
   createRoleValidationRules,
   createUniversityValidationRules,
 } from '../schemas/admin'
@@ -109,9 +109,9 @@ router.post(
 
 /**
  * @swagger
- * /admin/locations:
+ * /admin/regions:
  *   post:
- *     summary: Create a location record
+ *     summary: Create a region record
  *     tags:
  *       - Admin
  *     requestBody:
@@ -144,10 +144,10 @@ router.post(
  *                   type: string
  */
 router.post(
-  '/locations',
-  createLocationValidationRules,
+  '/regions',
+  createRegionValidationRules,
   validator,
-  AdminController.createLocation,
+  AdminController.createRegion,
 )
 
 /**
@@ -166,7 +166,7 @@ router.post(
  *             properties:
  *               name:
  *                 type: string
- *               locationId:
+ *               regionId:
  *                 type: integer
  *               address:
  *                 type: string
@@ -184,7 +184,7 @@ router.post(
  *                 description: Optional - true by default
  *             required:
  *               - name
- *               - locationId
+ *               - regionId
  *     responses:
  *       201:
  *         description: success

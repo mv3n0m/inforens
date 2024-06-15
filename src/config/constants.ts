@@ -67,9 +67,9 @@ export const errorCodes: Record<
     statusCode: 400,
     message: 'Country already exists',
   },
-  LOCATION_EXISTS: {
+  REGION_EXISTS: {
     statusCode: 400,
-    message: 'Location already exists',
+    message: 'Region already exists',
   },
   UNIVERSITY_EXISTS: {
     statusCode: 400,
