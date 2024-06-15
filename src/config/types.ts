@@ -107,6 +107,18 @@ export type Course = {
 
 export type CourseQuery = Common & Course
 
+export type UniversityCourse = {
+  courseId: number
+  name: string
+  code: string
+  levelId: number
+  universityId: number
+  description?: string
+  isActive?: boolean
+}
+
+export type UniversityCourseQuery = Common & UniversityCourse
+
 export type UserPreferences = {
   userId: string
   countryCode: string
