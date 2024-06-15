@@ -16,22 +16,61 @@ export const setUserStageValidationRules = [
 
 export const setUserPreferencesValidationRules = [
   body('countryCode').notEmpty().isString(),
-  body('locationIds')
-    .notEmpty()
+  body('regionIds')
+    .optional()
     .isArray()
     .custom((value) => {
       if (!Array.isArray(value)) {
-        throw new Error('locationIds must be an array')
+        throw new Error('regionIds must be an array')
       }
       for (const item of value) {
         if (typeof item !== 'number') {
-          throw new Error('locationIds must contain only numbers')
+          throw new Error('regionIds must contain only numbers')
         }
       }
       return true
     }),
-  body('levelId').notEmpty().isNumeric(),
-  body('courseId').notEmpty().isNumeric(),
-  body('universityId').notEmpty().isNumeric(),
+  body('levelIds')
+    .optional()
+    .isArray()
+    .custom((value) => {
+      if (!Array.isArray(value)) {
+        throw new Error('levelIds must be an array')
+      }
+      for (const item of value) {
+        if (typeof item !== 'number') {
+          throw new Error('levelIds must contain only numbers')
+        }
+      }
+      return true
+    }),
+  body('courseIds')
+    .optional()
+    .isArray()
+    .custom((value) => {
+      if (!Array.isArray(value)) {
+        throw new Error('courseIds must be an array')
+      }
+      for (const item of value) {
+        if (typeof item !== 'number') {
+          throw new Error('courseIds must contain only numbers')
+        }
+      }
+      return true
+    }),
+  body('universityIds')
+    .optional()
+    .isArray()
+    .custom((value) => {
+      if (!Array.isArray(value)) {
+        throw new Error('universityIds must be an array')
+      }
+      for (const item of value) {
+        if (typeof item !== 'number') {
+          throw new Error('universityIds must contain only numbers')
+        }
+      }
+      return true
+    }),
   body('isActive').optional().isBoolean(),
 ]

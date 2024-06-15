@@ -3,7 +3,7 @@ import {
   CountryDbHandler,
   CourseDbHandler,
   LevelDbHandler,
-  LocationDbHandler,
+  RegionDbHandler,
   UniversityDbHandler,
 } from '../db/handlers'
 
@@ -13,8 +13,8 @@ export default class {
     return countries
   }
 
-  static async fetchLocations(countryCode: string) {
-    const countries = await LocationDbHandler.getLocationsByCountryCode(
+  static async fetchRegions(countryCode: string) {
+    const countries = await RegionDbHandler.getRegionsByCountryCode(
       countryCode,
       { isActive: true },
       {
@@ -24,9 +24,9 @@ export default class {
     return countries
   }
 
-  static async fetchUniversities(locationIds: number[]) {
-    const universities = await UniversityDbHandler.getUniversitiesByLocationIds(
-      locationIds,
+  static async fetchUniversities(regionIds: number[]) {
+    const universities = await UniversityDbHandler.getUniversitiesByRegionIds(
+      regionIds,
       { isActive: true },
     )
     return universities

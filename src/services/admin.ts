@@ -4,7 +4,7 @@ import {
   CountryDbHandler,
   CourseDbHandler,
   LevelDbHandler,
-  LocationDbHandler,
+  RegionDbHandler,
   RoleDbHandler,
   UniversityDbHandler,
   UserRoleDbHandler,
@@ -51,25 +51,25 @@ export default class {
     return { msg: 'Country created successfully', statusCode: 201 }
   }
 
-  static async createLocation(data: Types.Location) {
+  static async createRegion(data: Types.Region) {
     const { name, countryCode } = data
-    const locationExists = await LocationDbHandler.getLocation({
+    const regionExists = await RegionDbHandler.getRegion({
       [Op.and]: [{ name }, { countryCode }],
     })
-    if (locationExists) {
-      logger.error('Location already exists')
-      logger.info(locationExists)
-      throw new Error('LOCATION_EXISTS')
+    if (regionExists) {
+      logger.error('Region already exists')
+      logger.info(regionExists)
+      throw new Error('REGION_EXISTS')
     }
 
-    await LocationDbHandler.createLocation(data)
-    return { msg: 'Location created successfully', statusCode: 201 }
+    await RegionDbHandler.createRegion(data)
+    return { msg: 'Region created successfully', statusCode: 201 }
   }
 
   static async createUniversity(data: Types.University) {
-    const { name, locationId } = data
+    const { name, regionId } = data
     const universityExists = await UniversityDbHandler.getUniversity({
-      [Op.and]: [{ name }, { locationId }],
+      [Op.and]: [{ name }, { regionId }],
     })
     if (universityExists) {
       logger.error('University already exists')

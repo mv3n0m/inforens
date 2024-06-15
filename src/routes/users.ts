@@ -72,29 +72,31 @@ router.patch(
  *               countryCode:
  *                 type: string
  *                 description: must be 'ISO 3166-1 alpha-3' code
- *               locationIds:
+ *               regionIds:
  *                 type: array
  *                 items:
  *                   type: integer
  *                 example: [1, 2, 3]
- *               levelId:
- *                 type: integer
- *                 example: 1
- *               courseId:
- *                 type: integer
- *                 example: 2
- *               universityId:
- *                 type: integer
- *                 example: 3
+ *               levelIds:
+ *                 type: array
+ *                 items:
+ *                   type: integer
+ *                 example: [1]
+ *               courseIds:
+ *                 type: array
+ *                 items:
+ *                   type: integer
+ *                 example: [2]
+ *               universityIds:
+ *                 type: array
+ *                 items:
+ *                   type: integer
+ *                 example: []
  *               isActive:
  *                 type: boolean
  *                 description: Optional - true by default
  *             required:
  *               - countryCode
- *               - locationIds
- *               - levelId
- *               - courseId
- *               - universityId
  *     responses:
  *       200:
  *         description: success
@@ -124,29 +126,51 @@ router.post(
  *       - JWTAuth: []
  *     responses:
  *       200:
- *         description: success
+ *         description: Success
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 countryCode:
- *                   type: string
- *                   example: USA
- *                 locationIds:
+ *                 country:
+ *                   type: object
+ *                   properties:
+ *                     code:
+ *                       type: string
+ *                       example: USA
+ *                     name:
+ *                       type: string
+ *                       example: United States of America
+ *                 regions:
  *                   type: array
  *                   items:
- *                     type: integer
- *                   example: [1, 2, 3]
- *                 levelId:
- *                   type: integer
- *                   example: 1
- *                 courseId:
- *                   type: integer
- *                   example: 2
- *                 universityId:
- *                   type: integer
- *                   example: 3
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                         example: 1
+ *                       name:
+ *                         type: string
+ *                         example: Nevada
+ *                 levels:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                         example: 1
+ *                       name:
+ *                         type: string
+ *                         example: Bachelors
+ *                 courses:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                 universities:
+ *                   type: array
+ *                   items:
+ *                     type: object
  */
 router.get('/preferences', UserController.getUserPreferences)
 

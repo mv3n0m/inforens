@@ -27,29 +27,29 @@ export default class {
     return University.findByPk(id, { raw: true, ...options })
   }
 
-  static async getUniversitiesByLocationId(
-    locationId: number,
+  static async getUniversitiesByRegionId(
+    regionId: number,
     criteria?: any,
     options?: {
       attributes?: string[]
     },
   ) {
     return University.findAndCountAll({
-      where: { locationId, ...criteria },
+      where: { regionId, ...criteria },
       raw: true,
       ...options,
     })
   }
 
-  static async getUniversitiesByLocationIds(
-    locationIds: number[],
+  static async getUniversitiesByRegionIds(
+    regionIds: number[],
     criteria?: any,
     options?: {
       attributes?: string[]
     },
   ) {
     return University.findAndCountAll({
-      where: { locationId: locationIds, ...criteria },
+      where: { regionId: regionIds, ...criteria },
       raw: true,
       ...options,
     })

@@ -6,10 +6,10 @@ class UserPreferences extends Model {
   public id!: number
   public userId!: string
   public countryCode!: string
-  public locationIds!: Array<number>
-  public levelId!: number
-  public courseId!: number
-  public universityId!: number
+  public regionIds?: Array<number>
+  public levelIds?: Array<number>
+  public courseIds?: Array<number>
+  public universityIds?: Array<number>
   public isActive?: boolean
   public createdBy?: string | SERVICE
   public updatedBy?: string | SERVICE
@@ -33,21 +33,21 @@ UserPreferences.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    locationIds: {
+    regionIds: {
       type: DataTypes.ARRAY(DataTypes.INTEGER),
-      allowNull: false,
+      allowNull: true,
     },
-    levelId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+    levelIds: {
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
+      allowNull: true,
     },
-    courseId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+    courseIds: {
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
+      allowNull: true,
     },
-    universityId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+    universityIds: {
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
+      allowNull: true,
     },
     isActive: {
       type: DataTypes.BOOLEAN,

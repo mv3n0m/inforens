@@ -35,13 +35,9 @@ export default class {
     }
   }
 
-  static async createLocation(
-    req: Request,
-    _res: Response,
-    next: NextFunction,
-  ) {
+  static async createRegion(req: Request, _res: Response, next: NextFunction) {
     try {
-      const response = await AdminService.createLocation({
+      const response = await AdminService.createRegion({
         isActive: true,
         ...req.body,
       })

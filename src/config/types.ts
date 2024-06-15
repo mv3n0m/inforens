@@ -71,17 +71,17 @@ export type Country = {
 
 export type CountryQuery = Common & Country
 
-export type Location = {
+export type Region = {
   name: string
   countryCode: string
   isActive?: boolean
 }
 
-export type LocationQuery = Common & Location
+export type RegionQuery = Common & Region
 
 export type University = {
   name: string
-  locationId: number
+  regionId: number
   address?: string
   phone?: string
   email?: string
@@ -101,10 +101,8 @@ export type LevelQuery = Common & Level
 
 export type Course = {
   name: string
-  code: string
-  levelId: number
-  universityId: number
   description?: string
+  isActive?: boolean
 }
 
 export type CourseQuery = Common & Course
@@ -112,10 +110,10 @@ export type CourseQuery = Common & Course
 export type UserPreferences = {
   userId: string
   countryCode: string
-  locationIds: Array<number>
-  levelId: number
-  courseId: number
-  universityId: number
+  regionIds?: Array<number>
+  levelIds?: Array<number>
+  courseIds?: Array<number>
+  universityIds?: Array<number>
   isActive?: boolean
 }
 

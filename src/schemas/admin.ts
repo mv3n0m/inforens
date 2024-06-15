@@ -11,7 +11,7 @@ export const createCountryValidationRules = [
   body('isActive').optional().isBoolean(),
 ]
 
-export const createLocationValidationRules = [
+export const createRegionValidationRules = [
   body('name').notEmpty().isString(),
   body('countryCode').notEmpty().isString(),
   body('isActive').optional().isBoolean(),
@@ -19,7 +19,7 @@ export const createLocationValidationRules = [
 
 export const createUniversityValidationRules = [
   body('name').notEmpty().isString(),
-  body('locationId').notEmpty().isNumeric(),
+  body('regionId').notEmpty().isNumeric(),
   body('address').optional().isString(),
   body('phone').optional().isString(),
   body('email').optional().isString(),
@@ -35,9 +35,6 @@ export const createLevelValidationRules = [
 
 export const createCourseValidationRules = [
   body('name').notEmpty().isString(),
-  body('code').notEmpty().isString(),
-  body('levelId').notEmpty().isNumeric(),
-  body('universityId').notEmpty().isNumeric(),
   body('description').optional().isString(),
   body('isActive').optional().isBoolean(),
 ]

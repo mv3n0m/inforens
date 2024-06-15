@@ -1,11 +1,11 @@
 import { body, query } from 'express-validator'
 
-export const getLocationsValidationRules = [
+export const getRegionsValidationRules = [
   query('countryCode').notEmpty().isString(),
 ]
 
 export const getUniversitiesValidationRules = [
-  query('locationIds')
+  query('regionIds')
     .custom((value) => {
       const numbersArray = value.split(',')
       if (numbersArray.length === 0) {
@@ -19,9 +19,9 @@ export const getUniversitiesValidationRules = [
       return true
     })
     .customSanitizer((value) => value.split(',').map(Number)),
-  // query('locationIds').notEmpty().isArray({ min: 1 }),
-  // query('locationIds.*').isNumeric(),
-  // // query('locationIds').customSanitizer((value) => value.map(Number)),
+  // query('regionIds').notEmpty().isArray({ min: 1 }),
+  // query('regionIds.*').isNumeric(),
+  // // query('regionIds').customSanitizer((value) => value.map(Number)),
 ]
 
 export const getCoursesValidationRules = [

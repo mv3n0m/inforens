@@ -2,7 +2,7 @@ import sqlize from '../sqlize'
 import { DataTypes, Model } from 'sequelize'
 import { SERVICE } from '../../config/enums'
 
-class Location extends Model {
+class Region extends Model {
   public id!: number
   public countryCode!: string
   public name!: string
@@ -11,7 +11,7 @@ class Location extends Model {
   public updatedBy?: string | SERVICE
 }
 
-Location.init(
+Region.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -44,8 +44,8 @@ Location.init(
   },
   {
     sequelize: sqlize,
-    modelName: 'location',
-    tableName: 'locations',
+    modelName: 'region',
+    tableName: 'regions',
     defaultScope: {
       attributes: {
         exclude: [
@@ -60,4 +60,4 @@ Location.init(
   },
 )
 
-export default Location
+export default Region
