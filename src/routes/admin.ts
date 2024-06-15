@@ -258,11 +258,6 @@ router.post(
  *             properties:
  *               name:
  *                 type: string
- *               code:
- *                 type: string
- *                 description: course code as per university
- *               levelId:
- *                 type: integer
  *               description:
  *                 type: string
  *               isActive:

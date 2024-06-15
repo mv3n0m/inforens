@@ -19,15 +19,6 @@ export default class {
     return Course.findOne({ where: criteria, raw: true, ...options })
   }
 
-  static async getCourseByCode(
-    code: string,
-    options?: {
-      attributes?: string[]
-    },
-  ) {
-    return Course.findOne({ where: { code }, raw: true, ...options })
-  }
-
   static async getCourseById(
     id: number,
     options?: {

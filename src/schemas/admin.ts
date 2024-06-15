@@ -35,8 +35,6 @@ export const createLevelValidationRules = [
 
 export const createCourseValidationRules = [
   body('name').notEmpty().isString(),
-  body('code').optional().isString(),
-  body('levelId').notEmpty().isNumeric(),
   body('description').optional().isString(),
   body('isActive').optional().isBoolean(),
 ]

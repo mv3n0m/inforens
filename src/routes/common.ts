@@ -101,13 +101,6 @@ router.get('/levels', CommonController.fetchLevels)
  *         schema:
  *           type: string
  *           example: "Computer Science Engineering"
- *       - in: query
- *         name: levelId
- *         required: false
- *         description: Id of the level to search courses for
- *         schema:
- *           type: interger
- *           example: 1
  *     responses:
  *       200:
  *         $ref: '#/components/responses/SuccessResponse'

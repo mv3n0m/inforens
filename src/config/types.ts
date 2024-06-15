@@ -101,10 +101,8 @@ export type LevelQuery = Common & Level
 
 export type Course = {
   name: string
-  code: string
-  levelId: number
-  universityId: number
   description?: string
+  isActive?: boolean
 }
 
 export type CourseQuery = Common & Course
