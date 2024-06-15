@@ -77,9 +77,11 @@ router.patch(
  *                 items:
  *                   type: integer
  *                 example: [1, 2, 3]
- *               levelId:
- *                 type: integer
- *                 example: 1
+ *               levelIds:
+ *                 type: array
+ *                 items:
+ *                   type: integer
+ *                 example: [1]
  *               courseIds:
  *                 type: array
  *                 items:

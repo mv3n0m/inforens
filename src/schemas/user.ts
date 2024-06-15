@@ -30,7 +30,20 @@ export const setUserPreferencesValidationRules = [
       }
       return true
     }),
-  body('levelId').optional().isNumeric(),
+  body('levelIds')
+    .optional()
+    .isArray()
+    .custom((value) => {
+      if (!Array.isArray(value)) {
+        throw new Error('levelIds must be an array')
+      }
+      for (const item of value) {
+        if (typeof item !== 'number') {
+          throw new Error('levelIds must contain only numbers')
+        }
+      }
+      return true
+    }),
   body('courseIds')
     .optional()
     .isArray()

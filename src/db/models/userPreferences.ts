@@ -7,7 +7,7 @@ class UserPreferences extends Model {
   public userId!: string
   public countryCode!: string
   public regionIds?: Array<number>
-  public levelId?: number
+  public levelIds?: Array<number>
   public courseIds?: Array<number>
   public universityIds?: Array<number>
   public isActive?: boolean
@@ -37,8 +37,8 @@ UserPreferences.init(
       type: DataTypes.ARRAY(DataTypes.INTEGER),
       allowNull: true,
     },
-    levelId: {
-      type: DataTypes.INTEGER,
+    levelIds: {
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
       allowNull: true,
     },
     courseIds: {

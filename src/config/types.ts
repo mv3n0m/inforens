@@ -111,7 +111,7 @@ export type UserPreferences = {
   userId: string
   countryCode: string
   regionIds?: Array<number>
-  levelId?: number
+  levelIds?: Array<number>
   courseIds?: Array<number>
   universityIds?: Array<number>
   isActive?: boolean
