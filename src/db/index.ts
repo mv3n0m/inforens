@@ -10,7 +10,7 @@ const otpS = new Sequelize('database', 'username', 'password', {
   try {
     // create tables if they do not exist
     await otpS.sync({ alter: false, logging: false })
-    logger.info('OTP tables created successfully.')
+    logger.info('OTP tables synced successfully.')
   } catch (error) {
     logger.error('Error creating otp tables:', error)
   }

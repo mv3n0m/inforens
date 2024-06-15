@@ -6,6 +6,7 @@ class OTPs extends Model {
   public token!: string
 }
 
+// add OTP expiry
 OTPs.init(
   {
     token: {
@@ -28,7 +29,11 @@ async function setOTP(token: string, otp: string) {
   try {
     await OTPs.create({ token, otp })
     console.log(`OTP set for token: ${token}`)
-  } catch (error) {
+  } catch (error: any) {
+    if (error.name === 'SequelizeUniqueConstraintError') {
+      await deleteOTP(token)
+      return await setOTP(token, otp)
+    }
     console.error('Error setting OTP:', error)
     throw error
   }
