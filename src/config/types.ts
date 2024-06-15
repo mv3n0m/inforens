@@ -112,10 +112,10 @@ export type CourseQuery = Common & Course
 export type UserPreferences = {
   userId: string
   countryCode: string
-  regionIds: Array<number>
-  levelId: number
-  courseId: number
-  universityId: number
+  regionIds?: Array<number>
+  levelId?: number
+  courseIds?: Array<number>
+  universityIds?: Array<number>
   isActive?: boolean
 }
 

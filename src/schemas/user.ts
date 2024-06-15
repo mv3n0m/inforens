@@ -17,7 +17,7 @@ export const setUserStageValidationRules = [
 export const setUserPreferencesValidationRules = [
   body('countryCode').notEmpty().isString(),
   body('regionIds')
-    .notEmpty()
+    .optional()
     .isArray()
     .custom((value) => {
       if (!Array.isArray(value)) {
@@ -30,8 +30,34 @@ export const setUserPreferencesValidationRules = [
       }
       return true
     }),
-  body('levelId').notEmpty().isNumeric(),
-  body('courseId').notEmpty().isNumeric(),
-  body('universityId').notEmpty().isNumeric(),
+  body('levelId').optional().isNumeric(),
+  body('courseIds')
+    .optional()
+    .isArray()
+    .custom((value) => {
+      if (!Array.isArray(value)) {
+        throw new Error('courseIds must be an array')
+      }
+      for (const item of value) {
+        if (typeof item !== 'number') {
+          throw new Error('courseIds must contain only numbers')
+        }
+      }
+      return true
+    }),
+  body('universityIds')
+    .optional()
+    .isArray()
+    .custom((value) => {
+      if (!Array.isArray(value)) {
+        throw new Error('universityIds must be an array')
+      }
+      for (const item of value) {
+        if (typeof item !== 'number') {
+          throw new Error('universityIds must contain only numbers')
+        }
+      }
+      return true
+    }),
   body('isActive').optional().isBoolean(),
 ]

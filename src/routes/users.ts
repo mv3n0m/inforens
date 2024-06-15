@@ -80,21 +80,21 @@ router.patch(
  *               levelId:
  *                 type: integer
  *                 example: 1
- *               courseId:
- *                 type: integer
- *                 example: 2
- *               universityId:
- *                 type: integer
- *                 example: 3
+ *               courseIds:
+ *                 type: array
+ *                 items:
+ *                   type: integer
+ *                 example: [2]
+ *               universityIds:
+ *                 type: array
+ *                 items:
+ *                   type: integer
+ *                 example: []
  *               isActive:
  *                 type: boolean
  *                 description: Optional - true by default
  *             required:
  *               - countryCode
- *               - regionIds
- *               - levelId
- *               - courseId
- *               - universityId
  *     responses:
  *       200:
  *         description: success
