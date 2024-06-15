@@ -41,8 +41,8 @@ router.get(
  * @swagger
  * /services/recommendations/guides:
  *   post:
- *     summary: Get recommendations for users based on input parameteres.
- *     description: Note - These input parameters will have higher priority than the stored preferences of the user.
+ *     summary: Fetch guide recommendations based on input parameters.
+ *     description: __Note__ - These input parameters will have higher priority than the stored preferences of the user.
  *     tags:
  *       - Services
  *     security:

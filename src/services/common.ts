@@ -24,11 +24,31 @@ export default class {
     return countries
   }
 
-  static async fetchUniversities(regionIds: number[]) {
-    const universities = await UniversityDbHandler.getUniversitiesByRegionIds(
-      regionIds,
-      { isActive: true },
-    )
+  static async fetchUniversities(params: {
+    regionIds?: number[]
+    countryCode?: string
+  }) {
+    const { regionIds, countryCode } = params
+
+    let universities
+    if (countryCode) {
+      universities = await UniversityDbHandler.getUniversitiesByCountryId(
+        countryCode,
+        {
+          isActive: true,
+        },
+      )
+    } else if (regionIds) {
+      universities = await UniversityDbHandler.getUniversitiesByRegionIds(
+        regionIds,
+        { isActive: true },
+      )
+    } else {
+      universities = await UniversityDbHandler.getUniversities({
+        isActive: true,
+      })
+    }
+
     return universities
   }
 

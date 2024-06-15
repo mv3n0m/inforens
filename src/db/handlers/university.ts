@@ -1,5 +1,6 @@
 import { Types } from '../../config'
 import University from '../models/university'
+import sqlize from '../sqlize'
 
 export default class {
   static async getUniversities(criteria?: any) {
@@ -53,6 +54,27 @@ export default class {
       raw: true,
       ...options,
     })
+  }
+
+  static async getUniversitiesByCountryId(
+    countryCode: string,
+    criteria?: any,
+    options?: {
+      attributes?: string[]
+    },
+  ) {
+    const [results] = await sqlize.query(
+      `
+      SELECT u.id, u."regionId", u.name, u.address, u.phone, u.email
+      FROM universities u
+      JOIN regions r ON u."regionId" = r.id
+      WHERE r."countryCode" = :countryCode;
+    `,
+      {
+        replacements: { countryCode },
+      },
+    )
+    return { count: results.length, rows: results }
   }
 
   static async getUniversitiesByIds(
