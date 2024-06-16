@@ -54,13 +54,12 @@ export default class {
     return UserPreferences.create(data)
   }
 
-  // maybe this will never be required
   static async updateUserPreferences(
-    id: number,
+    userId: string,
     data: Partial<Types.UserPreferences>,
   ) {
     return UserPreferences.update(data, {
-      where: { id },
+      where: { userId },
     })
   }
 }

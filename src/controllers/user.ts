@@ -39,7 +39,7 @@ export default class {
       const userId = res.locals.id
       await UserService.getUserById(userId)
 
-      const response = await UserService.updateUser(userId, { stage })
+      const response = await UserService.updateUserProfile(userId, { stage })
       next(response)
     } catch (error) {
       next(error)
@@ -65,7 +65,7 @@ export default class {
   }
 
   static async getUserPreferences(
-    req: Request,
+    _req: Request,
     res: Response,
     next: NextFunction,
   ) {
@@ -73,6 +73,54 @@ export default class {
       const userId = res.locals.id
 
       const response = await UserService.getUserPreferences(userId)
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async updateUserPreferences(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const userId = res.locals.id
+
+      const response = await UserService.updateUserPreferences(userId, req.body)
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async updateUserProfile(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const userId = res.locals.id
+
+      const response = await UserService.updateUserProfile(userId, req.body)
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async getUserProfile(
+    _req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const userId = res.locals.id
+
+      const response = {
+        ...(await UserService.getUserById(userId)),
+        ...(await UserService.getUserProfile(userId)),
+      }
       next(response)
     } catch (error) {
       next(error)

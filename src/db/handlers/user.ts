@@ -1,5 +1,6 @@
 import User from '../models/user'
 import { Types } from '../../config'
+import UserProfile from '../models/userProfile'
 
 export default class {
   static async getUsers(
@@ -58,5 +59,27 @@ export default class {
     return User.update(data, {
       where: { id },
     })
+  }
+
+  static async getUserProfile(
+    userId: string,
+    options?: {
+      attributes?: string[]
+    },
+  ) {
+    return UserProfile.findOne({ where: { userId }, raw: true, ...options })
+  }
+
+  static async updateUserProfile(
+    userId: string,
+    data: Partial<Types.UserProfileQuery>,
+  ) {
+    const userData = await this.getUserProfile(userId)
+    if (userData) {
+      return UserProfile.update(data, {
+        where: { userId },
+      })
+    }
+    return UserProfile.create({ userId, ...data })
   }
 }

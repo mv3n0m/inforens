@@ -35,7 +35,9 @@ export default class {
   }
 
   static async getUserById(id: string) {
-    const user = await UserDbHandler.getUserById(id)
+    const user = await UserDbHandler.getUserById(id, {
+      attributes: ['firstName', 'lastName', 'email', 'mobileNumber'],
+    })
     if (!user) {
       logger.error('User not found')
       throw new Error('USER_NOT_FOUND')
@@ -123,6 +125,28 @@ export default class {
     const response = await UserPreferencesDbHandler.getUserPreferencesByUserId(
       userId,
     )
+
+    return response
+  }
+
+  static async updateUserPreferences(
+    userId: string,
+    data: Partial<Types.UserPreferencesQuery>,
+  ) {
+    // need to sanitise each and every data key by checking in db
+    const query = { ...data, updatedBy: userId }
+    await UserPreferencesDbHandler.updateUserPreferences(userId, query)
+
+    return { msg: 'User preferences updated successfully' }
+  }
+
+  static async updateUserProfile(userId: string, data: Types.UserProfileQuery) {
+    await UserDbHandler.updateUserProfile(userId, data)
+    return { msg: 'User profile updated successfully' }
+  }
+
+  static async getUserProfile(userId: string) {
+    const response = await UserDbHandler.getUserProfile(userId)
 
     return response
   }

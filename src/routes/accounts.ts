@@ -62,7 +62,7 @@ router.post(
  * @swagger
  * /accounts/verify-otp:
  *   post:
- *     summary: "Verify OTPs generated from requests => 'request-mobile-otp' || 'sign-up'"
+ *     summary: Verify OTPs generated from requests => 'request-mobile-otp' || 'sign-up'
  *     tags:
  *       - Accounts
  *     requestBody:

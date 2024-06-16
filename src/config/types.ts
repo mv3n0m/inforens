@@ -27,13 +27,7 @@ export type Origin = {
 }
 
 export type User = {
-  pinCode?: string
-  country?: string
-  bio?: string
   isActive?: boolean
-  activeHours?: any
-  isWorking?: boolean
-  stage?: string
 } & NameField &
   EmailField &
   MobileNumberField &
@@ -62,6 +56,25 @@ export type UserRole = {
 }
 
 export type UserRoleQuery = Common & UserRole
+
+export type UserProfile = {
+  gender?: string
+  dateOfBirth?: string
+  countryOfBirth?: string
+  nationality?: string
+  nativeLanguage?: string
+  bio?: string
+  stage?: string
+  otherContacts?: any
+  emergencyContactDetails?: {
+    name: string
+    mobileNumber: string
+    email: string
+    relation: string
+  }
+}
+
+export type UserProfileQuery = Common & UserProfile
 
 export type Country = {
   name: string
