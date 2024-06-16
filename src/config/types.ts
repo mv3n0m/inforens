@@ -1,4 +1,4 @@
-import { SERVICE } from './enums'
+import { ADDRESS_TAG, SERVICE } from './enums'
 
 export type Common = {
   id?: number | string
@@ -143,3 +143,16 @@ export type UserPreferences = {
 }
 
 export type UserPreferencesQuery = Common & UserPreferences
+
+export type Address = {
+  userId: string
+  address1: string
+  address2?: string
+  countryCode: string
+  state: string
+  postCode: string
+  city: string
+  tag: ADDRESS_TAG
+}
+
+export type AddressQuery = Common & Address

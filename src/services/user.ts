@@ -1,4 +1,5 @@
 import {
+  AddressDbHandler,
   UserDbHandler,
   UserPreferencesDbHandler,
   UserRoleDbHandler,
@@ -7,7 +8,7 @@ import { Types } from '../config'
 import { encryptPassword, logger, uuid } from '../utils'
 import { Op } from 'sequelize'
 import { AccountService } from '.'
-import { SERVICE, USER_ROLE } from '../config/enums'
+import { ADDRESS_TAG, SERVICE, USER_ROLE } from '../config/enums'
 import sqlize from '../db/sqlize'
 
 export default class {
@@ -147,6 +148,30 @@ export default class {
 
   static async getUserProfile(userId: string) {
     const response = await UserDbHandler.getUserProfile(userId)
+
+    return response
+  }
+
+  static async addUserAddress(data: Types.Address) {
+    await AddressDbHandler.createAddress(data)
+
+    return { msg: `User's ${data.tag} address added successfully` }
+  }
+
+  static async updateUserAddress(userId: string, data: Partial<Types.Address>) {
+    const { tag } = data
+    if (!tag) {
+      logger.error('Tag is a required field')
+      throw new Error()
+    }
+    // check for address existence according to tag
+    await AddressDbHandler.updateAddress(userId, tag, data)
+
+    return { msg: `User's ${tag} address updated successfully` }
+  }
+
+  static async getUserAddresses(userId: string) {
+    const response = await AddressDbHandler.getAddressesByUserId(userId)
 
     return response
   }

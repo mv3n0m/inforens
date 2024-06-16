@@ -126,4 +126,48 @@ export default class {
       next(error)
     }
   }
+
+  static async addUserAddress(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = res.locals.id
+
+      const response = await UserService.addUserAddress({
+        userId,
+        ...req.body,
+      })
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async updateUserAddress(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const userId = res.locals.id
+
+      const response = await UserService.updateUserAddress(userId, req.body)
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async getUserAddresses(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const userId = res.locals.id
+
+      const response = await UserService.getUserAddresses(userId)
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
 }

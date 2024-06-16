@@ -4,6 +4,7 @@ import {
   userPreferencesValidationRules,
   setUserStageValidationRules,
   userProfileValidationRules,
+  userAddressValdiationRules,
 } from '../schemas/user'
 import validator from '../middlewares/validator'
 
@@ -268,7 +269,7 @@ router.put(
  *               nativeLanguage:
  *                 type: string
  *               bio:
- *                 type: text
+ *                 type: string
  *               otherContacts:
  *                 type: array
  *                 items:
@@ -320,5 +321,134 @@ router.patch(
  *               type: object
  */
 router.get('/profile', UserController.getUserProfile)
+
+/**
+ * @swagger
+ * /users/address:
+ *   post:
+ *     summary: Add user's address
+ *     tags:
+ *       - Users
+ *     security:
+ *       - JWTAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               address1:
+ *                 type: string
+ *               address2:
+ *                 type: string
+ *               countryCode:
+ *                 type: string
+ *                 description: must be 'ISO 3166-1 alpha-3' code
+ *                 example: USA
+ *               state:
+ *                 type: string
+ *               postCode:
+ *                 type: string
+ *               city:
+ *                 type: string
+ *               tag:
+ *                 type: string
+ *             required:
+ *               - address1
+ *               - countryCode
+ *               - state
+ *               - postCode
+ *               - city
+ *               - tag
+ *     responses:
+ *       200:
+ *         description: success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ */
+router.post(
+  '/address',
+  userAddressValdiationRules,
+  validator,
+  UserController.addUserAddress,
+)
+
+/**
+ * @swagger
+ * /users/address:
+ *   put:
+ *     summary: Update user's address
+ *     tags:
+ *       - Users
+ *     security:
+ *       - JWTAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               address1:
+ *                 type: string
+ *               address2:
+ *                 type: string
+ *               countryCode:
+ *                 type: string
+ *                 description: must be 'ISO 3166-1 alpha-3' code
+ *                 example: USA
+ *               state:
+ *                 type: string
+ *               postCode:
+ *                 type: string
+ *               city:
+ *                 type: string
+ *               tag:
+ *                 type: string
+ *             required:
+ *               - address1
+ *               - countryCode
+ *               - state
+ *               - postCode
+ *               - city
+ *               - tag
+ *     responses:
+ *       200:
+ *         description: success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ */
+router.put(
+  '/address',
+  userAddressValdiationRules,
+  validator,
+  UserController.updateUserAddress,
+)
+
+/**
+ * @swagger
+ * /users/addresses:
+ *   get:
+ *     summary: Get user's addresses
+ *     tags:
+ *       - Users
+ *     security:
+ *       - JWTAuth: []
+ *     responses:
+ *       200:
+ *         $ref: '#/components/responses/SuccessResponse'
+ */
+router.get('/addresses', UserController.getUserAddresses)
 
 export default router

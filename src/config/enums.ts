@@ -46,3 +46,9 @@ export enum RECOMMENDATION_KEYS {
   Courses = 'courses',
   Products = 'products',
 }
+
+export enum ADDRESS_TAG {
+  Permanent = 'permanent',
+  Current = 'current',
+  Correspondence = 'correspondence',
+}

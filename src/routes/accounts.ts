@@ -169,6 +169,7 @@ router.post(
  *             properties:
  *               email:
  *                 type: string
+ *                 example: "string@email.com"
  *               password:
  *                 type: string
  *               mobileNumber:

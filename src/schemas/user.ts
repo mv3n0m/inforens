@@ -1,5 +1,5 @@
 import { body } from 'express-validator'
-import { USER_STAGE } from '../config/enums'
+import { ADDRESS_TAG, USER_STAGE } from '../config/enums'
 
 export const setUserStageValidationRules = [
   body('stage')
@@ -101,4 +101,24 @@ export const userProfileValidationRules = [
       return true
     }),
   body('emergencyContactDetails').optional(),
+]
+
+export const userAddressValdiationRules = [
+  body('address1').isString(),
+  body('address2').optional().isString(),
+  body('countryCode').isString(),
+  body('state').isString(),
+  body('postCode').isString(),
+  body('city').isString(),
+  body('tag')
+    .isString()
+    .custom((value) => {
+      if (value in ADDRESS_TAG) return true
+      throw new Error(
+        `Invalid address tag. Options: [${Object.keys(ADDRESS_TAG)}]`,
+      )
+    })
+    .customSanitizer(
+      (value: string) => (ADDRESS_TAG as Record<string, string>)[value],
+    ),
 ]
