@@ -2,7 +2,7 @@ import express from 'express'
 import validator from '../middlewares/validator'
 import { getRecommendationsValidationRules } from '../schemas/services'
 import { ServicesController } from '../controllers'
-import { setUserPreferencesValidationRules } from '../schemas/user'
+import { userPreferencesValidationRules } from '../schemas/user'
 
 const router = express.Router()
 
@@ -57,6 +57,7 @@ router.get(
  *               countryCode:
  *                 type: string
  *                 description: must be 'ISO 3166-1 alpha-3' code
+ *                 example: USA
  *               regionIds:
  *                 type: array
  *                 items:
@@ -88,7 +89,7 @@ router.get(
  */
 router.post(
   '/recommendations/guides',
-  setUserPreferencesValidationRules,
+  userPreferencesValidationRules,
   validator,
   ServicesController.getRecommendations,
 )
