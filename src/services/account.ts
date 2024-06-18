@@ -21,14 +21,18 @@ export default class {
   }
 
   static async verifyOtp(
-    sessionOtp: string | undefined,
+    storeOtp: string | undefined,
     otp: string,
     isMobile?: boolean,
   ) {
-    if (sessionOtp !== otp) throw new Error('INVALID_OTP')
-    return {
+    if (storeOtp !== otp) throw new Error('INVALID_OTP')
+    let response = {
       msg: `${isMobile ? 'Mobile number' : 'Email'} verified successfully.`,
     }
+
+    // if ()
+
+    return response
   }
 
   static async grantAccess(

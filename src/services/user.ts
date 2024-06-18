@@ -5,7 +5,7 @@ import {
   UserRoleDbHandler,
 } from '../db/handlers'
 import { Types } from '../config'
-import { encryptPassword, logger, uuid } from '../utils'
+import { _jwt, encryptPassword, logger, uuid } from '../utils'
 import { Op } from 'sequelize'
 import { AccountService } from '.'
 import { ADDRESS_TAG, SERVICE, USER_ROLE } from '../config/enums'
@@ -26,8 +26,8 @@ export default class {
     return users
   }
 
-  static async getUser(data: Partial<Types.UserQuery>) {
-    const user = await UserDbHandler.getUser(data)
+  static async getUser(data: Partial<Types.UserQuery>, attributes?: string[]) {
+    const user = await UserDbHandler.getUser(data, { attributes })
     if (!user) {
       logger.error('User not found')
       throw new Error('USER_NOT_FOUND')
@@ -75,9 +75,12 @@ export default class {
     const id = uuid()
     const password = encryptPassword(data.password)
     await UserDbHandler.createUser({ ...data, id, password })
-    const response = await AccountService.generateOtp({ email })
     // AuditLogDBService.create(auditLog).catch((err) => logger.error(err))
-    return { id, ...response }
+    return {
+      msg: 'User created successfully.',
+      statusCode: 201,
+      accessToken: _jwt.createToken({ id, origin: 'initial' }),
+    }
   }
 
   static async setUserRole(data: Types.UserRole & { userRole: USER_ROLE }) {

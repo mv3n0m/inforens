@@ -1,5 +1,15 @@
 import { body } from 'express-validator'
-import { ADDRESS_TAG, USER_STAGE } from '../config/enums'
+import { ADDRESS_TAG, USER_ROLE, USER_STAGE } from '../config/enums'
+
+export const setUserRoleValidationRules = [
+  body('userRole')
+    .notEmpty()
+    .isString()
+    .custom((value) => {
+      if (value in USER_ROLE) return true
+      throw new Error(`Invalid role. Options: [${Object.keys(USER_ROLE)}]`)
+    }),
+]
 
 export const setUserStageValidationRules = [
   body('stage')

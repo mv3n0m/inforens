@@ -5,12 +5,77 @@ import {
   setUserStageValidationRules,
   userProfileValidationRules,
   userAddressValdiationRules,
+  setUserRoleValidationRules,
 } from '../schemas/user'
 import validator from '../middlewares/validator'
 
 const router = express.Router()
 
 router.get('/', UserController.getUsers)
+
+/**
+ * @swagger
+ * /users/basic-info:
+ *   get:
+ *     summary: Get user's basic info
+ *     tags:
+ *       - Users
+ *     security:
+ *       - JWTAuth: []
+ *     responses:
+ *       200:
+ *         description: success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               example: {firstName: string, lastName: string, email: string, mobileNumber: string, profileImgUrl: string, emailVerified: false}
+ */
+router.get('/basic-info', UserController.getUserBasicInfo)
+
+/**
+ * @swagger
+ * /users/role:
+ *   post:
+ *     summary: Set user's role
+ *     tags:
+ *       - Users
+ *     security:
+ *       - JWTAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userRole:
+ *                 type: string
+ *                 enum:
+ *                   - Student
+ *                   - Guide
+ *                   - Staff
+ *                   - Admin
+ *             required:
+ *               - userRole
+ *     responses:
+ *       200:
+ *         description: success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ *                   example: User role set successfully
+ */
+router.post(
+  '/role',
+  setUserRoleValidationRules,
+  validator,
+  UserController.setUserRole,
+)
 
 /**
  * @swagger
