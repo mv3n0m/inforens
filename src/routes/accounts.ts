@@ -4,7 +4,6 @@ import {
   signInValidationRules,
   signUpValidationRules,
   mobileNumberValidationRule,
-  setUserRoleValidationRules,
   verifyOtpValidationRules,
   resetPasswordValidationRules,
   changePasswordValidationRules,
@@ -336,51 +335,6 @@ router.patch(
   changePasswordValidationRules,
   validator,
   AccountController.changePassword,
-)
-
-/**
- * @swagger
- * /accounts/set-user-role:
- *   post:
- *     tags:
- *       - Accounts
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               userRole:
- *                 type: string
- *                 enum:
- *                   - Student
- *                   - Guide
- *                   - Staff
- *                   - Admin
- *               token:
- *                 type: string
- *                 description: token received from 'sign-up' request
- *             required:
- *               - userRole
- *               - token
- *     responses:
- *       200:
- *         description: success
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 msg:
- *                   type: string
- *                   example: User role set successfully
- */
-router.post(
-  '/set-user-role',
-  setUserRoleValidationRules,
-  validator,
-  UserController.setUserRole,
 )
 
 export default router

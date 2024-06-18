@@ -11,21 +11,22 @@ export default class {
     }
   }
 
-  static async setUserRole(req: Request, _res: Response, next: NextFunction) {
+  static async setUserRole(req: Request, res: Response, next: NextFunction) {
     try {
-      const { token, userRole } = req.body
+      const { userRole } = req.body
 
-      await UserService.getUserById(token)
+      const userId = res.locals.id
+      await UserService.getUserById(userId)
 
       const role = await AdminService.getRoleByName(userRole)
       if (!role) throw new Error('ROLE_NOT_FOUND')
 
       const response = await UserService.setUserRole({
-        userId: token,
+        userId,
         roleId: role.id,
         userRole,
       })
-      await UserService.updateUserStatus(token)
+      await UserService.updateUserStatus(userId)
       next(response)
     } catch (error) {
       next(error)
