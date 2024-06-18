@@ -11,6 +11,22 @@ export default class {
     }
   }
 
+  static async getUserBasicInfo(
+    _req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const userId = res.locals.id
+      const user = await UserService.getUserById(userId)
+
+      // check for profileImgUrl and emailVerified
+      next({ user, profileImgUrl: '', emailVerified: false })
+    } catch (error) {
+      next(error)
+    }
+  }
+
   static async setUserRole(req: Request, res: Response, next: NextFunction) {
     try {
       const { userRole } = req.body

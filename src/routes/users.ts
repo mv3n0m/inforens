@@ -15,8 +15,29 @@ router.get('/', UserController.getUsers)
 
 /**
  * @swagger
+ * /users/basic-info:
+ *   get:
+ *     summary: Get user's basic info
+ *     tags:
+ *       - Users
+ *     security:
+ *       - JWTAuth: []
+ *     responses:
+ *       200:
+ *         description: success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               example: {firstName: string, lastName: string, email: string, mobileNumber: string, profileImgUrl: string, emailVerified: false}
+ */
+router.get('/basic-info', UserController.getUserBasicInfo)
+
+/**
+ * @swagger
  * /users/role:
  *   post:
+ *     summary: Set user's role
  *     tags:
  *       - Users
  *     security:

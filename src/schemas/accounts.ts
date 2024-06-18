@@ -1,7 +1,7 @@
 import { body } from 'express-validator'
 
 const validateMobileNumber = (value: string) => {
-  const mobileNumberRegex = /^\+\d{1,3}\s\d{6,14}$/
+  const mobileNumberRegex = /^\+\d{1,2}([ -]?)\d{1,4}\s\d{6,14}$/
   if (!mobileNumberRegex.test(value)) {
     throw new Error(
       'Invalid mobile number format. Use +<countryCode><space><mobileNumber>',

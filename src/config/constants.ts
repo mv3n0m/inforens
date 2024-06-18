@@ -83,6 +83,14 @@ export const errorCodes: Record<
     statusCode: 400,
     message: 'User not registered as a guide.',
   },
+  OTP_EXPIRED: {
+    statusCode: 400,
+    message: 'OTP has expired',
+  },
+  MOB_VER: {
+    statusCode: 401,
+    message: 'Mobile verification incomplete.',
+  },
   '': {
     statusCode: 500,
     message: 'Something went wrong',

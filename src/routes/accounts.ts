@@ -1,5 +1,5 @@
 import express from 'express'
-import { AccountController, UserController } from '../controllers'
+import { AccountController } from '../controllers'
 import {
   signInValidationRules,
   signUpValidationRules,
@@ -49,6 +49,16 @@ const router = express.Router()
  *                 totp:
  *                   type: string
  *                   example: '546920 - (Temporarily provided for testing purposes)'
+ *       206:
+ *         description: flow change
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ *                   example: Active user
  */
 router.post(
   '/request-mobile-otp',
@@ -61,7 +71,6 @@ router.post(
  * @swagger
  * /accounts/verify-otp:
  *   post:
- *     summary: Verify OTPs generated from requests => 'request-mobile-otp' || 'sign-up'
  *     tags:
  *       - Accounts
  *     requestBody:
@@ -128,7 +137,7 @@ router.post(
  *               - email
  *               - mobileNumber
  *     responses:
- *       200:
+ *       201:
  *         description: success
  *         content:
  *           application/json:
@@ -137,14 +146,10 @@ router.post(
  *               properties:
  *                 msg:
  *                   type: string
- *                   example: OTP sent to user's WhatsApp
- *                 token:
+ *                   example: User created successfully
+ *                 accessToken:
  *                   type: string
- *                   format: uuid
- *                   example: 882d66ce-33da-424b-b6db-38ea4ab3e152
- *                 totp:
- *                   type: string
- *                   example: '546920 - (Temporarily provided for testing purposes)'
+ *                   example: eyJhbGciOiJIUzI1NiIsInR5cCI6Ikp.....
  */
 router.post(
   '/sign-up',

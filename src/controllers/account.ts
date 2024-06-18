@@ -8,7 +8,6 @@ import {
 } from '../config/types'
 import { encryptPassword, uuid } from '../utils'
 import { otpStore } from '../store'
-// import { sessionStore } from '../store'
 
 export default class {
   static async requestMobileOtp(
@@ -16,14 +15,29 @@ export default class {
     _res: Response,
     next: NextFunction,
   ) {
+    const { mobileNumber } = req.body
+
     try {
-      const { mobileNumber } = req.body
-      const response = await AccountService.generateOtp({ mobileNumber })
-      const { otp, ...rest } = response
+      const user = await UserService.getUser({ mobileNumber }, [
+        'id',
+        'isActive',
+      ])
+
+      if (user?.isActive) {
+        next({ msg: 'Active user.', statusCode: 206 })
+      }
+    } catch (error) {
+      console.error(error)
+    }
+
+    try {
+      const { otp, ...rest } = await AccountService.generateOtp({
+        mobileNumber,
+      })
 
       const token = uuid()
-      await otpStore.setOTP(token, otp)
-      // sessionStore.setOtp(req, token, otp)
+      await otpStore.setOTP(token, otp, mobileNumber)
+
       next({ ...rest, token })
     } catch (error) {
       next(error)
@@ -31,26 +45,25 @@ export default class {
   }
 
   static async verifyOtp(req: Request, _res: Response, next: NextFunction) {
+    const { otp, token } = req.body
     try {
-      const { otp, token } = req.body
-
-      let user
-      if (!otp.endsWith('0')) {
-        user = await UserService.getUserById(token)
-        if (user.isActive) throw new Error('INVALID_TOKEN')
+      const user = await UserService.getUserById(token)
+      if (!otp.endsWith('0') && user.isActive) {
+        throw new Error('INVALID_TOKEN')
       }
+    } catch (error) {
+      console.error(error)
+    }
 
-      // const sessionOtp = sessionStore.getOtp(req, token)
-      const sessionOtp = await otpStore.getOTP(token)
+    try {
+      const storeOtp = await otpStore.getOTP(token)
       const response = await AccountService.verifyOtp(
-        sessionOtp || '',
+        storeOtp.otp || '',
         otp,
-        !user,
+        true,
       )
-      user && (await UserService.updateUserStatus(token))
 
-      // sessionStore.deleteOtp(req, token)
-      await otpStore.deleteOTP(token)
+      await otpStore.updateStatus(token, true)
       next(response)
     } catch (error) {
       next(error)
@@ -61,11 +74,9 @@ export default class {
     try {
       const userData: User = req.body
       const response = await UserService.createUser(userData)
-      const { otp, id, ...rest } = response
 
-      // sessionStore.setOtp(req, id, otp)
-      await otpStore.setOTP(id, otp)
-      next({ ...rest, token: id, statusCode: 201 })
+      await otpStore.deleteOTPByReference(userData.mobileNumber)
+      next(response)
     } catch (error) {
       next(error)
     }
@@ -89,7 +100,6 @@ export default class {
       const response = await AccountService.generateOtp(body)
       const { otp, ...rest } = response
 
-      // sessionStore.setOtp(req, user.id, otp)
       await otpStore.setOTP(user.id, otp)
       next({ ...rest, token: user.id })
     } catch (error) {
@@ -104,11 +114,9 @@ export default class {
   ) {
     try {
       const { otp, token } = req.body
-      // const sessionOtp = sessionStore.getOtp(req, token)
-      const sessionOtp = await otpStore.getOTP(token)
+      const storeOtp = await otpStore.getOTP(token)
       // send email with the above otp and token embedded to redirect user to change password page
-      await AccountService.verifyOtp(sessionOtp || '', otp)
-      // sessionStore.deleteOtp(req, token)
+      await AccountService.verifyOtp(storeOtp.otp || '', otp)
       await otpStore.deleteOTP(token)
 
       next({ msg: 'Password reset request confirmed.' })
