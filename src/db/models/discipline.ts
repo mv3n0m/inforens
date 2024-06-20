@@ -2,7 +2,7 @@ import sqlize from '../sqlize'
 import { DataTypes, Model } from 'sequelize'
 import { SERVICE } from '../../config/enums'
 
-class Course extends Model {
+class Discipline extends Model {
   public id!: number
   public name!: string
   public description?: string
@@ -11,7 +11,7 @@ class Course extends Model {
   public updatedBy?: string | SERVICE
 }
 
-Course.init(
+Discipline.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -44,8 +44,8 @@ Course.init(
   },
   {
     sequelize: sqlize,
-    modelName: 'course',
-    tableName: 'courses',
+    modelName: 'discipline',
+    tableName: 'disciplines',
     defaultScope: {
       attributes: {
         exclude: [
@@ -60,4 +60,4 @@ Course.init(
   },
 )
 
-export default Course
+export default Discipline

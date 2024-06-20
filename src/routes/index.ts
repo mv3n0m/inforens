@@ -2,6 +2,7 @@ import { Express } from 'express'
 import { baseUrl } from '../envt'
 import accountRouter from './accounts'
 import userRouter from './users'
+import guidesRouter from './guides'
 import adminRouter from './admin'
 import commonRouter from './common'
 import servicesRouter from './services'
@@ -14,6 +15,7 @@ const publicRoutes = {
 
 const privateRoutes = {
   '/users': userRouter,
+  '/guides': guidesRouter,
   '/services': servicesRouter,
 }
 

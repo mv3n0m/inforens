@@ -2,20 +2,16 @@ import sqlize from '../sqlize'
 import { DataTypes, Model } from 'sequelize'
 import { SERVICE } from '../../config/enums'
 
-class UserPreferences extends Model {
-  public id!: number
-  public userId!: string
-  public countryCode!: string
-  public regionIds?: Array<number>
-  public levelIds?: Array<number>
-  public disciplineIds?: Array<number>
-  public universityIds?: Array<number>
+class Language extends Model {
+  public id!: string
+  public name!: string
+  public description?: string
   public isActive?: boolean
   public createdBy?: string | SERVICE
   public updatedBy?: string | SERVICE
 }
 
-UserPreferences.init(
+Language.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -24,29 +20,12 @@ UserPreferences.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    userId: {
-      type: DataTypes.STRING,
-      unique: true,
-      allowNull: false,
-    },
-    countryCode: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    regionIds: {
-      type: DataTypes.ARRAY(DataTypes.INTEGER),
-      allowNull: true,
-    },
-    levelIds: {
-      type: DataTypes.ARRAY(DataTypes.INTEGER),
-      allowNull: true,
-    },
-    disciplineIds: {
-      type: DataTypes.ARRAY(DataTypes.INTEGER),
-      allowNull: true,
-    },
-    universityIds: {
-      type: DataTypes.ARRAY(DataTypes.INTEGER),
+    description: {
+      type: DataTypes.STRING,
       allowNull: true,
     },
     isActive: {
@@ -65,13 +44,11 @@ UserPreferences.init(
   },
   {
     sequelize: sqlize,
-    modelName: 'userPreference',
-    tableName: 'userPreferences',
+    modelName: 'language',
+    tableName: 'languages',
     defaultScope: {
       attributes: {
         exclude: [
-          'id',
-          'userId',
           'isActive',
           'createdBy',
           'createdAt',
@@ -83,4 +60,4 @@ UserPreferences.init(
   },
 )
 
-export default UserPreferences
+export default Language

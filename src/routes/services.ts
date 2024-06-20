@@ -23,7 +23,6 @@ const router = express.Router()
  *           key: string
  *           enum:
  *             - Guides
- *            # - Courses
  *            # - Products
  *           default: Guides
  *     responses:
@@ -68,7 +67,7 @@ router.get(
  *                 items:
  *                   type: integer
  *                 example: [1]
- *               courseIds:
+ *               disciplineIds:
  *                 type: array
  *                 items:
  *                   type: integer

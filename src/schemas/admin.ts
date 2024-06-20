@@ -33,7 +33,7 @@ export const createLevelValidationRules = [
   body('isActive').optional().isBoolean(),
 ]
 
-export const createCourseValidationRules = [
+export const createDisciplineValidationRules = [
   body('name').notEmpty().isString(),
   body('description').optional().isString(),
   body('isActive').optional().isBoolean(),
@@ -41,4 +41,22 @@ export const createCourseValidationRules = [
 
 export const approveGuideValidationRules = [
   body('userId').notEmpty().isString(),
+]
+
+export const createSkillValidationRules = [
+  body('name').notEmpty().isString(),
+  body('description').optional().isString(),
+  body('isActive').optional().isBoolean(),
+]
+
+export const createLanguageValidationRules = [
+  body('name').notEmpty().isString(),
+  body('description').optional().isString(),
+  body('isActive').optional().isBoolean(),
+]
+
+export const createInterestValidationRules = [
+  body('name').notEmpty().isString(),
+  body('description').optional().isString(),
+  body('isActive').optional().isBoolean(),
 ]

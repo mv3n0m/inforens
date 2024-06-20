@@ -150,7 +150,7 @@ router.patch(
  *                 items:
  *                   type: integer
  *                 example: [1]
- *               courseIds:
+ *               disciplineIds:
  *                 type: array
  *                 items:
  *                   type: integer
@@ -231,7 +231,7 @@ router.post(
  *                       name:
  *                         type: string
  *                         example: Bachelors
- *                 courses:
+ *                 disciplines:
  *                   type: array
  *                   items:
  *                     type: object
@@ -272,7 +272,7 @@ router.get('/preferences', UserController.getUserPreferences)
  *                 items:
  *                   type: integer
  *                 example: [1]
- *               courseIds:
+ *               disciplineIds:
  *                 type: array
  *                 items:
  *                   type: integer

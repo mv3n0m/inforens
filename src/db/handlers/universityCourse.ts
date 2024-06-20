@@ -1,5 +1,5 @@
 import { Types } from '../../config'
-import UniversityCourse from '../models/course'
+import UniversityCourse from '../models/discipline'
 
 export default class {
   static async getAllUniversityCourses(
@@ -19,7 +19,11 @@ export default class {
       attributes?: string[]
     },
   ) {
-    return UniversityCourse.findOne({ where: criteria, raw: true, ...options })
+    return UniversityCourse.findOne({
+      where: criteria,
+      raw: true,
+      ...options,
+    })
   }
 
   static async getUniversityCourseById(

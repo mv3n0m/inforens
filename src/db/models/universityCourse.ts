@@ -4,7 +4,7 @@ import { SERVICE } from '../../config/enums'
 
 class UniversityCourse extends Model {
   public id!: number
-  public courseId!: number
+  public disciplineId!: number
   public name!: string
   public code!: string
   public levelId!: number
@@ -24,7 +24,7 @@ UniversityCourse.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    courseId: {
+    disciplineId: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },

@@ -76,6 +76,26 @@ export type UserProfile = {
 
 export type UserProfileQuery = Common & UserProfile
 
+export type GuideProfile = {
+  userId: string
+  universityEmail: string
+  countryId: number
+  universityId: number
+  levelId: number
+  disciplineId: number
+  courseName?: string
+  yearOfCompletion: number
+  identityProof: string
+  resume: string
+  introVidUrl?: string
+  aboutMe?: string
+  skillIds?: Array<number>
+  languageIds?: Array<number>
+  interestIds?: Array<number>
+}
+
+export type GuideProfileQuery = Common & GuideProfile
+
 export type Country = {
   name: string
   code: string
@@ -112,16 +132,16 @@ export type Level = {
 
 export type LevelQuery = Common & Level
 
-export type Course = {
+export type Discipline = {
   name: string
   description?: string
   isActive?: boolean
 }
 
-export type CourseQuery = Common & Course
+export type DisciplineQuery = Common & Discipline
 
 export type UniversityCourse = {
-  courseId: number
+  disciplineId: number
   name: string
   code: string
   levelId: number
@@ -137,7 +157,7 @@ export type UserPreferences = {
   countryCode: string
   regionIds?: Array<number>
   levelIds?: Array<number>
-  courseIds?: Array<number>
+  disciplineIds?: Array<number>
   universityIds?: Array<number>
   isActive?: boolean
 }
@@ -156,3 +176,27 @@ export type Address = {
 }
 
 export type AddressQuery = Common & Address
+
+export type Skill = {
+  name: string
+  description?: string
+  isActive?: boolean
+}
+
+export type SkillQuery = Common & Skill
+
+export type Language = {
+  name: string
+  description?: string
+  isActive?: boolean
+}
+
+export type LanguageQuery = Common & Language
+
+export type Interest = {
+  name: string
+  description?: string
+  isActive?: boolean
+}
+
+export type InterestQuery = Common & Interest

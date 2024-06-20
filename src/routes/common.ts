@@ -2,7 +2,7 @@ import express from 'express'
 import { CommonController } from '../controllers'
 import validator from '../middlewares/validator'
 import {
-  getCoursesValidationRules,
+  getDisciplinesValidationRules,
   getRegionsValidationRules,
   getUniversitiesValidationRules,
 } from '../schemas/common'
@@ -96,28 +96,59 @@ router.get('/levels', CommonController.fetchLevels)
 
 /**
  * @swagger
- * /common/courses:
+ * /common/disciplines:
  *   get:
- *     summary: Retrieve a list of courses
+ *     summary: Retrieve a list of disciplines
  *     tags:
  *       - Common
- *     parameters:
- *       - in: query
- *         name: name
- *         required: false
- *         description: Name of the course
- *         schema:
- *           type: string
- *           example: "Computer Science Engineering"
  *     responses:
  *       200:
  *         $ref: '#/components/responses/SuccessResponse'
  */
 router.get(
-  '/courses',
-  getCoursesValidationRules,
+  '/disciplines',
+  getDisciplinesValidationRules,
   validator,
-  CommonController.fetchCourses,
+  CommonController.fetchDisciplines,
 )
+
+/**
+ * @swagger
+ * /common/skills:
+ *   get:
+ *     summary: Retrieve a list of skills
+ *     tags:
+ *       - Common
+ *     responses:
+ *       200:
+ *         $ref: '#/components/responses/SuccessResponse'
+ */
+router.get('/skills', CommonController.fetchSkills)
+
+/**
+ * @swagger
+ * /common/languages:
+ *   get:
+ *     summary: Retrieve a list of languages
+ *     tags:
+ *       - Common
+ *     responses:
+ *       200:
+ *         $ref: '#/components/responses/SuccessResponse'
+ */
+router.get('/languages', CommonController.fetchLanguages)
+
+/**
+ * @swagger
+ * /common/interests:
+ *   get:
+ *     summary: Retrieve a list of interests
+ *     tags:
+ *       - Common
+ *     responses:
+ *       200:
+ *         $ref: '#/components/responses/SuccessResponse'
+ */
+router.get('/interests', CommonController.fetchInterests)
 
 export default router

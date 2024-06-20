@@ -48,9 +48,48 @@ export default class {
     }
   }
 
-  static async fetchCourses(req: Request, _res: Response, next: NextFunction) {
+  static async fetchDisciplines(
+    req: Request,
+    _res: Response,
+    next: NextFunction,
+  ) {
     try {
-      const response = await CommonService.fetchCourses(req.query)
+      const response = await CommonService.fetchDisciplines()
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async fetchSkills(_req: Request, _res: Response, next: NextFunction) {
+    try {
+      const response = await CommonService.fetchSkills()
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async fetchLanguages(
+    _req: Request,
+    _res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const response = await CommonService.fetchLanguages()
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async fetchInterests(
+    _req: Request,
+    _res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const response = await CommonService.fetchInterests()
       next(response)
     } catch (error) {
       next(error)

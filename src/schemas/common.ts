@@ -27,7 +27,7 @@ export const getUniversitiesValidationRules = [
   // // query('regionIds').customSanitizer((value) => value.map(Number)),
 ]
 
-export const getCoursesValidationRules = [
+export const getDisciplinesValidationRules = [
   query('name').optional().isString(),
   query('levelId').optional().isNumeric(),
   query('universityId').optional().isNumeric(),

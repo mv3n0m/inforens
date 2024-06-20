@@ -3,10 +3,13 @@ import { AdminController } from '../controllers'
 import {
   approveGuideValidationRules,
   createCountryValidationRules,
-  createCourseValidationRules,
+  createDisciplineValidationRules,
+  createInterestValidationRules,
+  createLanguageValidationRules,
   createLevelValidationRules,
   createRegionValidationRules,
   createRoleValidationRules,
+  createSkillValidationRules,
   createUniversityValidationRules,
 } from '../schemas/admin'
 import validator from '../middlewares/validator'
@@ -244,9 +247,9 @@ router.post(
 
 /**
  * @swagger
- * /admin/courses:
+ * /admin/disciplines:
  *   post:
- *     summary: Create a course record
+ *     summary: Create a discipline record
  *     tags:
  *       - Admin
  *     requestBody:
@@ -278,10 +281,133 @@ router.post(
  *                   type: string
  */
 router.post(
-  '/courses',
-  createCourseValidationRules,
+  '/disciplines',
+  createDisciplineValidationRules,
   validator,
-  AdminController.createCourse,
+  AdminController.createDiscipline,
+)
+
+/**
+ * @swagger
+ * /admin/skills:
+ *   post:
+ *     summary: Create a skill record
+ *     tags:
+ *       - Admin
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *               isActive:
+ *                 type: boolean
+ *                 description: Optional - true by default
+ *             required:
+ *               - name
+ *     responses:
+ *       201:
+ *         description: success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ */
+router.post(
+  '/skills',
+  createSkillValidationRules,
+  validator,
+  AdminController.createSkill,
+)
+
+/**
+ * @swagger
+ * /admin/languages:
+ *   post:
+ *     summary: Create a language record
+ *     tags:
+ *       - Admin
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *               isActive:
+ *                 type: boolean
+ *                 description: Optional - true by default
+ *             required:
+ *               - name
+ *     responses:
+ *       201:
+ *         description: success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ */
+router.post(
+  '/languages',
+  createLanguageValidationRules,
+  validator,
+  AdminController.createLanguage,
+)
+
+/**
+ * @swagger
+ * /admin/interests:
+ *   post:
+ *     summary: Create a interest record
+ *     tags:
+ *       - Admin
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *               isActive:
+ *                 type: boolean
+ *                 description: Optional - true by default
+ *             required:
+ *               - name
+ *     responses:
+ *       201:
+ *         description: success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ */
+router.post(
+  '/interests',
+  createInterestValidationRules,
+  validator,
+  AdminController.createInterest,
 )
 
 /**
