@@ -87,6 +87,50 @@ export default class {
     }
   }
 
+  static async createSkill(req: Request, _res: Response, next: NextFunction) {
+    try {
+      const response = await AdminService.createSkill({
+        isActive: true,
+        ...req.body,
+      })
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async createLanguage(
+    req: Request,
+    _res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const response = await AdminService.createLanguage({
+        isActive: true,
+        ...req.body,
+      })
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async createInterest(
+    req: Request,
+    _res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const response = await AdminService.createInterest({
+        isActive: true,
+        ...req.body,
+      })
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
+
   static async approveGuide(req: Request, _res: Response, next: NextFunction) {
     try {
       const response = await AdminService.approveGuide(req.body.userId)

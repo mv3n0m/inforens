@@ -2,8 +2,11 @@ import { Types } from '../config'
 import {
   CountryDbHandler,
   CourseDbHandler,
+  InterestDbHandler,
+  LanguageDbHandler,
   LevelDbHandler,
   RegionDbHandler,
+  SkillDbHandler,
   UniversityDbHandler,
 } from '../db/handlers'
 
@@ -55,6 +58,21 @@ export default class {
   static async fetchLevels() {
     const levels = await LevelDbHandler.getLevels({ isActive: true })
     return levels
+  }
+
+  static async fetchSkills() {
+    const skills = await SkillDbHandler.getSkills({ isActive: true })
+    return skills
+  }
+
+  static async fetchLanguages() {
+    const languages = await LanguageDbHandler.getLanguages({ isActive: true })
+    return languages
+  }
+
+  static async fetchInterests() {
+    const interests = await InterestDbHandler.getInterests({ isActive: true })
+    return interests
   }
 
   static async fetchCourses(params: Partial<Types.Course>) {

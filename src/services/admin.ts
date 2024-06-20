@@ -3,9 +3,12 @@ import { Types } from '../config'
 import {
   CountryDbHandler,
   CourseDbHandler,
+  InterestDbHandler,
+  LanguageDbHandler,
   LevelDbHandler,
   RegionDbHandler,
   RoleDbHandler,
+  SkillDbHandler,
   UniversityDbHandler,
   UserRoleDbHandler,
 } from '../db/handlers'
@@ -103,6 +106,42 @@ export default class {
 
     await CourseDbHandler.createCourse(data)
     return { msg: 'Course created successfully', statusCode: 201 }
+  }
+
+  static async createSkill(data: Types.Skill) {
+    const skillExists = await SkillDbHandler.getSkill(data)
+    if (skillExists) {
+      logger.error('Skill already exists')
+      logger.info(skillExists)
+      throw new Error('SKILL_EXISTS')
+    }
+
+    await SkillDbHandler.createSkill(data)
+    return { msg: 'Skill created successfully', statusCode: 201 }
+  }
+
+  static async createLanguage(data: Types.Language) {
+    const languageExists = await LanguageDbHandler.getLanguage(data)
+    if (languageExists) {
+      logger.error('Language already exists')
+      logger.info(languageExists)
+      throw new Error('LANGUAGE_EXISTS')
+    }
+
+    await LanguageDbHandler.createLanguage(data)
+    return { msg: 'Language created successfully', statusCode: 201 }
+  }
+
+  static async createInterest(data: Types.Interest) {
+    const interestExists = await InterestDbHandler.getInterest(data)
+    if (interestExists) {
+      logger.error('Interest already exists')
+      logger.info(interestExists)
+      throw new Error('INTEREST_EXISTS')
+    }
+
+    await InterestDbHandler.createInterest(data)
+    return { msg: 'Interest created successfully', statusCode: 201 }
   }
 
   static async approveGuide(userId: string) {

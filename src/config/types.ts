@@ -156,3 +156,27 @@ export type Address = {
 }
 
 export type AddressQuery = Common & Address
+
+export type Skill = {
+  name: string
+  description?: string
+  isActive?: boolean
+}
+
+export type SkillQuery = Common & Skill
+
+export type Language = {
+  name: string
+  description?: string
+  isActive?: boolean
+}
+
+export type LanguageQuery = Common & Language
+
+export type Interest = {
+  name: string
+  description?: string
+  isActive?: boolean
+}
+
+export type InterestQuery = Common & Interest

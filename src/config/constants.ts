@@ -75,6 +75,18 @@ export const errorCodes: Record<
     statusCode: 400,
     message: 'University already exists',
   },
+  SKILL_EXISTS: {
+    statusCode: 400,
+    message: 'Skill already exists',
+  },
+  LANGUAGE_EXISTS: {
+    statusCode: 400,
+    message: 'Language already exists',
+  },
+  INTEREST_EXISTS: {
+    statusCode: 400,
+    message: 'Interest already exists',
+  },
   USERROLE_ALREADY_SET: {
     statusCode: 400,
     message: 'User role set already',
