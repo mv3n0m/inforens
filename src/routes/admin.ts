@@ -3,7 +3,7 @@ import { AdminController } from '../controllers'
 import {
   approveGuideValidationRules,
   createCountryValidationRules,
-  createCourseValidationRules,
+  createDisciplineValidationRules,
   createInterestValidationRules,
   createLanguageValidationRules,
   createLevelValidationRules,
@@ -247,9 +247,9 @@ router.post(
 
 /**
  * @swagger
- * /admin/courses:
+ * /admin/disciplines:
  *   post:
- *     summary: Create a course record
+ *     summary: Create a discipline record
  *     tags:
  *       - Admin
  *     requestBody:
@@ -281,10 +281,10 @@ router.post(
  *                   type: string
  */
 router.post(
-  '/courses',
-  createCourseValidationRules,
+  '/disciplines',
+  createDisciplineValidationRules,
   validator,
-  AdminController.createCourse,
+  AdminController.createDiscipline,
 )
 
 /**

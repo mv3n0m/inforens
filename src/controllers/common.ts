@@ -48,9 +48,13 @@ export default class {
     }
   }
 
-  static async fetchCourses(req: Request, _res: Response, next: NextFunction) {
+  static async fetchDisciplines(
+    req: Request,
+    _res: Response,
+    next: NextFunction,
+  ) {
     try {
-      const response = await CommonService.fetchCourses(req.query)
+      const response = await CommonService.fetchDisciplines()
       next(response)
     } catch (error) {
       next(error)

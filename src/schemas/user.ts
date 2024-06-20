@@ -54,16 +54,16 @@ export const userPreferencesValidationRules = [
       }
       return true
     }),
-  body('courseIds')
+  body('disciplineIds')
     .optional()
     .isArray()
     .custom((value) => {
       if (!Array.isArray(value)) {
-        throw new Error('courseIds must be an array')
+        throw new Error('disciplineIds must be an array')
       }
       for (const item of value) {
         if (typeof item !== 'number') {
-          throw new Error('courseIds must contain only numbers')
+          throw new Error('disciplineIds must contain only numbers')
         }
       }
       return true

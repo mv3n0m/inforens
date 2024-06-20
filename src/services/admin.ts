@@ -2,7 +2,7 @@ import { Op } from 'sequelize'
 import { Types } from '../config'
 import {
   CountryDbHandler,
-  CourseDbHandler,
+  DisciplineDbHandler,
   InterestDbHandler,
   LanguageDbHandler,
   LevelDbHandler,
@@ -96,16 +96,16 @@ export default class {
     return { msg: 'Level created successfully' }
   }
 
-  static async createCourse(data: Types.Course) {
-    const courseExists = await CourseDbHandler.getCourse(data)
-    if (courseExists) {
-      logger.error('Course already exists')
-      logger.info(courseExists)
-      throw new Error('COURSE_EXISTS')
+  static async createDiscipline(data: Types.Discipline) {
+    const disciplineExists = await DisciplineDbHandler.getDiscipline(data)
+    if (disciplineExists) {
+      logger.error('Discipline already exists')
+      logger.info(disciplineExists)
+      throw new Error('DISCIPLINE_EXISTS')
     }
 
-    await CourseDbHandler.createCourse(data)
-    return { msg: 'Course created successfully', statusCode: 201 }
+    await DisciplineDbHandler.createDiscipline(data)
+    return { msg: 'Discipline created successfully', statusCode: 201 }
   }
 
   static async createSkill(data: Types.Skill) {

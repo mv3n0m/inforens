@@ -33,7 +33,7 @@ export const createLevelValidationRules = [
   body('isActive').optional().isBoolean(),
 ]
 
-export const createCourseValidationRules = [
+export const createDisciplineValidationRules = [
   body('name').notEmpty().isString(),
   body('description').optional().isString(),
   body('isActive').optional().isBoolean(),

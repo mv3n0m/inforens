@@ -43,7 +43,7 @@ export enum USER_STAGE {
 
 export enum RECOMMENDATION_KEYS {
   Guides = 'guides',
-  Courses = 'courses',
+  Disciplines = 'disciplines',
   Products = 'products',
 }
 

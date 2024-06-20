@@ -75,9 +75,13 @@ export default class {
     }
   }
 
-  static async createCourse(req: Request, _res: Response, next: NextFunction) {
+  static async createDiscipline(
+    req: Request,
+    _res: Response,
+    next: NextFunction,
+  ) {
     try {
-      const response = await AdminService.createCourse({
+      const response = await AdminService.createDiscipline({
         isActive: true,
         ...req.body,
       })

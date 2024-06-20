@@ -1,7 +1,7 @@
 import { Types } from '../config'
 import {
   CountryDbHandler,
-  CourseDbHandler,
+  DisciplineDbHandler,
   InterestDbHandler,
   LanguageDbHandler,
   LevelDbHandler,
@@ -75,11 +75,8 @@ export default class {
     return interests
   }
 
-  static async fetchCourses(params: Partial<Types.Course>) {
-    const levels = await CourseDbHandler.getCourses({
-      isActive: true,
-      ...params,
-    })
+  static async fetchDisciplines() {
+    const levels = await DisciplineDbHandler.getDisciplines({ isActive: true })
     return levels
   }
 }

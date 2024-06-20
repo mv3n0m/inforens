@@ -75,6 +75,10 @@ export const errorCodes: Record<
     statusCode: 400,
     message: 'University already exists',
   },
+  DISCIPLINE_EXISTS: {
+    statusCode: 400,
+    message: 'Discipline already exists',
+  },
   SKILL_EXISTS: {
     statusCode: 400,
     message: 'Skill already exists',

@@ -24,7 +24,7 @@ export default class {
         jsonb_build_object('code', c.code, 'name', c.name) AS country,
         json_agg(DISTINCT jsonb_strip_nulls(jsonb_build_object('id', r.id, 'name', r.name))) AS regions,
         json_agg(DISTINCT jsonb_strip_nulls(jsonb_build_object('id', l.id, 'name', l.name))) AS levels,
-        json_agg(DISTINCT jsonb_strip_nulls(jsonb_build_object('id', cs.id, 'name', cs.name))) AS courses,
+        json_agg(DISTINCT jsonb_strip_nulls(jsonb_build_object('id', cs.id, 'name', cs.name))) AS disciplines,
         json_agg(DISTINCT jsonb_strip_nulls(jsonb_build_object('id', uni.id, 'name', uni.name))) AS universities
       FROM
         "userPreferences" u
@@ -35,7 +35,7 @@ export default class {
       LEFT JOIN
         "levels" l ON l.id = ANY(u."levelIds")
       LEFT JOIN
-        "courses" cs ON cs.id = ANY(u."courseIds")
+        "disciplines" cs ON cs.id = ANY(u."disciplineIds")
       LEFT JOIN
         "universities" uni ON uni.id = ANY(u."universityIds")
       WHERE
