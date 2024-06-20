@@ -335,7 +335,7 @@ router.post(
  *                   type: string
  *                   example: User password updated successfully
  */
-router.patch(
+router.post(
   '/change-password',
   changePasswordValidationRules,
   validator,
