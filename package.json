@@ -5,7 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "start": "node build/index.js",
-    "build": "tsc",
+    "build": "node --max-old-space-size=4096 `which tsc`",
     "dev": "npx nodemon --exec ts-node src/index.ts"
   },
   "keywords": [],
