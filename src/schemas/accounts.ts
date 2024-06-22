@@ -1,6 +1,6 @@
 import { body } from 'express-validator'
 
-const validateMobileNumber = (value: string) => {
+export const validateMobileNumber = (value: string) => {
   const mobileNumberRegex = /^\+\d{1,2}([ -]?)\d{1,4}\s\d{6,14}$/
   if (!mobileNumberRegex.test(value)) {
     throw new Error(
@@ -10,7 +10,7 @@ const validateMobileNumber = (value: string) => {
   return true
 }
 
-const validateEmail = (value: string) => {
+export const validateEmail = (value: string) => {
   const emailRegex = /^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/
   if (!emailRegex.test(value)) {
     throw new Error('Invalid email format.')
@@ -27,6 +27,7 @@ const tokenValidationRule = body('token').notEmpty().isString()
 
 export const emailValidationRule = body('email')
   .notEmpty()
+  .isEmail()
   .custom(validateEmail)
 export const passwordValidationRule = body('password').notEmpty().isString()
 export const verifyOtpValidationRules = [

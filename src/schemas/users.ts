@@ -1,5 +1,5 @@
 import { body } from 'express-validator'
-import { ADDRESS_TAG, USER_ROLE, USER_STAGE } from '../config/enums'
+import { ADDRESS_TAG, FILE_TAG, USER_ROLE, USER_STAGE } from '../config/enums'
 
 export const setUserRoleValidationRules = [
   body('userRole')
@@ -130,5 +130,20 @@ export const userAddressValdiationRules = [
     })
     .customSanitizer(
       (value: string) => (ADDRESS_TAG as Record<string, string>)[value],
+    ),
+]
+
+export const userFileValidationRules = [
+  body('tag')
+    .isString()
+    .isString()
+    .custom((value) => {
+      if (value in FILE_TAG) return true
+      throw new Error(
+        `Invalid address tag. Options: [${Object.keys(FILE_TAG)}]`,
+      )
+    })
+    .customSanitizer(
+      (value: string) => (FILE_TAG as Record<string, string>)[value],
     ),
 ]

@@ -1,11 +1,11 @@
-import { ADDRESS_TAG, SERVICE } from './enums'
+import { ADDRESS_TAG, FILE_TAG, SERVICE } from './enums'
 
 export type Common = {
   id?: number | string
   createdAt?: number
-  createdBy?: SERVICE | User
+  createdBy?: SERVICE | string
   updatedAt?: number
-  updatedBy?: SERVICE | User
+  updatedBy?: SERVICE | string
 }
 
 export type NameField = {
@@ -79,14 +79,12 @@ export type UserProfileQuery = Common & UserProfile
 export type GuideProfile = {
   userId: string
   universityEmail: string
-  countryId: number
+  countryCode: string
   universityId: number
   levelId: number
   disciplineId: number
   courseName?: string
   yearOfCompletion: number
-  identityProof: string
-  resume: string
   introVidUrl?: string
   aboutMe?: string
   skillIds?: Array<number>
@@ -200,3 +198,11 @@ export type Interest = {
 }
 
 export type InterestQuery = Common & Interest
+
+export type UserFile = {
+  userId: string
+  fileKey: string
+  tag: FILE_TAG
+}
+
+export type UserFileQuery = Common & UserFile

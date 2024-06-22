@@ -2,7 +2,7 @@ import express from 'express'
 import validator from '../middlewares/validator'
 import { getRecommendationsValidationRules } from '../schemas/services'
 import { ServicesController } from '../controllers'
-import { userPreferencesValidationRules } from '../schemas/user'
+import { userPreferencesValidationRules } from '../schemas/users'
 
 const router = express.Router()
 

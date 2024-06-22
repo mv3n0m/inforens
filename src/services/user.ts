@@ -1,15 +1,16 @@
 import {
   AddressDbHandler,
   UserDbHandler,
+  UserFileDbHandler,
   UserPreferencesDbHandler,
   UserRoleDbHandler,
 } from '../db/handlers'
 import { Types } from '../config'
 import { _jwt, encryptPassword, logger, uuid } from '../utils'
 import { Op } from 'sequelize'
-import { AccountService } from '.'
-import { ADDRESS_TAG, SERVICE, USER_ROLE } from '../config/enums'
+import { FILE_TAG, SERVICE, USER_ROLE } from '../config/enums'
 import sqlize from '../db/sqlize'
+import { buildFileKey, getSignedUrl, uploadFileToS3 } from '../utils/awsHelpers'
 
 export default class {
   static async getUsers() {
@@ -153,6 +154,37 @@ export default class {
     const response = await UserDbHandler.getUserProfile(userId)
 
     return response
+  }
+
+  static async updateUserFile(file: any, data: Types.UserFile) {
+    const { userId, tag } = data
+
+    const uploadResult = await uploadFileToS3(file, userId, tag + '-')
+    const fileKey = uploadResult.Key.split('/').pop()?.split('-').pop() || ''
+
+    await UserFileDbHandler.updateUserFile({
+      ...data,
+      fileKey,
+      createdBy: userId,
+      updatedBy: userId,
+    })
+    return { msg: 'User file updated successfully' }
+  }
+
+  static async getUserFiles(userId: string, options?: { tag: FILE_TAG }) {
+    const response = options?.tag
+      ? await UserFileDbHandler.getUserFileByUserIdAndTag(userId, options.tag)
+      : await UserFileDbHandler.getUserFilesByUserId(userId)
+
+    const userFiles = response.rows.map((row) => ({
+      signedUrl: getSignedUrl(
+        buildFileKey(row.fileKey, userId, row.tag + '-'),
+        60 * 5,
+      ),
+      ...row,
+    }))
+
+    return { count: response.count, rows: userFiles }
   }
 
   static async addUserAddress(data: Types.Address) {

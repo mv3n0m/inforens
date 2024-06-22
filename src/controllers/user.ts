@@ -1,5 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { AdminService, UserService } from '../services'
+import { uploadFileToS3 } from '../utils/awsHelpers'
+import { FILE_TAG } from '../config/enums'
 
 export default class {
   static async getUsers(_req: Request, _res: Response, next: NextFunction) {
@@ -20,8 +22,12 @@ export default class {
       const userId = res.locals.id
       const user = await UserService.getUserById(userId)
 
-      // check for profileImgUrl and emailVerified
-      next({ user, profileImgUrl: '', emailVerified: false })
+      const userFiles: any = await UserService.getUserFiles(userId, {
+        tag: FILE_TAG.ProfileImg,
+      })
+      const profileImgUrl = userFiles.count ? userFiles.rows[0].signedUrl : ''
+
+      next({ user, profileImgUrl, emailVerified: false })
     } catch (error) {
       next(error)
     }
@@ -144,6 +150,35 @@ export default class {
     }
   }
 
+  static async updateUserFile(req: Request, res: Response, next: NextFunction) {
+    if (!req.file) {
+      return res.status(400).json({ error: 'File is required' })
+    }
+
+    try {
+      const userId = res.locals.id
+
+      const response = await UserService.updateUserFile(req.file, {
+        userId,
+        ...req.body,
+      })
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async getUserFiles(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = res.locals.id
+
+      const response = await UserService.getUserFiles(userId, req.params as any)
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
+
   static async addUserAddress(req: Request, res: Response, next: NextFunction) {
     try {
       const userId = res.locals.id
@@ -174,7 +209,7 @@ export default class {
   }
 
   static async getUserAddresses(
-    req: Request,
+    _req: Request,
     res: Response,
     next: NextFunction,
   ) {
