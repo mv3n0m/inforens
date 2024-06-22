@@ -2,7 +2,6 @@ import express from 'express'
 import { CommonController } from '../controllers'
 import validator from '../middlewares/validator'
 import {
-  getDisciplinesValidationRules,
   getRegionsValidationRules,
   getUniversitiesValidationRules,
 } from '../schemas/common'
@@ -105,12 +104,7 @@ router.get('/levels', CommonController.fetchLevels)
  *       200:
  *         $ref: '#/components/responses/SuccessResponse'
  */
-router.get(
-  '/disciplines',
-  getDisciplinesValidationRules,
-  validator,
-  CommonController.fetchDisciplines,
-)
+router.get('/disciplines', CommonController.fetchDisciplines)
 
 /**
  * @swagger

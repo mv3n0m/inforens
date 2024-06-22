@@ -49,7 +49,7 @@ export default class {
   }
 
   static async fetchDisciplines(
-    req: Request,
+    _req: Request,
     _res: Response,
     next: NextFunction,
   ) {
