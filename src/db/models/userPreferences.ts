@@ -3,7 +3,6 @@ import { DataTypes, Model } from 'sequelize'
 import { SERVICE } from '../../config/enums'
 
 class UserPreferences extends Model {
-  public id!: number
   public userId!: string
   public countryCode!: string
   public regionIds?: Array<number>
@@ -17,17 +16,11 @@ class UserPreferences extends Model {
 
 UserPreferences.init(
   {
-    id: {
-      type: DataTypes.INTEGER,
-      unique: true,
-      allowNull: false,
-      primaryKey: true,
-      autoIncrement: true,
-    },
     userId: {
       type: DataTypes.STRING,
       unique: true,
       allowNull: false,
+      primaryKey: true,
     },
     countryCode: {
       type: DataTypes.STRING,

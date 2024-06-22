@@ -1,4 +1,4 @@
-import { query } from 'express-validator'
+import { body, query } from 'express-validator'
 
 export const getRegionsValidationRules = [
   query('countryCode').notEmpty().isString(),
@@ -25,10 +25,4 @@ export const getUniversitiesValidationRules = [
   // query('regionIds').notEmpty().isArray({ min: 1 }),
   // query('regionIds.*').isNumeric(),
   // // query('regionIds').customSanitizer((value) => value.map(Number)),
-]
-
-export const getDisciplinesValidationRules = [
-  query('name').optional().isString(),
-  query('levelId').optional().isNumeric(),
-  query('universityId').optional().isNumeric(),
 ]
