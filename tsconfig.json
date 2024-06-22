@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "incremental": true,
+    "tsBuildInfoFile": "tsconfig.tsbuildinfo",
     "target": "es6",
     "module": "commonjs",
     "outDir": "./build",
