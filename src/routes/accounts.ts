@@ -179,6 +179,7 @@ router.post(
  *               mobileNumber:
  *                 type: string
  *                 description: 'Format: +|countryCode| |space| |mobileNumber|'
+ *                 example: +91 9087654341
  *               origin:
  *                 type: string
  *                 description: Any text as an identifier for origin

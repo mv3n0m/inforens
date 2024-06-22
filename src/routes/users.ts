@@ -6,9 +6,12 @@ import {
   userProfileValidationRules,
   userAddressValdiationRules,
   setUserRoleValidationRules,
-} from '../schemas/user'
+  userFileValidationRules,
+} from '../schemas/users'
 import validator from '../middlewares/validator'
+import multer from 'multer'
 
+const uploader = multer({ storage: multer.memoryStorage() })
 const router = express.Router()
 
 router.get('/', UserController.getUsers)
@@ -119,6 +122,72 @@ router.patch(
   validator,
   UserController.setUserStage,
 )
+
+/**
+ * @swagger
+ * /users/files:
+ *   put:
+ *     summary: Upload user files
+ *     tags:
+ *       - Users
+ *     security:
+ *       - JWTAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               file:
+ *                 type: string
+ *                 format: binary
+ *                 description: The file to upload
+ *               tag:
+ *                 type: string
+ *                 enum:
+ *                   - Identity
+ *                   - Resume
+ *                   - ProfileImg
+ *                 description: Tag categorizing the file
+ *                 example: Identity
+ *             required:
+ *               - file
+ *               - tag
+ *     responses:
+ *       200:
+ *         description: success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ *                   example: File uploaded successfully
+ */
+router.put(
+  '/files',
+  uploader.single('file'),
+  userFileValidationRules,
+  validator,
+  UserController.updateUserFile,
+)
+
+/**
+ * @swagger
+ * /users/files:
+ *   get:
+ *     summary: Fetch user files
+ *     tags:
+ *       - Users
+ *     security:
+ *       - JWTAuth: []
+ *     responses:
+ *       200:
+ *         $ref: '#/components/responses/SuccessResponse'
+ */
+router.get('/files', UserController.getUserFiles)
 
 /**
  * @swagger

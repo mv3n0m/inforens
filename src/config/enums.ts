@@ -52,3 +52,9 @@ export enum ADDRESS_TAG {
   Current = 'current',
   Correspondence = 'correspondence',
 }
+
+export enum FILE_TAG {
+  Identity = 'identity',
+  Resume = 'resume',
+  ProfileImg = 'profileImg',
+}

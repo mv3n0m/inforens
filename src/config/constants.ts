@@ -107,6 +107,14 @@ export const errorCodes: Record<
     statusCode: 401,
     message: 'Mobile verification incomplete.',
   },
+  GP_EXISTS: {
+    statusCode: 400,
+    message: 'Guide profile already exists',
+  },
+  GP_NOT_FOUND: {
+    statusCode: 400,
+    message: 'Guide profile not found',
+  },
   '': {
     statusCode: 500,
     message: 'Something went wrong',
