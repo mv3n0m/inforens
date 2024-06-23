@@ -1,4 +1,10 @@
-import { ADDRESS_TAG, FILE_TAG, SERVICE } from './enums'
+import {
+  ADDRESS_TAG,
+  FILE_TAG,
+  PAYMENT_STATUS,
+  SERVICE,
+  TRANSACTION_TYPE,
+} from './enums'
 
 export type Common = {
   id?: number | string
@@ -206,3 +212,23 @@ export type UserFile = {
 }
 
 export type UserFileQuery = Common & UserFile
+
+export type Payment = {
+  referenceId: string
+  amount: number
+  currency: string
+  status?: PAYMENT_STATUS
+}
+
+export type PaymentQuery = Common & Payment
+
+export type Transaction = {
+  id: string
+  paymentIds?: string
+  amount: number
+  currency: string
+  transactionType: TRANSACTION_TYPE
+  status?: PAYMENT_STATUS
+}
+
+export type TransactionQuery = Common & Transaction

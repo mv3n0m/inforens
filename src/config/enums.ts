@@ -58,3 +58,13 @@ export enum FILE_TAG {
   Resume = 'resume',
   ProfileImg = 'profileImg',
 }
+
+export enum PAYMENT_STATUS {
+  Success = '1',
+  Pending = '0',
+  Aborted = '-1',
+}
+
+export enum TRANSACTION_TYPE {
+  Package = 'package',
+}

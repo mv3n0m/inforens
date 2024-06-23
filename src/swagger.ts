@@ -33,6 +33,10 @@ const swaggerDefinition = {
         'Operations related to guide profile - (requires user authentication with jwt)',
     },
     {
+      name: 'Payments',
+      description: 'Operations related to payments',
+    },
+    {
       name: 'Services',
       description: 'Operations related to services',
     },

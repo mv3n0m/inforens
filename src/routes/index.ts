@@ -6,11 +6,13 @@ import guidesRouter from './guides'
 import adminRouter from './admin'
 import commonRouter from './common'
 import servicesRouter from './services'
+import paymentsRouter from './payments'
 import { authenticate } from '../middlewares'
 
 const publicRoutes = {
   '/accounts': accountRouter,
   '/common': commonRouter,
+  '/payments': paymentsRouter,
 }
 
 const privateRoutes = {

@@ -21,3 +21,8 @@ export const awsConfig = {
   region: process.env.AWS_REGION,
 }
 export const s3BucketName = process.env.S3_BUCKET_NAME || ''
+
+export const stripeCreds = {
+  secretKey: process.env.STRIPE_SECRET_KEY,
+  webhookSecret: process.env.STRIPE_WEBHOOK_SECRET,
+}
