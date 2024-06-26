@@ -1,5 +1,11 @@
 import { body } from 'express-validator'
-import { ADDRESS_TAG, FILE_TAG, USER_ROLE, USER_STAGE } from '../config/enums'
+import {
+  ADDRESS_TAG,
+  EXPERIENCE_TAG,
+  FILE_TAG,
+  USER_ROLE,
+  USER_STAGE,
+} from '../config/enums'
 
 export const setUserRoleValidationRules = [
   body('userRole')
@@ -146,6 +152,26 @@ export const userEducationValidationRules = [
   body('startDate').notEmpty().isString(),
   body('endDate').notEmpty().isString(),
   body('result').optional().isString(),
+]
+
+export const userExperienceValidationRules = [
+  body('title').notEmpty().isString(),
+  body('institutionName').notEmpty().isString(),
+  body('institutionAddress').optional().isString(),
+  body('startDate').notEmpty().isString(),
+  body('endDate').notEmpty().isString(),
+  body('tag')
+    .notEmpty()
+    .isString()
+    .custom((value) => {
+      if (value in EXPERIENCE_TAG) return true
+      throw new Error(
+        `Invalid address tag. Options: [${Object.keys(EXPERIENCE_TAG)}]`,
+      )
+    })
+    .customSanitizer(
+      (value: string) => (EXPERIENCE_TAG as Record<string, string>)[value],
+    ),
 ]
 
 export const userFileValidationRules = [

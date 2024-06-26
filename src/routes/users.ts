@@ -8,6 +8,7 @@ import {
   setUserRoleValidationRules,
   userFileValidationRules,
   userEducationValidationRules,
+  userExperienceValidationRules,
 } from '../schemas/users'
 import validator from '../middlewares/validator'
 import multer from 'multer'
@@ -490,6 +491,11 @@ router.get('/profile', UserController.getUserProfile)
  *                 type: string
  *               tag:
  *                 type: string
+ *                 enum:
+ *                   - Permanent
+ *                   - Current
+ *                   - Correspondence
+ *                 example: Permanent
  *             required:
  *               - address1
  *               - countryCode
@@ -554,6 +560,11 @@ router.post(
  *                 type: string
  *               tag:
  *                 type: string
+ *                 enum:
+ *                   - Permanent
+ *                   - Current
+ *                   - Correspondence
+ *                 example: Permanent
  *             required:
  *               - address1
  *               - countryCode
@@ -747,5 +758,145 @@ router.put(
  *         $ref: '#/components/responses/SuccessResponse'
  */
 router.get('/educations', UserController.getUserEducations)
+
+/**
+ * @swagger
+ * /users/experience:
+ *   post:
+ *     summary: Add user's experience
+ *     tags:
+ *       - Users
+ *     security:
+ *       - JWTAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *               institutionName:
+ *                 type: number
+ *               institutionAddress:
+ *                 type: string
+ *               startDate:
+ *                 type: string
+ *               endDate:
+ *                 type: string
+ *               tag:
+ *                 type: string
+ *                 enum:
+ *                   - Internship
+ *                   - FullTime
+ *                   - PartTime
+ *                   - Contract
+ *                   - Freelance
+ *                 example: FullTime
+ *             required:
+ *               - title
+ *               - institutionName
+ *               - startDate
+ *               - endDate
+ *               - tag
+ *     responses:
+ *       200:
+ *         description: success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ */
+router.post(
+  '/experience',
+  userExperienceValidationRules,
+  validator,
+  UserController.addUserExperience,
+)
+
+/**
+ * @swagger
+ * /users/experience/{id}:
+ *   put:
+ *     summary: Update user's experience
+ *     tags:
+ *       - Users
+ *     security:
+ *       - JWTAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *           example: 1
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *               institutionName:
+ *                 type: number
+ *               institutionAddress:
+ *                 type: string
+ *               startDate:
+ *                 type: string
+ *               endDate:
+ *                 type: string
+ *               tag:
+ *                 type: string
+ *                 enum:
+ *                   - Internship
+ *                   - FullTime
+ *                   - PartTime
+ *                   - Contract
+ *                   - Freelance
+ *                 example: FullTime
+ *             required:
+ *               - title
+ *               - institutionName
+ *               - startDate
+ *               - endDate
+ *               - tag
+ *     responses:
+ *       200:
+ *         description: success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ */
+router.put(
+  '/experience/:id',
+  [param('id').notEmpty().isInt(), ...userExperienceValidationRules],
+  validator,
+  UserController.updateUserExperience,
+)
+
+/**
+ * @swagger
+ * /users/experiences:
+ *   get:
+ *     summary: Get user's experiences
+ *     tags:
+ *       - Users
+ *     security:
+ *       - JWTAuth: []
+ *     responses:
+ *       200:
+ *         $ref: '#/components/responses/SuccessResponse'
+ */
+router.get('/experiences', UserController.getUserExperiences)
 
 export default router

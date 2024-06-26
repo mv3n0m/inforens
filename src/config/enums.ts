@@ -53,6 +53,14 @@ export enum ADDRESS_TAG {
   Correspondence = 'correspondence',
 }
 
+export enum EXPERIENCE_TAG {
+  Internship = 'internship',
+  FullTime = 'full-time',
+  PartTime = 'part-time',
+  Contract = 'contract',
+  Freelance = 'freelance',
+}
+
 export enum FILE_TAG {
   Identity = 'identity',
   Resume = 'resume',

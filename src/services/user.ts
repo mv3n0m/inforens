@@ -1,6 +1,7 @@
 import {
   AddressDbHandler,
   EducationDbHandler,
+  ExperienceDbHandler,
   UserDbHandler,
   UserFileDbHandler,
   UserPreferencesDbHandler,
@@ -241,6 +242,34 @@ export default class {
 
   static async getUserEducations(userId: string) {
     const response = await EducationDbHandler.getEducationsByUserId(userId)
+
+    return response
+  }
+
+  static async addUserExperience(data: Types.Experience) {
+    await ExperienceDbHandler.createExperience(data)
+
+    return { msg: `User's experience added successfully` }
+  }
+
+  static async updateUserExperience(
+    id: number,
+    userId: string,
+    data: Partial<Types.Experience>,
+  ) {
+    const { tag } = data
+    if (!tag) {
+      logger.error('Tag is a required field')
+      throw new Error()
+    }
+    // check for experience existence according to tag/id
+    await ExperienceDbHandler.updateExperience(id, userId, data)
+
+    return { msg: `User's experience updated successfully` }
+  }
+
+  static async getUserExperiences(userId: string) {
+    const response = await ExperienceDbHandler.getExperiencesByUserId(userId)
 
     return response
   }

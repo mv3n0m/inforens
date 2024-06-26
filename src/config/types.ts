@@ -1,5 +1,6 @@
 import {
   ADDRESS_TAG,
+  EXPERIENCE_TAG,
   FILE_TAG,
   PAYMENT_STATUS,
   SERVICE,
@@ -185,6 +186,18 @@ export type Education = {
 }
 
 export type EducationQuery = Common & Education
+
+export type Experience = {
+  userId: string
+  title: string
+  institutionName: string
+  institutionAddress?: string
+  startDate: string
+  endDate: string
+  tag: EXPERIENCE_TAG
+}
+
+export type ExperienceQuery = Common & Experience
 
 export type Skill = {
   name: string

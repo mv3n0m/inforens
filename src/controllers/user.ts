@@ -280,4 +280,57 @@ export default class {
       next(error)
     }
   }
+
+  static async addUserExperience(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const userId = res.locals.id
+
+      const response = await UserService.addUserExperience({
+        userId,
+        ...req.body,
+      })
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async updateUserExperience(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const userId = res.locals.id
+      const id = req.params.id
+
+      const response = await UserService.updateUserExperience(
+        +id,
+        userId,
+        req.body,
+      )
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async getUserExperiences(
+    _req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const userId = res.locals.id
+
+      const response = await UserService.getUserExperiences(userId)
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
 }
