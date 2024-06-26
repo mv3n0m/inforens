@@ -1,21 +1,23 @@
 import sqlize from '../sqlize'
 import { DataTypes, Model } from 'sequelize'
-import { SERVICE } from '../../config/enums'
 
-class UniversityCourse extends Model {
+class Education extends Model {
   public id!: number
-  public disciplineId!: number
-  public name!: string
-  public code!: string
+  public userId!: string
+  public countryCode!: string
+  public regionId!: number
+  public location?: string
   public levelId!: number
   public universityId!: number
-  public description?: string
-  public isActive?: boolean
-  public createdBy?: string | SERVICE
-  public updatedBy?: string | SERVICE
+  public institutionName?: string
+  public disciplineId!: number
+  public courseName?: string
+  public startDate!: string
+  public endDate!: string
+  public result?: string
 }
 
-UniversityCourse.init(
+Education.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -24,17 +26,21 @@ UniversityCourse.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    disciplineId: {
+    userId: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    countryCode: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    regionId: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    name: {
+    location: {
       type: DataTypes.STRING,
-      allowNull: false,
-    },
-    code: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     levelId: {
       type: DataTypes.INTEGER,
@@ -44,31 +50,39 @@ UniversityCourse.init(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    description: {
+    institutionName: {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    isActive: {
-      type: DataTypes.BOOLEAN,
-      allowNull: true,
-      defaultValue: true,
+    disciplineId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
-    createdBy: {
+    courseName: {
       type: DataTypes.STRING,
-      defaultValue: SERVICE.Core,
+      allowNull: true,
     },
-    updatedBy: {
+    startDate: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    endDate: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    result: {
       type: DataTypes.STRING,
       allowNull: true,
     },
   },
   {
     sequelize: sqlize,
-    modelName: 'universityCourse',
-    tableName: 'universityCourses',
+    modelName: 'education',
+    tableName: 'educationDetails',
     defaultScope: {
       attributes: {
         exclude: [
+          'userId',
           'isActive',
           'createdBy',
           'createdAt',
@@ -80,4 +94,4 @@ UniversityCourse.init(
   },
 )
 
-export default UniversityCourse
+export default Education

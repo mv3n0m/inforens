@@ -200,8 +200,13 @@ export default class {
   ) {
     try {
       const userId = res.locals.id
+      const id = req.params.id
 
-      const response = await UserService.updateUserAddress(userId, req.body)
+      const response = await UserService.updateUserAddress(
+        +id,
+        userId,
+        req.body,
+      )
       next(response)
     } catch (error) {
       next(error)
@@ -217,6 +222,59 @@ export default class {
       const userId = res.locals.id
 
       const response = await UserService.getUserAddresses(userId)
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async addUserEducation(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const userId = res.locals.id
+
+      const response = await UserService.addUserEducation({
+        userId,
+        ...req.body,
+      })
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async updateUserEducation(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const userId = res.locals.id
+      const id = req.params.id
+
+      const response = await UserService.updateUserEducation(
+        +id,
+        userId,
+        req.body,
+      )
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async getUserEducations(
+    _req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const userId = res.locals.id
+
+      const response = await UserService.getUserEducations(userId)
       next(response)
     } catch (error) {
       next(error)

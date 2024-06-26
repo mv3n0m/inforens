@@ -64,7 +64,6 @@ Address.init(
     defaultScope: {
       attributes: {
         exclude: [
-          'id',
           'userId',
           'isActive',
           'createdBy',

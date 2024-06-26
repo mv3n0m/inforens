@@ -113,14 +113,15 @@ export const userProfileValidationRules = [
   body('emergencyContactDetails').optional(),
 ]
 
-export const userAddressValdiationRules = [
-  body('address1').isString(),
+export const userAddressValidationRules = [
+  body('address1').notEmpty().isString(),
   body('address2').optional().isString(),
-  body('countryCode').isString(),
-  body('state').isString(),
-  body('postCode').isString(),
-  body('city').isString(),
+  body('countryCode').notEmpty().isString(),
+  body('state').notEmpty().isString(),
+  body('postCode').notEmpty().isString(),
+  body('city').notEmpty().isString(),
   body('tag')
+    .notEmpty()
     .isString()
     .custom((value) => {
       if (value in ADDRESS_TAG) return true
@@ -133,9 +134,23 @@ export const userAddressValdiationRules = [
     ),
 ]
 
+export const userEducationValidationRules = [
+  body('countryCode').notEmpty().isString(),
+  body('regionId').notEmpty().isString(),
+  body('location').optional().isString(),
+  body('levelId').notEmpty().isNumeric(),
+  body('universityId').notEmpty().isNumeric(),
+  body('institutionName').optional().isString(),
+  body('disciplineId').notEmpty().isNumeric(),
+  body('courseName').optional().isString(),
+  body('startDate').notEmpty().isString(),
+  body('endDate').notEmpty().isString(),
+  body('result').optional().isString(),
+]
+
 export const userFileValidationRules = [
   body('tag')
-    .isString()
+    .notEmpty()
     .isString()
     .custom((value) => {
       if (value in FILE_TAG) return true

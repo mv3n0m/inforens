@@ -1,72 +1,72 @@
 import { Types } from '../../config'
-import Address from '../models/address'
+import Education from '../models/address'
 
 export default class {
-  static async getAddresses(
+  static async getEducations(
     criteria?: any,
     options?: { attributes?: string[] },
   ) {
-    return Address.findAndCountAll({
+    return Education.findAndCountAll({
       where: criteria,
       raw: true,
       ...options,
     })
   }
 
-  static async getAddress(
+  static async getEducation(
     criteria: any,
     options?: {
       attributes?: string[]
     },
   ) {
-    return Address.findOne({ where: criteria, raw: true, ...options })
+    return Education.findOne({ where: criteria, raw: true, ...options })
   }
 
-  static async getAddressById(
+  static async getEducationById(
     id: number,
     options?: {
       attributes?: string[]
     },
   ) {
-    return Address.findByPk(id, { raw: true, ...options })
+    return Education.findByPk(id, { raw: true, ...options })
   }
 
-  static async getAddressesByIds(
+  static async getEducationsByIds(
     ids: number[],
     options?: {
       attributes?: string[]
     },
   ) {
-    return Address.findAndCountAll({
+    return Education.findAndCountAll({
       where: { id: ids },
       raw: true,
       ...options,
     })
   }
 
-  static async getAddressesByUserId(
+  static async getEducationsByUserId(
     userId: string,
     options?: {
       attributes?: string[]
     },
   ) {
-    return Address.findAndCountAll({
+    return Education.findAndCountAll({
       where: { userId },
       raw: true,
       ...options,
     })
   }
 
-  static async createAddress(data: Types.Address) {
-    return Address.create(data)
+  static async createEducation(data: Types.Education) {
+    return Education.create(data)
   }
 
-  static async updateAddress(
+  static async updateEducation(
     id: number,
     userId: string,
-    data: Partial<Types.Address>,
+    data: Partial<Types.Education>,
   ) {
-    return Address.update(data, {
+    return Education.update(data, {
       where: { id, userId },
     })
   }

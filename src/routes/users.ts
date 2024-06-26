@@ -4,12 +4,14 @@ import {
   userPreferencesValidationRules,
   setUserStageValidationRules,
   userProfileValidationRules,
-  userAddressValdiationRules,
+  userAddressValidationRules,
   setUserRoleValidationRules,
   userFileValidationRules,
+  userEducationValidationRules,
 } from '../schemas/users'
 import validator from '../middlewares/validator'
 import multer from 'multer'
+import { param } from 'express-validator'
 
 const uploader = multer({ storage: multer.memoryStorage() })
 const router = express.Router()
@@ -508,20 +510,27 @@ router.get('/profile', UserController.getUserProfile)
  */
 router.post(
   '/address',
-  userAddressValdiationRules,
+  userAddressValidationRules,
   validator,
   UserController.addUserAddress,
 )
 
 /**
  * @swagger
- * /users/address:
+ * /users/address/{id}:
  *   put:
  *     summary: Update user's address
  *     tags:
  *       - Users
  *     security:
  *       - JWTAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *           example: 1
  *     requestBody:
  *       required: true
  *       content:
@@ -564,8 +573,8 @@ router.post(
  *                   type: string
  */
 router.put(
-  '/address',
-  userAddressValdiationRules,
+  '/address/:id',
+  [param('id').notEmpty().isInt(), ...userAddressValidationRules],
   validator,
   UserController.updateUserAddress,
 )
@@ -584,5 +593,159 @@ router.put(
  *         $ref: '#/components/responses/SuccessResponse'
  */
 router.get('/addresses', UserController.getUserAddresses)
+
+/**
+ * @swagger
+ * /users/education:
+ *   post:
+ *     summary: Add user's education
+ *     tags:
+ *       - Users
+ *     security:
+ *       - JWTAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               countryCode:
+ *                 type: string
+ *                 description: must be 'ISO 3166-1 alpha-3' code
+ *                 example: USA
+ *               regionId:
+ *                 type: number
+ *               location:
+ *                 type: string
+ *               levelId:
+ *                 type: number
+ *               universityId:
+ *                 type: number
+ *               institutionName:
+ *                 type: string
+ *               disciplineId:
+ *                 type: number
+ *               courseName:
+ *                 type: string
+ *               startDate:
+ *                 type: string
+ *               endDate:
+ *                 type: string
+ *               result:
+ *                 type: string
+ *             required:
+ *               - countryCode
+ *               - regionId
+ *               - levelId
+ *               - universityId
+ *               - disciplineId
+ *               - startDate
+ *               - endDate
+ *     responses:
+ *       200:
+ *         description: success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ */
+router.post(
+  '/education',
+  userEducationValidationRules,
+  validator,
+  UserController.addUserEducation,
+)
+
+/**
+ * @swagger
+ * /users/education/{id}:
+ *   put:
+ *     summary: Update user's education
+ *     tags:
+ *       - Users
+ *     security:
+ *       - JWTAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *           example: 1
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               countryCode:
+ *                 type: string
+ *                 description: must be 'ISO 3166-1 alpha-3' code
+ *                 example: USA
+ *               regionId:
+ *                 type: number
+ *               location:
+ *                 type: string
+ *               levelId:
+ *                 type: number
+ *               universityId:
+ *                 type: number
+ *               institutionName:
+ *                 type: string
+ *               disciplineId:
+ *                 type: number
+ *               courseName:
+ *                 type: string
+ *               startDate:
+ *                 type: string
+ *               endDate:
+ *                 type: string
+ *               result:
+ *                 type: string
+ *             required:
+ *               - countryCode
+ *               - regionId
+ *               - levelId
+ *               - universityId
+ *               - disciplineId
+ *               - startDate
+ *               - endDate
+ *     responses:
+ *       200:
+ *         description: success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ */
+router.put(
+  '/education/:id',
+  [param('id').notEmpty().isInt(), ...userEducationValidationRules],
+  validator,
+  UserController.updateUserEducation,
+)
+
+/**
+ * @swagger
+ * /users/educations:
+ *   get:
+ *     summary: Get user's educations
+ *     tags:
+ *       - Users
+ *     security:
+ *       - JWTAuth: []
+ *     responses:
+ *       200:
+ *         $ref: '#/components/responses/SuccessResponse'
+ */
+router.get('/educations', UserController.getUserEducations)
 
 export default router

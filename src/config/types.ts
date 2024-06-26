@@ -144,18 +144,6 @@ export type Discipline = {
 
 export type DisciplineQuery = Common & Discipline
 
-export type UniversityCourse = {
-  disciplineId: number
-  name: string
-  code: string
-  levelId: number
-  universityId: number
-  description?: string
-  isActive?: boolean
-}
-
-export type UniversityCourseQuery = Common & UniversityCourse
-
 export type UserPreferences = {
   userId: string
   countryCode: string
@@ -180,6 +168,23 @@ export type Address = {
 }
 
 export type AddressQuery = Common & Address
+
+export type Education = {
+  userId: string
+  countryCode: string
+  regionId: number
+  location?: string
+  levelId: number
+  universityId: number
+  institutionName?: string
+  disciplineId: number
+  courseName?: string
+  startDate: string
+  endDate: string
+  result?: string
+}
+
+export type EducationQuery = Common & Education
 
 export type Skill = {
   name: string

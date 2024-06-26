@@ -1,5 +1,6 @@
 import {
   AddressDbHandler,
+  EducationDbHandler,
   UserDbHandler,
   UserFileDbHandler,
   UserPreferencesDbHandler,
@@ -193,20 +194,53 @@ export default class {
     return { msg: `User's ${data.tag} address added successfully` }
   }
 
-  static async updateUserAddress(userId: string, data: Partial<Types.Address>) {
+  static async updateUserAddress(
+    id: number,
+    userId: string,
+    data: Partial<Types.Address>,
+  ) {
     const { tag } = data
     if (!tag) {
       logger.error('Tag is a required field')
       throw new Error()
     }
+
     // check for address existence according to tag
-    await AddressDbHandler.updateAddress(userId, tag, data)
+    await AddressDbHandler.updateAddress(id, userId, data)
 
     return { msg: `User's ${tag} address updated successfully` }
   }
 
   static async getUserAddresses(userId: string) {
     const response = await AddressDbHandler.getAddressesByUserId(userId)
+
+    return response
+  }
+
+  static async addUserEducation(data: Types.Education) {
+    await EducationDbHandler.createEducation(data)
+
+    return { msg: `User's education added successfully` }
+  }
+
+  static async updateUserEducation(
+    id: number,
+    userId: string,
+    data: Partial<Types.Education>,
+  ) {
+    const { levelId } = data
+    if (!levelId) {
+      logger.error('levelId is a required field')
+      throw new Error()
+    }
+    // check for education existence according to levelId
+    await EducationDbHandler.updateEducation(id, userId, data)
+
+    return { msg: `User's education updated successfully` }
+  }
+
+  static async getUserEducations(userId: string) {
+    const response = await EducationDbHandler.getEducationsByUserId(userId)
 
     return response
   }
