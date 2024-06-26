@@ -2,6 +2,7 @@ import {
   AddressDbHandler,
   EducationDbHandler,
   ExperienceDbHandler,
+  MiscUserDataDbHandler,
   UserDbHandler,
   UserFileDbHandler,
   UserPreferencesDbHandler,
@@ -156,6 +157,19 @@ export default class {
     const response = await UserDbHandler.getUserProfile(userId)
 
     return response
+  }
+
+  static async updateUserMiscData(data: Types.MiscUserData) {
+    await MiscUserDataDbHandler.updateMiscUserData(data)
+    return { msg: 'User profile updated successfully' }
+  }
+
+  static async getUserMiscData(userId: string, key: string) {
+    const response = await MiscUserDataDbHandler.getMiscUserData(userId, {
+      attributes: [key],
+    })
+
+    return (response as any)?.[key]
   }
 
   static async updateUserFile(file: any, data: Types.UserFile) {

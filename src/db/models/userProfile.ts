@@ -12,6 +12,7 @@ class UserProfile extends Model {
   public bio?: string
   public stage?: USER_STAGE
   public otherContacts?: Array<any>
+  // remove later
   public emergencyContactDetails?: {
     name: string
     mobileNumber: string

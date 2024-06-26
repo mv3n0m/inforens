@@ -76,3 +76,9 @@ export enum PAYMENT_STATUS {
 export enum TRANSACTION_TYPE {
   Package = 'package',
 }
+
+export enum MISC_DATA_KEY {
+  'exams' = 'examData',
+  'referee' = 'refereeDetails',
+  'emergency-contact' = 'emergencyContactDetails',
+}

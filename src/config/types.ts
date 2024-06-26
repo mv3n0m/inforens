@@ -199,6 +199,15 @@ export type Experience = {
 
 export type ExperienceQuery = Common & Experience
 
+export type MiscUserData = {
+  userId: string
+  examData?: any
+  refereeDetails?: any
+  emergencyContactDetails?: any
+}
+
+export type MiscUserDataQuery = Common & MiscUserData
+
 export type Skill = {
   name: string
   description?: string

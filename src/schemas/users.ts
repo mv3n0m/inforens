@@ -1,11 +1,13 @@
-import { body } from 'express-validator'
+import { body, param } from 'express-validator'
 import {
   ADDRESS_TAG,
   EXPERIENCE_TAG,
   FILE_TAG,
+  MISC_DATA_KEY,
   USER_ROLE,
   USER_STAGE,
 } from '../config/enums'
+import { emailValidationRule, mobileNumberValidationRule } from './accounts'
 
 export const setUserRoleValidationRules = [
   body('userRole')
@@ -116,7 +118,32 @@ export const userProfileValidationRules = [
       }
       return true
     }),
-  body('emergencyContactDetails').optional(),
+]
+
+export const userMiscProfileDataValidationRules = [
+  param('key')
+    .notEmpty()
+    .isString()
+    .custom((value) => {
+      if (value in MISC_DATA_KEY) return true
+      throw new Error(
+        `Invalid address tag. Options: [${Object.keys(MISC_DATA_KEY)}]`,
+      )
+    })
+    .customSanitizer(
+      (value: string) => (MISC_DATA_KEY as Record<string, string>)[value],
+    ),
+  body('name').optional().isString(),
+  emailValidationRule.optional(),
+  mobileNumberValidationRule.optional(),
+  body('relation').optional().isString(),
+  body('relationDuration').optional().isString(),
+  body('title').optional().isString(),
+  body('position').optional().isString(),
+  body('institutionName').optional().isString(),
+  body('institutionAddress').optional().isString(),
+  body('languageExamTaken').optional().isBoolean(),
+  body('StandardizedExamTaken').optional().isBoolean(),
 ]
 
 export const userAddressValidationRules = [

@@ -9,6 +9,7 @@ import {
   userFileValidationRules,
   userEducationValidationRules,
   userExperienceValidationRules,
+  userMiscProfileDataValidationRules,
 } from '../schemas/users'
 import validator from '../middlewares/validator'
 import multer from 'multer'
@@ -411,17 +412,6 @@ router.put(
  *                 type: array
  *                 items:
  *                   type: object
- *               emergencyContactDetails:
- *                 type: object
- *                 properties:
- *                   name:
- *                     type: string
- *                   mobileNumber:
- *                     type: string
- *                   email:
- *                     type: string
- *                   relation:
- *                     type: string
  *     responses:
  *       200:
  *         description: success
@@ -458,6 +448,187 @@ router.patch(
  *               type: object
  */
 router.get('/profile', UserController.getUserProfile)
+
+/**
+ * @swagger
+ * /users/misc/exams:
+ *   patch:
+ *     summary: Update user's exams data
+ *     tags:
+ *       - Users
+ *     security:
+ *       - JWTAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               languageExamTaken:
+ *                 type: boolean
+ *               standardizedExamTaken:
+ *                 type: boolean
+ *     responses:
+ *       200:
+ *         description: success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ */
+
+/**
+ * @swagger
+ * /users/misc/exams:
+ *   get:
+ *     summary: Get user's exams data
+ *     tags:
+ *       - Users
+ *     security:
+ *       - JWTAuth: []
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ */
+
+/**
+ * @swagger
+ * /users/misc/emergency-contact:
+ *   patch:
+ *     summary: Update user's emergency contact details
+ *     tags:
+ *       - Users
+ *     security:
+ *       - JWTAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               mobileNumber:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               relation:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ */
+
+/**
+ * @swagger
+ * /users/misc/emergency-contact:
+ *   get:
+ *     summary: Get user's emergency contact details
+ *     tags:
+ *       - Users
+ *     security:
+ *       - JWTAuth: []
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ */
+
+/**
+ * @swagger
+ * /users/misc/referee:
+ *   patch:
+ *     summary: Update user's referee details
+ *     tags:
+ *       - Users
+ *     security:
+ *       - JWTAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               mobileNumber:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               relation:
+ *                 type: string
+ *               relationDuration:
+ *                 type: string
+ *               title:
+ *                 type: string
+ *               position:
+ *                 type: string
+ *               institutionName:
+ *                 type: string
+ *               institutionAddress:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ */
+
+/**
+ * @swagger
+ * /users/misc/referee:
+ *   get:
+ *     summary: Get user's referee details
+ *     tags:
+ *       - Users
+ *     security:
+ *       - JWTAuth: []
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ */
+
+router.patch(
+  '/misc/:key',
+  userMiscProfileDataValidationRules,
+  validator,
+  UserController.updateUserMiscData,
+)
+router.get(
+  '/misc/:key',
+  userMiscProfileDataValidationRules[0],
+  validator,
+  UserController.getUserMiscData,
+)
 
 /**
  * @swagger

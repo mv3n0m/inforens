@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express'
 import { AdminService, UserService } from '../services'
 import { uploadFileToS3 } from '../utils/awsHelpers'
 import { FILE_TAG } from '../config/enums'
+import User from '../db/models/user'
 
 export default class {
   static async getUsers(_req: Request, _res: Response, next: NextFunction) {
@@ -144,6 +145,41 @@ export default class {
         ...(await UserService.getUserById(userId)),
         ...(await UserService.getUserProfile(userId)),
       }
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async updateUserMiscData(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const userId = res.locals.id
+      const key = req.params.key
+
+      let data: any = { userId }
+      data[key] = req.body
+
+      const response = await UserService.updateUserMiscData(data)
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async getUserMiscData(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const userId = res.locals.id
+      const key = req.params.key
+
+      const response = await UserService.getUserMiscData(userId, key)
       next(response)
     } catch (error) {
       next(error)
