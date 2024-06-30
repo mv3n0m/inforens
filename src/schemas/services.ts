@@ -1,8 +1,8 @@
-import { body } from 'express-validator'
+import { query } from 'express-validator'
 import { RECOMMENDATION_KEYS } from '../config/enums'
 
 export const getRecommendationsValidationRules = [
-  body('key')
+  query('key')
     .optional()
     .isString()
     .custom((value) => {
@@ -12,5 +12,8 @@ export const getRecommendationsValidationRules = [
           RECOMMENDATION_KEYS,
         )}]`,
       )
-    }),
+    })
+    .customSanitizer(
+      (value: string) => (RECOMMENDATION_KEYS as Record<string, string>)[value],
+    ),
 ]

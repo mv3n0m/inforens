@@ -3,6 +3,7 @@ import validator from '../middlewares/validator'
 import { getRecommendationsValidationRules } from '../schemas/services'
 import { ServicesController } from '../controllers'
 import { userPreferencesValidationRules } from '../schemas/users'
+import { getProductsValidationRules } from '../schemas/common'
 
 const router = express.Router()
 
@@ -23,8 +24,8 @@ const router = express.Router()
  *           key: string
  *           enum:
  *             - Guides
- *            # - Products
- *           default: Guides
+ *             - Products
+ *         default: guides
  *     responses:
  *       200:
  *         $ref: '#/components/responses/SuccessResponse'
@@ -38,9 +39,9 @@ router.get(
 
 /**
  * @swagger
- * /services/recommendations/guides:
+ * /services/search/guides:
  *   post:
- *     summary: Fetch guide recommendations based on input parameters.
+ *     summary: Fetch guide results based on input parameters.
  *     description: __Note__ - These input parameters will have higher priority than the stored preferences of the user.
  *     tags:
  *       - Services
@@ -87,10 +88,42 @@ router.get(
  *         $ref: '#/components/responses/SuccessResponse'
  */
 router.post(
-  '/recommendations/guides',
+  '/search/guides',
   userPreferencesValidationRules,
   validator,
   ServicesController.getRecommendations,
+)
+
+/**
+ * @swagger
+ * /services/products:
+ *   get:
+ *     summary: Fetch products results based on input stage.
+ *     description: __Note__ - This input stage will have higher priority than the stored stage value of the user.
+ *     tags:
+ *       - Services
+ *     security:
+ *       - JWTAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: stage
+ *         required: false
+ *         schema:
+ *           type: string
+ *           enum:
+ *             - PreApplication
+ *             - AlreadyApplied
+ *             - GotAdmission
+ *             - AlreadyAtUniversity
+ *     responses:
+ *       200:
+ *         $ref: '#/components/responses/SuccessResponse'
+ */
+router.get(
+  '/products',
+  getProductsValidationRules,
+  validator,
+  ServicesController.getProducts,
 )
 
 export default router

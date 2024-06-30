@@ -28,7 +28,7 @@ export default class {
   }
 
   static async getTasksByIds(
-    ids: string[],
+    ids: number[],
     options?: {
       attributes?: string[]
     },
