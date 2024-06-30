@@ -7,10 +7,15 @@ import {
   createInterestValidationRules,
   createLanguageValidationRules,
   createLevelValidationRules,
+  createProductValidationRules,
   createRegionValidationRules,
   createRoleValidationRules,
   createSkillValidationRules,
+  createTaskValidationRules,
   createUniversityValidationRules,
+  updateProductTasksValidationRules,
+  updateProductValidationRules,
+  updateTaskValidationRules,
 } from '../schemas/admin'
 import validator from '../middlewares/validator'
 
@@ -408,6 +413,262 @@ router.post(
   createInterestValidationRules,
   validator,
   AdminController.createInterest,
+)
+
+/**
+ * @swagger
+ * /admin/products:
+ *   post:
+ *     summary: Create a product record
+ *     tags:
+ *       - Admin
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               stage:
+ *                 type: string
+ *                 enum:
+ *                   - PreApplication
+ *                   - AlreadyApplied
+ *                   - GotAdmission
+ *                   - AlreadyAtUniversity
+ *               title:
+ *                 type: string
+ *               discount:
+ *                 type: number
+ *               offerings:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *               price:
+ *                 type: number
+ *               highlighted:
+ *                 type: boolean
+ *                 description: Optional - false by default
+ *               taskIds:
+ *                 type: array
+ *                 items:
+ *                   type: number
+ *               isActive:
+ *                 type: boolean
+ *                 description: Optional - true by default
+ *             required:
+ *               - stage
+ *               - title
+ *               - offerings
+ *               - price
+ *     responses:
+ *       201:
+ *         description: success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ */
+router.post(
+  '/products',
+  createProductValidationRules,
+  validator,
+  AdminController.createProduct,
+)
+
+/**
+ * @swagger
+ * /admin/products/{id}:
+ *   patch:
+ *     summary: Update a product record
+ *     tags:
+ *       - Admin
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *           example: 1
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               stage:
+ *                 type: string
+ *                 enum:
+ *                   - PreApplication
+ *                   - AlreadyApplied
+ *                   - GotAdmission
+ *                   - AlreadyAtUniversity
+ *               title:
+ *                 type: string
+ *               discount:
+ *                 type: number
+ *               offerings:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *               price:
+ *                 type: number
+ *               highlighted:
+ *                 type: boolean
+ *                 description: Optional - false by default
+ *               isActive:
+ *                 type: boolean
+ *                 description: Optional - true by default
+ *     responses:
+ *       200:
+ *         description: success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ */
+router.patch(
+  '/products/:id',
+  updateProductValidationRules,
+  validator,
+  AdminController.updateProduct,
+)
+
+/**
+ * @swagger
+ * /admin/products/{id}/tasks:
+ *   put:
+ *     summary: Update product tasks
+ *     tags:
+ *       - Admin
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *           example: 1
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               taskIds:
+ *                 type: array
+ *                 items:
+ *                   type: number
+ *     responses:
+ *       200:
+ *         description: success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ */
+router.put(
+  '/products/:id/tasks',
+  updateProductTasksValidationRules,
+  validator,
+  AdminController.updateProductTasks,
+)
+
+/**
+ * @swagger
+ * /admin/tasks:
+ *   post:
+ *     summary: Create a task record
+ *     tags:
+ *       - Admin
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *               isActive:
+ *                 type: boolean
+ *                 description: Optional - true by default
+ *             required:
+ *               - title
+ *     responses:
+ *       201:
+ *         description: success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ */
+router.post(
+  '/tasks',
+  createTaskValidationRules,
+  validator,
+  AdminController.createTask,
+)
+
+/**
+ * @swagger
+ * /admin/tasks/{id}:
+ *   patch:
+ *     summary: Update a task record
+ *     tags:
+ *       - Admin
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *           example: 1
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *               isActive:
+ *                 type: boolean
+ *                 description: Optional - true by default
+ *     responses:
+ *       200:
+ *         description: success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ */
+router.patch(
+  '/tasks/:id',
+  updateTaskValidationRules,
+  validator,
+  AdminController.updateTask,
 )
 
 /**

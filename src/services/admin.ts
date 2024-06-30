@@ -6,14 +6,16 @@ import {
   InterestDbHandler,
   LanguageDbHandler,
   LevelDbHandler,
+  ProductDbHandler,
   RegionDbHandler,
   RoleDbHandler,
   SkillDbHandler,
+  TaskDbHandler,
   UniversityDbHandler,
   UserRoleDbHandler,
 } from '../db/handlers'
 import { getPgTimestamp, logger } from '../utils'
-import { SERVICE } from '../config/enums'
+import { SERVICE, USER_STAGE } from '../config/enums'
 
 export default class {
   static async getRoleByName(name: string) {
@@ -142,6 +144,34 @@ export default class {
 
     await InterestDbHandler.createInterest(data)
     return { msg: 'Interest created successfully', statusCode: 201 }
+  }
+
+  static async createProduct(data: Types.Product) {
+    await ProductDbHandler.createProduct(data)
+    return { msg: 'Product created successfully', statusCode: 201 }
+  }
+
+  static async updateProduct(
+    productId: number,
+    data: Partial<Types.ProductQuery>,
+  ) {
+    await ProductDbHandler.updateProduct(productId, data)
+    return { msg: 'Product updated successfully' }
+  }
+
+  static async updateProductTasks(productId: number, taskIds: Array<number>) {
+    await ProductDbHandler.updateProduct(productId, { taskIds })
+    return { msg: 'Tasks linked to product successfully' }
+  }
+
+  static async createTask(data: Types.Task) {
+    await TaskDbHandler.createTask(data)
+    return { msg: 'Task created successfully', statusCode: 201 }
+  }
+
+  static async updateTask(taskId: number, data: Partial<Types.TaskQuery>) {
+    await TaskDbHandler.updateTask(taskId, data)
+    return { msg: 'Product updated successfully' }
   }
 
   static async approveGuide(userId: string) {

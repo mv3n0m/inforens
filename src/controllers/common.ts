@@ -95,4 +95,26 @@ export default class {
       next(error)
     }
   }
+
+  static async fetchProducts(req: Request, _res: Response, next: NextFunction) {
+    try {
+      const response = await CommonService.fetchProducts(req.query)
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async fetchTasks(req: Request, _res: Response, next: NextFunction) {
+    try {
+      const { taskIds } = req.query
+
+      const response = await CommonService.fetchTasks(
+        taskIds ? { id: taskIds } : {},
+      )
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
 }

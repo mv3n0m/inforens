@@ -135,6 +135,70 @@ export default class {
     }
   }
 
+  static async createProduct(req: Request, _res: Response, next: NextFunction) {
+    try {
+      const response = await AdminService.createProduct({
+        isActive: true,
+        ...req.body,
+      })
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async updateProduct(req: Request, _res: Response, next: NextFunction) {
+    try {
+      const productId = req.params.id
+      const response = await AdminService.updateProductTasks(
+        +productId,
+        req.body,
+      )
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async updateProductTasks(
+    req: Request,
+    _res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const productId = req.params.id
+      const response = await AdminService.updateProductTasks(
+        +productId,
+        req.body.taskIds,
+      )
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async createTask(req: Request, _res: Response, next: NextFunction) {
+    try {
+      const response = await AdminService.createTask({
+        isActive: true,
+        ...req.body,
+      })
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async updateTask(req: Request, _res: Response, next: NextFunction) {
+    try {
+      const taskId = req.params.id
+      const response = await AdminService.updateTask(+taskId, req.body)
+      next(response)
+    } catch (error) {
+      next(error)
+    }
+  }
+
   static async approveGuide(req: Request, _res: Response, next: NextFunction) {
     try {
       const response = await AdminService.approveGuide(req.body.userId)

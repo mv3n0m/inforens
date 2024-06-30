@@ -2,7 +2,9 @@ import express from 'express'
 import { CommonController } from '../controllers'
 import validator from '../middlewares/validator'
 import {
+  getProductsValidationRules,
   getRegionsValidationRules,
+  getTasksValidationRules,
   getUniversitiesValidationRules,
 } from '../schemas/common'
 
@@ -144,5 +146,60 @@ router.get('/languages', CommonController.fetchLanguages)
  *         $ref: '#/components/responses/SuccessResponse'
  */
 router.get('/interests', CommonController.fetchInterests)
+
+/**
+ * @swagger
+ * /common/products:
+ *   get:
+ *     summary: Retrieve a list of products
+ *     tags:
+ *       - Common
+ *     parameters:
+ *       - in: query
+ *         name: stage
+ *         required: false
+ *         schema:
+ *           type: string
+ *           enum:
+ *             - PreApplication
+ *             - AlreadyApplied
+ *             - GotAdmission
+ *             - AlreadyAtUniversity
+ *     responses:
+ *       200:
+ *         $ref: '#/components/responses/SuccessResponse'
+ */
+router.get(
+  '/products',
+  getProductsValidationRules,
+  validator,
+  CommonController.fetchProducts,
+)
+
+/**
+ * @swagger
+ * /common/tasks:
+ *   get:
+ *     summary: Retrieve a list of tasks
+ *     tags:
+ *       - Common
+ *     parameters:
+ *       - in: query
+ *         name: taskIds
+ *         required: false
+ *         description: Comma-separated list of task IDs
+ *         schema:
+ *           type: string
+ *           example: "1,2,3"
+ *     responses:
+ *       200:
+ *         $ref: '#/components/responses/SuccessResponse'
+ */
+router.get(
+  '/tasks',
+  getTasksValidationRules,
+  validator,
+  CommonController.fetchTasks,
+)
 
 export default router

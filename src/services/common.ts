@@ -1,12 +1,15 @@
 import { Types } from '../config'
+import { USER_STAGE } from '../config/enums'
 import {
   CountryDbHandler,
   DisciplineDbHandler,
   InterestDbHandler,
   LanguageDbHandler,
   LevelDbHandler,
+  ProductDbHandler,
   RegionDbHandler,
   SkillDbHandler,
+  TaskDbHandler,
   UniversityDbHandler,
 } from '../db/handlers'
 
@@ -78,5 +81,14 @@ export default class {
   static async fetchDisciplines() {
     const levels = await DisciplineDbHandler.getDisciplines({ isActive: true })
     return levels
+  }
+
+  static async fetchProducts(criteria: { stage?: USER_STAGE }) {
+    const products = await ProductDbHandler.getProducts(criteria)
+    return products
+  }
+  static async fetchTasks(criteria: any) {
+    const products = await TaskDbHandler.getTasks(criteria)
+    return products
   }
 }

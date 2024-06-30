@@ -5,6 +5,7 @@ import {
   PAYMENT_STATUS,
   SERVICE,
   TRANSACTION_TYPE,
+  USER_STAGE,
 } from './enums'
 
 export type Common = {
@@ -250,7 +251,6 @@ export type Payment = {
 export type PaymentQuery = Common & Payment
 
 export type Transaction = {
-  id: string
   paymentIds?: string
   amount: number
   currency: string
@@ -259,3 +259,24 @@ export type Transaction = {
 }
 
 export type TransactionQuery = Common & Transaction
+
+export type Product = {
+  stage: USER_STAGE
+  title: string
+  discount?: number
+  offerings: Array<string>
+  price: number
+  highlighted?: boolean
+  taskIds?: Array<number>
+  isActive?: boolean
+}
+
+export type ProductQuery = Common & Product
+
+export type Task = {
+  title: string
+  description?: string
+  isActive?: boolean
+}
+
+export type TaskQuery = Common & Task
